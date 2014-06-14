@@ -5,9 +5,10 @@
 
  email: dante.signal31@gmail.com
 """
-import fileinput
+
 import re
 import sys
+
 
 ############
 # CLASSES
@@ -86,7 +87,8 @@ class GeolocateInputParser(object):
                                           location_data["continent_name"]])
             else:
                 location_string = " | ".join([location_string,
-                                              location_data[VERBOSITY_FIELDS[i]]])
+                                              location_data[VERBOSITY_FIELDS[i]]
+                                             ])
         location_string = "".join([location_string, "]"])
         return location_string
 
@@ -113,15 +115,14 @@ def _find_ipv4_addresses(text):
     :returns: A set with all addresses found.
     :rtype: set
     """
-    filter = "[0-9]+(?:\.[0-9]+){3}"
-    regex_filter = re.compile(filter)
+    ip_filter = "[0-9]+(?:\.[0-9]+){3}"
+    regex_filter = re.compile(ip_filter)
     addresses = regex_filter.findall(text)
     return set(addresses)
 
 
 def _include_location_in_line(line, ip, location):
     return line.replace(ip, location)
-
 
 
 def _join_ip_to_location(ip, location_string):
@@ -142,10 +143,8 @@ class InputReader:
     def __iter__(self):
         return self
 
-    def __next__(self):
+    @staticmethod
+    def __next__():
         for line in sys.stdin:
             return line
         raise StopIteration()
-
-
-
