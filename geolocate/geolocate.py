@@ -25,7 +25,7 @@ def parse_arguments():
                                               nargs="*")
     arg_parser.add_argument("-v", "--verbosity", dest="verbosity",
                         choices=verbosity_choices, default="0",
-                        help="1-4 The higher the more geodata.")
+                        help="0-3 The higher the more geodata.")
     return arg_parser.parse_args()
 
 def print_lines_parsed(parser):

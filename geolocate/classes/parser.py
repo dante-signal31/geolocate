@@ -43,10 +43,8 @@ class GeolocateInputParser(object):
                 ip_list = _find_ips_in_text(line)
                 for ip in ip_list:
                     location = self._locate(ip)
-                    new_line = _include_location_in_line(line,
-                                                         ip,
-                                                         location)
-                    return new_line
+                    line = _include_location_in_line(line, ip, location)
+                return line
             except NoURLOrIPFound:
                 return line
         raise StopIteration()
