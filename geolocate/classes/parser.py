@@ -134,7 +134,7 @@ class NoURLOrIPFound(Exception):
     pass
 
 
-class InputReader:
+class InputReader(object):
     """Iterator to read piped input from other programs."""
 
     def __init__(self):
