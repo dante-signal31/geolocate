@@ -34,6 +34,10 @@ class GeolocateInputParser(object):
         """Read a line from entered text, search for an IP and get
         their geolocation data.
         """
+        # We could analyze the whole text but it is expected that input
+        # will come from another program's output through a shell pipe,
+        # so in that case is more efficient reading lines as they
+        # arrive from the pipe.
         for line in self._entered_text:
             try:
                 ip_list = _find_ips_in_text(line)
