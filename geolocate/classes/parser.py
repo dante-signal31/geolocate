@@ -8,6 +8,7 @@
 
 import re
 import sys
+import geolocate.classes.geoip as geoip
 
 
 ############
@@ -20,6 +21,7 @@ class GeolocateInputParser(object):
                          "city_name",
                          "lat-long"]
     VERBOSITY_LEVELS = range(len(_VERBOSITY_FIELDS))
+    _IP_NOT_FOUND_MESSAGE = "[IP not found]"
 
     def __init__(self, verbosity, geoip_database):
         self._verbosity = verbosity
@@ -45,7 +47,10 @@ class GeolocateInputParser(object):
                     location = self._locate(ip)
                     line = _include_location_in_line(line, ip, location)
                 return line
-            except NoURLOrIPFound:
+            except geoip.IPNotFound:
+                location_string = _join_ip_to_location(ip,
+                                                       self.__class__._IP_NOT_FOUND_MESSAGE)
+                line = _include_location_in_line(line, ip, location_string)
                 return line
         raise StopIteration()
 
@@ -130,10 +135,6 @@ def _include_location_in_line(line, ip, location):
 def _join_ip_to_location(ip, location_string):
     returned_string = " ".join([ip, location_string])
     return returned_string
-
-
-class NoURLOrIPFound(Exception):
-    pass
 
 
 class InputReader(object):

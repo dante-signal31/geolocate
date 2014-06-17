@@ -46,12 +46,14 @@ TEST_STRING_IP_ADDRESSES = ("173.194.45.51",
                             "173.194.45.51")
 
 TEST_IP = "173.194.45.51"
+
 TEST_IP_FIELDS = {
             TEST_IP : {"continent_name": "North America",
                        "country_name": "United States",
                        "city_name": "Mountain View",
                        "lat-long": "37.419200000000004, -122.0574"}
             }
+
 TEST_IP_LOCATION_STRINGS = {
             TEST_IP : {0: "173.194.45.51 [North America]",
                        1: "173.194.45.51 [North America | United States]",
@@ -76,11 +78,22 @@ MOCKED_LOCATE_RESPONSE = {"continent_name": "North America",
                           "latitude": "37.419200000000004",
                           "longitude": "-122.0574"}
 
-MOCKED_RESULTS_VERBOSITY_0 = ['North America', 'IP not found', 'Europe',
-                              'Europe', 'Europe', 'Europe', 'Europe',
-                              'North America', 'North America', 'North America',
-                              'North America', 'North America', 'North America',
-                              'North America']
+IP_NOT_FOUND_MESSAGE = "IP not found"
+
+MOCKED_RESULTS_VERBOSITY_0 = {"173.194.45.51": 'North America',
+                              "192.168.1.1": IP_NOT_FOUND_MESSAGE,
+                              "80.58.67.90": 'Europe',
+                              "80.58.76.57": 'Europe',
+                              "80.58.86.145": 'Europe',
+                              "5.53.1.77": 'Europe',
+                              "5.53.1.82": 'Europe',
+                              "209.85.252.150": 'North America',
+                              "209.85.251.242": 'North America',
+                              "209.85.240.189": 'North America',
+                              "209.85.245.82": 'North America',
+                              "209.85.245.71": 'North America',
+                              "66.249.94.79": 'North America',
+                              "173.194.45.51": 'North America'}
 
 CORRECT_RESULT_TEXT = """TRACEROUTE OUTPUT
 traceroute to www.google.com (173.194.45.51 [North America]), 30 hops max, 60 byte packets
@@ -113,10 +126,9 @@ class TestParser(unittest.TestCase):
         geoip_database = unittest.mock.MagicMock(name="GeoIPDatabase",
                                                  spec=geoip.GeoIPDatabase)
         input_parser = parser.GeolocateInputParser(0, geoip_database)
-        mocked_locate_results = [{"continent_name": result} for result in MOCKED_RESULTS_VERBOSITY_0]
         input_parser._geoip_database.locate = unittest.mock.MagicMock(
                                                     name="locate",
-                                                    side_effect=mocked_locate_results)
+                                                    side_effect=self.__class__._mocked_locate_results)
         lines = []
         for line in input_parser:
             lines.append(line)
@@ -128,6 +140,14 @@ class TestParser(unittest.TestCase):
                              "Test string:\n {1}".format(result_text,
                                                          CORRECT_RESULT_TEXT))
 
+    @staticmethod
+    def _mocked_locate_results(ip_address):
+        if MOCKED_RESULTS_VERBOSITY_0[ip_address] == IP_NOT_FOUND_MESSAGE:
+            raise geoip.IPNotFound(ip_address)
+        else:
+            mocked_location = {"continent_name":
+                                   MOCKED_RESULTS_VERBOSITY_0[ip_address]}
+            return mocked_location
 
     def test_GeolocateInputParser_locate(self):
         """Check locate() returns an string correctly formatted for every
