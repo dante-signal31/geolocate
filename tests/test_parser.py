@@ -121,6 +121,9 @@ class TestParser(unittest.TestCase):
         TestInputReader._restore_stdin()
 
     def test_GeolocateInputParser_next(self):
+        """Check class is able to analyze input line by line and return
+        lines with geodata strings included.
+        """
         ## TODO: Remove mocks when geoip is implemented.
         TestInputReader._inject_to_stdin(TEST_STRING)
         geoip_database = unittest.mock.MagicMock(name="GeoIPDatabase",
@@ -190,6 +193,7 @@ class TestParser(unittest.TestCase):
         self.assertEqual(returned_IP_addresses, test_ip_addresses)
 
     def test_include_location_in_line(self):
+        """Check IP addresses are properly replaced with geodata string."""
         line = ("traceroute to www.google.com (173.194.45.51), 30 hops max, "
                 "60 byte packets")
         ip = "173.194.45.51"
