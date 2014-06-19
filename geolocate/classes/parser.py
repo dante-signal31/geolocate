@@ -8,7 +8,7 @@
 
 import re
 import sys
-import geolocate.classes.geoip as geoip
+import geolocate.classes.geowrapper as geowrapper
 
 
 ############
@@ -47,7 +47,7 @@ class GeolocateInputParser(object):
                     location = self._locate(ip)
                     line = _include_location_in_line(line, ip, location)
                 return line
-            except geoip.IPNotFound:
+            except geowrapper.IPNotFound:
                 location_string = _join_ip_to_location(ip,
                                                        self.__class__._IP_NOT_FOUND_MESSAGE)
                 line = _include_location_in_line(line, ip, location_string)
