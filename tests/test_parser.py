@@ -13,7 +13,7 @@ import unittest
 import unittest.mock
 sys.path.append(os.path.abspath(".."))
 import geolocate.classes.parser as parser
-import geolocate.classes.geoip as geoip
+import geolocate.classes.geowrapper as geoip
 
 
 TEST_STRING = """TRACEROUTE OUTPUT
