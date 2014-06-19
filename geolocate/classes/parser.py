@@ -60,7 +60,7 @@ class GeolocateInputParser(object):
 
         :param ip: String with P address.
         :type ip: str
-        :returns: String with location.
+        :return: String with location.
         :rtype: str
         """
         location_data = self._geoip_database.locate(ip)
@@ -74,7 +74,7 @@ class GeolocateInputParser(object):
 
         :param location_data: GeoIP record.
         :type location_data: dict
-        :returns: String with location.
+        :return: String with location.
         :rtype: str
         """
         location_string = "["
@@ -105,7 +105,7 @@ def _find_ips_in_text(text):
 
     :param text: Text with IP addresses embedded.
     :type text: str
-    :returns: A set with all addresses found.
+    :return: A set with all addresses found.
     :rtype: set
     """
     ipv4_addresses = _find_ipv4_addresses(text)
@@ -119,7 +119,7 @@ def _find_ipv4_addresses(text):
     """
     :param text: Text with IP addresses embedded.
     :type text: str
-    :returns: A set with all addresses found.
+    :return: A set with all addresses found.
     :rtype: set
     """
     ip_filter = "[0-9]+(?:\.[0-9]+){3}"
@@ -129,12 +129,29 @@ def _find_ipv4_addresses(text):
 
 
 def _include_location_in_line(line, ip, location):
+    """
+    :param line: Original line to place location string into.
+    :type line: str
+    :param ip: IP address to be replaced with location.
+    :type ip: str
+    :param location: IP address string with location data appended.
+    :type location: str
+    :return: Line with ip addresses followed by location strings.
+    :rtype: str
+    """
     return line.replace(ip, location)
 
 
-def _join_ip_to_location(ip, location_string):
-    returned_string = " ".join([ip, location_string])
-    return returned_string
+def _join_ip_to_location(ip, location):
+    """
+    :param ip: IP address.
+    :type ip: str
+    :param location: Location data string.
+    :return: IP address with location data string appended.
+    :rtype: str
+    """
+    location_string = " ".join([ip, location])
+    return location_string
 
 
 class InputReader(object):
