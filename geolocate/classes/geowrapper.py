@@ -6,13 +6,13 @@
  email: dante.signal31@gmail.com
 """
 
-def load_geoip_database():
-    ##TODO: Implement this function.
+def load_geoip_database(configuration=None):
+    ## TODO: Implement this function.
     return GeoIPDatabase()
 
 
 class GeoIPDatabase(object):
-    ##TODO: Implement this class.
+    ## TODO: Implement this class.
     def __init__(self):
         pass
 
