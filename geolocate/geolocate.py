@@ -14,8 +14,9 @@ Geolocate is possible thanks to `Maxmind GeoIP database <http://www.maxmind.com>
 and their API.
 """
 import argparse
-from classes import geoip
+from classes import geowrapper
 from classes import parser
+from classes import config
 
 def parse_arguments():
     verbosity_choices = parser.GeolocateInputParser.VERBOSITY_NUMBERS
@@ -34,7 +35,8 @@ def print_lines_parsed(parser):
 
 if __name__ == "__main__":
     arguments = parse_arguments()
-    geoip_database = geoip.load_geoip_database()
+    configuration = config.load_configuration()
+    geoip_database = geowrapper.load_geoip_database(configuration)
     input_parser = parser.GeolocateInputParser(arguments.verbosity,
                                                geoip_database)
     print_lines_parsed(input_parser)
