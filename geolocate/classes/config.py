@@ -26,6 +26,17 @@ DEFAULT_UPDATE_INTERVAL = 35
 
 
 class Configuration(object):
+    ## TODO: Refocus the whole thing of this class.
+    ## I've discovered Maxmind website blocks clients who exceeds a conenection
+    ## threshold. If we make a connection each time we run geolocate, in order
+    ## to check that configured URL is OK, we can end in Maxmind blacklist. So,
+    ## we have to minimize connections. Check only when configuration is updated
+    ## is a way, but then we have to control how users update config. Best way
+    ## is limit users to change configuration through executable's parameters.
+    ## If we let them change manually configuration file we should check it
+    ## each time we run the program. We'd better close configuration file
+    ## through serialization and check URL only when user makes program change
+    ## configuration.
     """ Class to encapsulate configuration needed to connect to Geolite2
     webservices or downloaded local database. This class also validates
     parameters read from config files to overcome user typos.
