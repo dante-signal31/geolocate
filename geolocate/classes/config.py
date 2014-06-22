@@ -5,12 +5,21 @@
 
  email: dante.signal31@gmail.com
 """
+
+import http.client as http
 import configparser
+import urllib.parse as urlparse
 
 CONFIG_FILE = "etc/geolocate.conf"
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
-DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
+## TODO: For production I have to uncomment real url.
+# Only for tests I have to comment real download url. MaxMind has a rate limit
+# per day. If you esceed that limit you are forbidden for 24 hours to download
+# their database.
+# DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
+## TODO: For production remove next fake url, it's only for tests.
+DEFAULT_DATABASE_DOWNLOAD_URL = "http://www.cnn.com"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
@@ -58,7 +67,7 @@ class Configuration(object):
 
     @download_url.setter
     def download_url(self, url):
-        _validate_url(url)
+        _validate_url("download_url", url)
         self._local_database["download_url"] = url
 
     @property
@@ -80,8 +89,44 @@ def _validate_value(parameter, value):
                                     " ". join([parameter, "cannot have spaces."]))
 
 
-def _validate_url(url):
-    pass
+def _validate_url(parameter, url):
+    """
+    Check if a URL exists without downloading the whole file.
+    We only check the URL header.
+
+    :param url: HTTP url to check its existence.
+    :type url: str
+    :return: True if url exists, else False.
+    :rtype: bool
+    :raise: ParameterNotValid
+    """
+    # see also http://stackoverflow.com/questions/2924422
+    good_codes = [http.OK, http.FOUND, http.MOVED_PERMANENTLY]
+    try:
+        if _get_server_status_code(url) in good_codes:
+            return  # Validation succeeded.
+        else:
+            raise Exception  # Let outer except raise one only exception.
+    except:
+        raise ParameterNotValid(parameter, url, "Cannot connect to given "
+                                                "URL.")
+
+
+def _get_server_status_code(url):
+    """
+    Download just the header of a URL and return the server's status code.
+
+    :param url: HTTP url to check its existence.
+    :type url: str
+    :return: One of the connection status from http.client.
+    :rtype: int
+    :raise: Any of the exceptions from http.client built-in module.
+    """
+    # http://stackoverflow.com/questions/1140661
+    host, path = urlparse.urlparse(url)[1:3]    # elems [1] and [2]
+    conn = http.HTTPConnection(host)
+    conn.request('HEAD', path)
+    return conn.getresponse().status
 
 
 def _validate_integer(value):

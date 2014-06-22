@@ -30,8 +30,14 @@ class TestConfiguration(unittest.TestCase):
     def test_download_url_validation(self):
         wrong_url = "www-google.com"
         self._test_wrong_parameter("download_url", wrong_url)
-        correct_url = "www.google.com"
+        correct_url = "http://www.google.com"
         self._test_correct_parameter("download_url", correct_url)
+
+    def test_update_interval_validation(self):
+        wrong_update_interval = -30
+        self._test_wrong_parameter("update_interval", wrong_update_interval)
+        correct_update_interval = 40
+        self._test_correct_parameter("update_interval", correct_update_interval)
 
     def _test_wrong_parameter(self, parameter, value):
         arguments_to_pass = {parameter: value, }
