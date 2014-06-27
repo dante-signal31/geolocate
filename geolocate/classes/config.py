@@ -19,7 +19,7 @@ DEFAULT_LICENSE_KEY = ""
 # their database.
 # DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 ## TODO: For production remove next fake url, it's only for tests.
-DEFAULT_DATABASE_DOWNLOAD_URL = "http://www.cnn.com"
+DEFAULT_DATABASE_DOWNLOAD_URL = "http://old-releases.ubuntu.com/releases/10.04.0/ubuntu-10.04.4-desktop-i386.iso"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
@@ -61,7 +61,7 @@ class Configuration(object):
 
     @property
     def license_key(self):
-        return self.license_key_
+        return self._webservice["license_key"]
 
     @license_key.setter
     def license_key(self, license_key):
@@ -90,11 +90,9 @@ class Configuration(object):
 
 def _validate_value(parameter, value):
     ## TODO: Add more checks to detect invalid values.
-    if value == "":
-        return
-    elif _text_has_spaces(value):
-            raise ParameterNotValid(value, parameter,
-                                    " ". join([parameter, "cannot have spaces."]))
+    if _text_has_spaces(value) or value == "":
+        raise ParameterNotValid(value, parameter,
+                                " ". join([parameter, "cannot have spaces."]))
 
 
 def _validate_url(parameter, url):
@@ -102,6 +100,8 @@ def _validate_url(parameter, url):
     Check if a URL exists without downloading the whole file.
     We only check the URL header.
 
+    :param parameter: Attribute that is being validated.
+    :type parameter: str
     :param url: HTTP url to check its existence.
     :type url: str
     :return: True if url exists, else False.
@@ -139,6 +139,8 @@ def _get_server_status_code(url):
 
 def _validate_integer(parameter, value):
     """
+    :param parameter: Attribute that is being validated.
+    :type parameter: str
     :param value: Value integer o string.
     :type value: int or str
     :return: Value converted to an integer.
