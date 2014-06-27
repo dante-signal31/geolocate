@@ -18,6 +18,8 @@ class TestConfiguration(unittest.TestCase):
     def test_user_id_validation(self):
         wrong_user_id = "john doe" # Spaces don't use to be allowed.
         self._test_wrong_parameter("user_id", wrong_user_id)
+        wrong_user_id = ""
+        self._test_wrong_parameter("user_id", wrong_user_id)
         correct_user_id = "john_doe"
         self._test_correct_parameter("user_id", correct_user_id)
 
@@ -30,6 +32,8 @@ class TestConfiguration(unittest.TestCase):
     def test_download_url_validation(self):
         wrong_url = "www-google.com"
         self._test_wrong_parameter("download_url", wrong_url)
+        wrong_url = "http://old-releases.ubuntu.com/releases/99.04.0/"
+        self._test_wrong_parameter("download_url", wrong_url)
         correct_url = "http://www.google.com"
         self._test_correct_parameter("download_url", correct_url)
 
@@ -38,6 +42,16 @@ class TestConfiguration(unittest.TestCase):
         self._test_wrong_parameter("update_interval", wrong_update_interval)
         correct_update_interval = 40
         self._test_correct_parameter("update_interval", correct_update_interval)
+
+    def test_get_properties(self):
+        configuration = config.Configuration()
+        self.assertEqual(configuration.user_id, config.DEFAULT_USER_ID)
+        self.assertEqual(configuration.license_key,
+                         config.DEFAULT_LICENSE_KEY)
+        self.assertEqual(configuration.download_url,
+                         config.DEFAULT_DATABASE_DOWNLOAD_URL)
+        self.assertEqual(configuration.update_interval,
+                         config.DEFAULT_UPDATE_INTERVAL)
 
     def _test_wrong_parameter(self, parameter, value):
         configuration = config.Configuration()
