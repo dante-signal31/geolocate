@@ -83,8 +83,9 @@ class Configuration(object):
 
     @update_interval.setter
     def update_interval(self, update_interval_in_days):
-        _validate_integer(update_interval_in_days)
-        self._local_database["update_interval"] = update_interval_in_days
+        interval_integer = _validate_integer("update_interval",
+                                             update_interval_in_days)
+        self._local_database["update_interval"] = interval_integer
 
 
 def _validate_value(parameter, value):
@@ -136,8 +137,20 @@ def _get_server_status_code(url):
     return conn.getresponse().status
 
 
-def _validate_integer(value):
-    pass
+def _validate_integer(parameter, value):
+    """
+    :param value: Value integer o string.
+    :type value: int or str
+    :return: Value converted to an integer.
+    :rtype: int
+    """
+    try:
+        integer_value = int(value)
+        if integer_value <= 0:
+            raise ValueError
+    except ValueError:
+        raise ParameterNotValid(value, parameter, "Cannot convert to int.")
+    return integer_value
 
 
 def _text_has_spaces(text):
