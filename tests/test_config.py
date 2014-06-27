@@ -40,14 +40,14 @@ class TestConfiguration(unittest.TestCase):
         self._test_correct_parameter("update_interval", correct_update_interval)
 
     def _test_wrong_parameter(self, parameter, value):
-        arguments_to_pass = {parameter: value, }
+        configuration = config.Configuration()
         with self.assertRaises(config.ParameterNotValid) as e:
-            configuration = config.Configuration(**arguments_to_pass)
+            setattr(configuration, parameter, value)
 
     def _test_correct_parameter(self, parameter, value):
-        arguments_to_pass = {parameter: value, }
+        configuration = config.Configuration()
         try:
-            configuration = config.Configuration(**arguments_to_pass)
+            setattr(configuration, parameter, value)
         except config.ParameterNotValid:
             self.fail("ParameterNotValid exception with supposedly correct "
                       "parameter")
