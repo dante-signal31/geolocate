@@ -41,18 +41,14 @@ class Configuration(object):
     webservices or downloaded local database. This class also validates
     parameters read from config files to overcome user typos.
     """
-    def __init__(self, user_id = DEFAULT_USER_ID,
-                       license_key = DEFAULT_LICENSE_KEY,
-                       download_url = DEFAULT_DATABASE_DOWNLOAD_URL,
-                       update_interval = DEFAULT_UPDATE_INTERVAL):
-        self._webservice = {"user_id": "",
-                            "license_key": ""}
-        self._local_database = {"download_url": "",
-                                "update_interval": ""}
-        self.user_id = user_id
-        self.license_key = license_key
-        self.download_url = download_url
-        self.update_interval = update_interval
+    def __init__(self, user_id=DEFAULT_USER_ID,
+                       license_key=DEFAULT_LICENSE_KEY,
+                       download_url=DEFAULT_DATABASE_DOWNLOAD_URL,
+                       update_interval=DEFAULT_UPDATE_INTERVAL):
+        self._webservice = {"user_id": user_id,
+                            "license_key": license_key}
+        self._local_database = {"download_url": download_url,
+                                "update_interval": update_interval}
 
     @property
     def user_id(self):
