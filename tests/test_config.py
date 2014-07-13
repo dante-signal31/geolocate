@@ -8,6 +8,7 @@
 
 import os
 import sys
+import tempfile
 import unittest
 import unittest.mock
 sys.path.append(os.path.abspath(".."))
@@ -65,3 +66,43 @@ class TestConfiguration(unittest.TestCase):
         except config.ParameterNotValid:
             self.fail("ParameterNotValid exception with supposedly correct "
                       "parameter")
+
+    def test_load_configuration_ConfigNotFound(self):
+        with _OriginalConfigSaved:
+            _remove_original_config()
+            configuration = config.load_configuration()
+            default_configuration = config.Configuration()
+            self.assertEqual(configuration, default_configuration,
+                             msg="Read configuration is not a default "
+                                 "configuration.")
+
+
+class _OriginalConfigSaved(object):
+    """Context manager to store original configuration in a safe place for
+    tests and restore it after them.
+    """
+    def __init__(self, config_file_name=config.CONFIG_FILE):
+        self._config_file = open(config_file_name)
+        self._backup_config_file = tempfile.TemporaryFile()
+
+    def __enter__(self):
+        _backup_config()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        _restore_config()
+        self._config_file.close()
+        self._backup_config_file.close()
+
+    def _backup_config(self):
+        self._config_file.seek(0)
+        original_config_file_content = self._config_file.read()
+        self._backup_config_file.write(original_config_file_content)
+
+    def _restore_config(self):
+        self._config_file.seek(0)
+        self._backup_config_file.seek(0)
+        saved_config_file_content = self._backup_config_file.read()
+        self._config_file.write(saved_config_file_content)
+
+
+

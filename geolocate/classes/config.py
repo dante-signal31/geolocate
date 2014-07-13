@@ -15,7 +15,7 @@ DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
 ## TODO: For production I have to uncomment real url.
 # Only for tests I have to comment real download url. MaxMind has a rate limit
-# per day. If you esceed that limit you are forbidden for 24 hours to download
+# per day. If you exceed that limit you are forbidden for 24 hours to download
 # their database.
 # DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 ## TODO: For production remove next fake url, it's only for tests.
@@ -26,17 +26,16 @@ DEFAULT_UPDATE_INTERVAL = 35
 
 
 class Configuration(object):
-    ## TODO: Refocus the whole thing of this class.
-    ## I've discovered Maxmind website blocks clients who exceeds a conenection
-    ## threshold. If we make a connection each time we run geolocate, in order
-    ## to check that configured URL is OK, we can end in Maxmind blacklist. So,
-    ## we have to minimize connections. Check only when configuration is updated
-    ## is a way, but then we have to control how users update config. Best way
-    ## is limit users to change configuration through executable's parameters.
-    ## If we let them change manually configuration file we should check it
-    ## each time we run the program. We'd better close configuration file
-    ## through serialization and check URL only when user makes program change
-    ## configuration.
+    # I've discovered Maxmind website blocks clients who exceeds a conenection
+    # threshold. If we make a connection each time we run geolocate, in order
+    # to check that configured URL is OK, we can end in Maxmind blacklist. So,
+    # we have to minimize connections. Check only when configuration is updated
+    # is a way, but then we have to control how users update config. Best way
+    # is limit users to change configuration only through executable's
+    # parameters. If we let them change manually configuration file we should
+    # check it each time we run the program. We'd better close configuration
+    # file through serialization and check URL only when user makes program
+    # change configuration.
     """ Class to encapsulate configuration needed to connect to Geolite2
     webservices or downloaded local database. This class also validates
     parameters read from config files to overcome user typos.
@@ -89,7 +88,8 @@ class Configuration(object):
 
 
 def _validate_value(parameter, value):
-    ## TODO: Add more checks to detect invalid values.
+    ## TODO: Add more checks to detect invalid values when you know MaxMind's
+    ## conditions for user ids.
     if _text_has_spaces(value) or value == "":
         raise ParameterNotValid(value, parameter,
                                 " ". join([parameter, "cannot have spaces."]))
