@@ -67,9 +67,9 @@ class TestConfiguration(unittest.TestCase):
             self.fail("ParameterNotValid exception with supposedly correct "
                       "parameter")
 
-    def test_load_configuration_ConfigNotFound(self):
-        with _OriginalConfigSaved:
-            _remove_original_config()
+    def test_load_configuration_config_not_found(self):
+        with _OriginalConfigSaved():
+            _remove_config()
             configuration = config.load_configuration()
             default_configuration = config.Configuration()
             self.assertEqual(configuration, default_configuration,
@@ -82,27 +82,43 @@ class _OriginalConfigSaved(object):
     tests and restore it after them.
     """
     def __init__(self, config_file_name=config.CONFIG_FILE):
-        self._config_file = open(config_file_name)
+        self._config_file_name = os.path.abspath(config_file_name)
         self._backup_config_file = tempfile.TemporaryFile()
 
     def __enter__(self):
-        _backup_config()
+        self._backup_config()
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        _restore_config()
-        self._config_file.close()
-        self._backup_config_file.close()
+        self._restore_config()
+        return True
 
     def _backup_config(self):
-        self._config_file.seek(0)
-        original_config_file_content = self._config_file.read()
+        original_config_file_content = self._get_original_config()
         self._backup_config_file.write(original_config_file_content)
 
+    def _get_original_config(self):
+        config_file = open(self._config_file_name)
+        original_config_file_content = config_file.read()
+        # I don't keep config_file open because some tests remove that file
+        # and I know better than to keep a reference to a removed file.
+        config_file.close()
+        return original_config_file_content
+
     def _restore_config(self):
-        self._config_file.seek(0)
+        saved_config_file_content = self._get_backup_config()
+        self._write_config(saved_config_file_content)
+
+    def _get_backup_config(self):
         self._backup_config_file.seek(0)
         saved_config_file_content = self._backup_config_file.read()
-        self._config_file.write(saved_config_file_content)
+        self._backup_config_file.close()
+        return saved_config_file_content
 
+    def _write_config(self, content):
+        config_file = open(self._config_file_name)
+        config_file.write(content)
+        config_file.close()
 
-
+def _remove_config():
+    os.remove(config.CONFIG_FILE)
