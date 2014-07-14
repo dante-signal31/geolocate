@@ -191,7 +191,7 @@ def _read_config_file():
     :rtype: config.Configuration
     :raise: config.ConfigNotFound
     """
-    pass
+    return None
 
 
 def _create_config_file():
