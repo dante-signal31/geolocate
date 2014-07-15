@@ -14,6 +14,8 @@ import unittest.mock
 sys.path.append(os.path.abspath(".."))
 import geolocate.classes.config as config
 
+GEOLOCATE_CONFIG_FILE = "/".join(["geolocate", config.CONFIG_FILE])
+
 class TestConfiguration(unittest.TestCase):
 
     def test_user_id_validation(self):
@@ -81,9 +83,9 @@ class _OriginalConfigSaved(object):
     """Context manager to store original configuration in a safe place for
     tests and restore it after them.
     """
-    def __init__(self, config_file_name=config.CONFIG_FILE):
+    def __init__(self, config_file_name=GEOLOCATE_CONFIG_FILE):
         self._config_file_name = os.path.abspath(config_file_name)
-        self._backup_config_file = tempfile.TemporaryFile()
+        self._backup_config_file = tempfile.TemporaryFile("r+b")
 
     def __enter__(self):
         self._backup_config()
@@ -91,14 +93,17 @@ class _OriginalConfigSaved(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._restore_config()
-        return True
+        if exc_type is None:
+            return True
+        else:
+            return False
 
     def _backup_config(self):
         original_config_file_content = self._get_original_config()
         self._backup_config_file.write(original_config_file_content)
 
     def _get_original_config(self):
-        config_file = open(self._config_file_name)
+        config_file = open(self._config_file_name, "rb")
         original_config_file_content = config_file.read()
         # I don't keep config_file open because some tests remove that file
         # and I know better than to keep a reference to a removed file.
@@ -116,9 +121,9 @@ class _OriginalConfigSaved(object):
         return saved_config_file_content
 
     def _write_config(self, content):
-        config_file = open(self._config_file_name)
+        config_file = open(self._config_file_name, "wb")
         config_file.write(content)
         config_file.close()
 
 def _remove_config():
-    os.remove(config.CONFIG_FILE)
+    os.remove(GEOLOCATE_CONFIG_FILE)
