@@ -14,7 +14,7 @@ import unittest.mock
 sys.path.append(os.path.abspath(".."))
 import geolocate.classes.config as config
 
-GEOLOCATE_CONFIG_FILE = "/".join(["geolocate", config.CONFIG_FILE])
+GEOLOCATE_CONFIG_FILE = os.path.abspath(config.CONFIG_FILE)
 
 class TestConfiguration(unittest.TestCase):
 
@@ -69,9 +69,10 @@ class TestConfiguration(unittest.TestCase):
             self.fail("ParameterNotValid exception with supposedly correct "
                       "parameter")
 
-    def test_load_configuration_config_not_found(self):
+    def test_load_configuration_create_default_config_file(self):
         with _OriginalConfigSaved():
             _remove_config()
+            config._create_default_config_file()
             configuration = config.load_configuration()
             default_configuration = config.Configuration()
             self.assertEqual(configuration, default_configuration,
@@ -84,7 +85,7 @@ class _OriginalConfigSaved(object):
     tests and restore it after them.
     """
     def __init__(self, config_file_name=GEOLOCATE_CONFIG_FILE):
-        self._config_file_name = os.path.abspath(config_file_name)
+        self._config_file_name = config_file_name
         self._backup_config_file = tempfile.TemporaryFile("r+b")
 
     def __enter__(self):

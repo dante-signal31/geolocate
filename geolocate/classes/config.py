@@ -7,10 +7,12 @@
 """
 
 import http.client as http
-import configparser
+import os
+import pickle
 import urllib.parse as urlparse
 
-CONFIG_FILE = "etc/geolocate.conf"
+CONFIG_FILE = "geolocate/etc/geolocate.conf"
+CONFIG_FILE_NAME = os.path.abspath(CONFIG_FILE)
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
 ## TODO: For production I have to uncomment real url.
@@ -86,6 +88,11 @@ class Configuration(object):
                                              update_interval_in_days)
         self._local_database["update_interval"] = interval_integer
 
+    def __eq__(self, other):
+        for _property, value in vars(self).items():
+            if getattr(other, _property) != value:
+                return False
+        return True
 
 def _validate_value(parameter, value):
     ## TODO: Add more checks to detect invalid values when you know MaxMind's
@@ -179,7 +186,7 @@ def load_configuration():
     try:
         configuration = _read_config_file()
     except ConfigNotFound:
-        _create_config_file()
+        _create_default_config_file()
         configuration = load_configuration()
     return configuration
 
@@ -191,15 +198,20 @@ def _read_config_file():
     :rtype: config.Configuration
     :raise: config.ConfigNotFound
     """
-    return None
+    config_file = open(CONFIG_FILE_NAME, "rb")
+    configuration = pickle.load(config_file)
+    return configuration
 
 
-def _create_config_file():
+def _create_default_config_file():
     """ Create a default configuration file.
 
     :return: None
     """
-    pass
+    default_configuration = Configuration()
+    config_file = open(CONFIG_FILE_NAME, "wb")
+    pickle.dump(default_configuration, config_file, pickle.HIGHEST_PROTOCOL)
+    config_file.close()
 
 
 class ConfigNotFound(Exception):
