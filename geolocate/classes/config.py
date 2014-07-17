@@ -198,6 +198,8 @@ def _read_config_file():
     :rtype: config.Configuration
     :raise: config.ConfigNotFound
     """
+    ## TODO: Implement config file existence check and ConfigNotFound exception
+    ## raising if not found.
     with open(CONFIG_FILE_NAME, "rb") as config_file:
         configuration = pickle.load(config_file)
     return configuration
