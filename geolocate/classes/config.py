@@ -198,8 +198,8 @@ def _read_config_file():
     :rtype: config.Configuration
     :raise: config.ConfigNotFound
     """
-    config_file = open(CONFIG_FILE_NAME, "rb")
-    configuration = pickle.load(config_file)
+    with open(CONFIG_FILE_NAME, "rb") as config_file:
+        configuration = pickle.load(config_file)
     return configuration
 
 
@@ -209,9 +209,8 @@ def _create_default_config_file():
     :return: None
     """
     default_configuration = Configuration()
-    config_file = open(CONFIG_FILE_NAME, "wb")
-    pickle.dump(default_configuration, config_file, pickle.HIGHEST_PROTOCOL)
-    config_file.close()
+    with open(CONFIG_FILE_NAME, "wb") as config_file:
+        pickle.dump(default_configuration, config_file, pickle.HIGHEST_PROTOCOL)
 
 
 class ConfigNotFound(Exception):
