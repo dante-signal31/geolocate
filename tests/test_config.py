@@ -79,6 +79,20 @@ class TestConfiguration(unittest.TestCase):
                              msg="Read configuration is not a default "
                                  "configuration.")
 
+    def test_read_config_file_config_not_found(self):
+        with _OriginalConfigSaved():
+            _remove_config()
+            with self.assertRaises(config.ConfigNotFound,
+                                   msg="Config removed but _read_config() "
+                                       "didn't raise ConfigNotFound "
+                                       "exception."):
+                config._read_config_file()
+
+    def test_save_configuration(self):
+        with _OriginalConfigSaved():
+            _remove_config()
+            ## TODO: Write this tests an its tested function.
+
 
 class _OriginalConfigSaved(object):
     """Context manager to store original configuration in a safe place for

@@ -198,10 +198,11 @@ def _read_config_file():
     :rtype: config.Configuration
     :raise: config.ConfigNotFound
     """
-    ## TODO: Implement config file existence check and ConfigNotFound exception
-    ## raising if not found.
-    with open(CONFIG_FILE_NAME, "rb") as config_file:
-        configuration = pickle.load(config_file)
+    try:
+        with open(CONFIG_FILE_NAME, "rb") as config_file:
+            configuration = pickle.load(config_file)
+    except FileNotFoundError:
+        raise ConfigNotFound()
     return configuration
 
 
@@ -213,6 +214,15 @@ def _create_default_config_file():
     default_configuration = Configuration()
     with open(CONFIG_FILE_NAME, "wb") as config_file:
         pickle.dump(default_configuration, config_file, pickle.HIGHEST_PROTOCOL)
+
+def save_configuration(configuration):
+    """ Write Configuration object in config file.
+
+    :param configuration: Configuration to be saved.
+    :type configuration: config.Configuration
+    :return: None
+    """
+    pass
 
 
 class ConfigNotFound(Exception):
