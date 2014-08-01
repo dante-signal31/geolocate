@@ -79,6 +79,14 @@ class TestConfiguration(unittest.TestCase):
                              msg="Read configuration is not a default "
                                  "configuration.")
 
+    def test_load_configuration_config_not_found(self):
+        with _OriginalConfigSaved():
+            _remove_config()
+            default_configuration = config.Configuration()
+            configuration_loaded = config.load_configuration()
+            self.assertEqual(default_configuration, configuration_loaded,
+                             msg="Default configuration not regenerated.")
+
     def test_read_config_file_config_not_found(self):
         with _OriginalConfigSaved():
             _remove_config()
@@ -91,7 +99,19 @@ class TestConfiguration(unittest.TestCase):
     def test_save_configuration(self):
         with _OriginalConfigSaved():
             _remove_config()
-            ## TODO: Write this tests an its tested function.
+            configuration_to_save = config.Configuration(user_id="user1984")
+            config.save_configuration(configuration_to_save)
+            configuration_loaded = config.load_configuration()
+            self.assertEqual(configuration_to_save, configuration_loaded,
+                             msg="Configuration loaded is not the same as "
+                                 "configuration saved.")
+
+    def test_configuration_equality(self):
+        configuration1 = config.Configuration(user_id="userXXX")
+        configuration2 = config.Configuration(user_id="no_name")
+        self.assertNotEqual(configuration1, configuration2)
+        configuration2.user_id = configuration1.user_id
+        self.assertEqual(configuration1, configuration2)
 
 
 class _OriginalConfigSaved(object):
