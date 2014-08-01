@@ -212,8 +212,7 @@ def _create_default_config_file():
     :return: None
     """
     default_configuration = Configuration()
-    with open(CONFIG_FILE_NAME, "wb") as config_file:
-        pickle.dump(default_configuration, config_file, pickle.HIGHEST_PROTOCOL)
+    save_configuration(default_configuration)
 
 def save_configuration(configuration):
     """ Write Configuration object in config file.
@@ -222,7 +221,8 @@ def save_configuration(configuration):
     :type configuration: config.Configuration
     :return: None
     """
-    pass
+    with open(CONFIG_FILE_NAME, "wb") as config_file:
+        pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
 
 
 class ConfigNotFound(Exception):
