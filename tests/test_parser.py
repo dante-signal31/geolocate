@@ -12,8 +12,10 @@ import sys
 import unittest
 import unittest.mock
 sys.path.append(os.path.abspath(".."))
-import geolocate.classes.parser as parser
+import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
+import geolocate.classes.parser as parser
+
 
 
 TEST_STRING = """TRACEROUTE OUTPUT
@@ -160,7 +162,8 @@ class TestParser(unittest.TestCase):
         ## implemented.
         verbosity_levels = parser.GeolocateInputParser.VERBOSITY_LEVELS
         ip_to_find = TEST_IP
-        geoip_database = geoip.load_geoip_database()
+        test_configuration = config.Configuration()
+        geoip_database = geoip.load_geoip_database(test_configuration)
         for verbosity in verbosity_levels:
             input_parser = parser.GeolocateInputParser(verbosity, geoip_database)
             ## TODO: Remove Mock when _geoip_database.locate is implemented.
