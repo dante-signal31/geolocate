@@ -6,6 +6,10 @@
  email: dante.signal31@gmail.com
 """
 import abc
+import subprocess
+import tempfile
+import geoip2.database
+import geoip2.webservice
 
 import geolocate.classes.config as config
 
@@ -57,12 +61,92 @@ class GeoLocator(metaclass=abc.ABCMeta):
 class WebServiceGeoLocator(GeoLocator):
 
     def __init__(self, configuration):
-        pass
+        """
+        :param configuration: Geolocate configuration.
+        :type configuration: config.Configuration
+        :return: None
+        """
+        super().__init__(configuration)
+        self._db_connection = geoip2.webservice.Client(configuration.user_id,
+                                                       configuration.license_key)
 
 class LocalDatabaseGeoLocator(GeoLocator):
 
     def __init__(self, configuration):
+        """
+        :param configuration: Geolocate configuration.
+        :type configuration: config.Configuration
+        :return: None
+        """
+        super().__init__(configuration)
+        # self._update_db()
+        # self._db_connection = geoip2.database.Reader(config.)
+
+    def _update_db(self):
+        """ Download a fresh geolocation database if current is too old.
+
+        :return: None
+        """
+        if self._local_database_too_old():
+            self._download_fresh_database()
+
+    def _local_database_too_old(self):
+        """
+        :return: True if database file has to be refreshed, False if not.
+        :rtype: bool
+        """
+        ## TODO: Implement.
         pass
+
+    def _download_fresh_database(self):
+        """ Download compressed database, decompress it and place it instead
+        old one.
+
+        :return: None
+        """
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            self._download_file(temporary_directory.name)
+            decompressed_file_path = _decompress_file(temporary_directory)
+            self._remove_old_database()
+            self._copy_new_database(decompressed_file_path)
+
+    def _download_file(self, temporal_directory):
+        """
+        :param temporal_directory: Folder path to place downloaded file in.
+        :type temporal_directory: str
+        :return: None
+        """
+        downloads_folder_parameter = "--directory-prefix={0}".format(temporal_directory)
+        subprocess.call(["wget", self._configuration.download_url,
+                        downloads_folder_parameter])
+
+    def _remove_old_database(self):
+        """
+        :return: None
+        """
+        ## TODO: Implement.
+        pass
+
+    def _copy_new_database(self, decompressed_file_path):
+        """
+        :param decompressed_file_path: Folder where new database is placed.
+        :type decompressed_file_path: str
+        :return: None
+        """
+        ## TODO: Implement.
+        pass
+
+
+def _decompress_file(temporal_directory):
+    """ Decompress tar.gz file found in temporal_directory.
+
+    :param temporal_directory: Folder path to compressed file.
+    :type temporal_directory: str
+    :return: Path to decompressed folder.
+    :rtype: str
+    """
+    ## TODO: Implement.
+    pass
 
 
 class IPNotFound(Exception):
