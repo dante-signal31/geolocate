@@ -46,6 +46,13 @@ class TestConfiguration(unittest.TestCase):
         correct_update_interval = 40
         self._test_correct_parameter("update_interval", correct_update_interval)
 
+    def test_database_folder_validation(self):
+        wrong_path = "database"
+        self._test_wrong_parameter("local_database_folder", wrong_path)
+        correct_path = "local_database"
+        self._test_correct_parameter("local_database_folder", correct_path)
+
+
     def test_get_properties(self):
         configuration = config.Configuration()
         self.assertEqual(configuration.user_id, config.DEFAULT_USER_ID)

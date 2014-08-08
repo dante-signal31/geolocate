@@ -25,6 +25,8 @@ DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
+DEFAULT_LOCAL_DATABASE_FOLDER = "geolocate/local_db/"
+DEFAULT_LOCAL_DATABASE_NAME = "GeoLite2-City.mmdb"
 
 
 class Configuration(object):
@@ -45,11 +47,15 @@ class Configuration(object):
     def __init__(self, user_id=DEFAULT_USER_ID,
                        license_key=DEFAULT_LICENSE_KEY,
                        download_url=DEFAULT_DATABASE_DOWNLOAD_URL,
-                       update_interval=DEFAULT_UPDATE_INTERVAL):
+                       update_interval=DEFAULT_UPDATE_INTERVAL,
+                       local_database_folder=DEFAULT_LOCAL_DATABASE_FOLDER,
+                       local_database_name=DEFAULT_LOCAL_DATABASE_NAME):
         self._webservice = {"user_id": user_id,
                             "license_key": license_key}
         self._local_database = {"download_url": download_url,
-                                "update_interval": update_interval}
+                                "update_interval": update_interval,
+                                "local_database_folder": local_database_folder,
+                                "local_database_name": local_database_name}
 
     @property
     def user_id(self):
@@ -87,6 +93,26 @@ class Configuration(object):
         interval_integer = _validate_integer("update_interval",
                                              update_interval_in_days)
         self._local_database["update_interval"] = interval_integer
+
+    @property
+    def local_database_folder(self):
+        return self._local_database["local_database_folder"]
+
+    @local_database_folder.setter
+    def local_database_folder(self, folder_path):
+        database_folder_path = _get_folder_path(folder_path)
+        _validate_folder("local_database_folder", database_folder_path)
+        self._local_database["local_database_folder"] = database_folder_path
+
+    @property
+    def local_database_name(self):
+        ## TODO: Implement.
+        pass
+
+    @local_database_name.setter
+    def local_database_name(self, database_name):
+        ## TODO: Implement.
+        pass
 
     def __eq__(self, other):
         for _property, value in vars(self).items():
@@ -126,6 +152,10 @@ def _validate_url(parameter, url):
         raise ParameterNotValid(parameter, url, "Cannot connect to given "
                                                 "URL.")
 
+def _validate_folder(parameter, path):
+    ## TODO: Implement. Raise parameter not valid if folder
+    ## doesn't exists.
+    pass
 
 def _get_server_status_code(url):
     """
@@ -224,6 +254,10 @@ def save_configuration(configuration):
     with open(CONFIG_FILE_NAME, "wb") as config_file:
         pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
 
+def _get_folder_path(path):
+    ## TODO: Implement this function. If path starts by "/" take it as an
+    ## absolute path, if not take it as relative.
+    pass
 
 class ConfigNotFound(Exception):
     """ Launched when config file is not where is supposed to be."""
