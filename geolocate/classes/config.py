@@ -250,6 +250,7 @@ def _create_default_config_file():
     default_configuration = Configuration()
     save_configuration(default_configuration)
 
+
 def save_configuration(configuration):
     """ Write Configuration object in config file.
 
@@ -259,6 +260,7 @@ def save_configuration(configuration):
     """
     with open(CONFIG_FILE_NAME, "wb") as config_file:
         pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
+
 
 def _get_folder_path(path):
     """ If path is relative, get absolute path of current working directory
@@ -277,6 +279,7 @@ def _get_folder_path(path):
         absolute_directory = "{0}/{1}".format(current_working_directory,
                                               path)
     return absolute_directory
+
 
 class ConfigNotFound(Exception):
     """ Launched when config file is not where is supposed to be."""

@@ -47,6 +47,9 @@ class TestConfiguration(unittest.TestCase):
         self._test_correct_parameter("update_interval", correct_update_interval)
 
     def test_database_folder_validation(self):
+        # Current working dir is at setup.py folder level, so we have to go
+        # deeper into geolocate as we would be at production.
+        os.chdir("./geolocate")
         wrong_path = "database"
         self._test_wrong_parameter("local_database_folder", wrong_path)
         correct_path = "local_database"
