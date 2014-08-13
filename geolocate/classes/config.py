@@ -137,8 +137,7 @@ def _validate_url(parameter, url):
     :type parameter: str
     :param url: HTTP url to check its existence.
     :type url: str
-    :return: True if url exists, else False.
-    :rtype: bool
+    :return: None
     :raise: ParameterNotValid
     """
     # see also http://stackoverflow.com/questions/2924422
@@ -149,13 +148,20 @@ def _validate_url(parameter, url):
         else:
             raise Exception  # Let outer except raise one only exception.
     except:
-        raise ParameterNotValid(parameter, url, "Cannot connect to given "
+        raise ParameterNotValid(url, parameter, "Cannot connect to given "
                                                 "URL.")
 
 def _validate_folder(parameter, path):
-    ## TODO: Implement. Raise parameter not valid if folder
-    ## doesn't exists.
-    pass
+    """
+    :param parameter: Attribute that is being validated.
+    :type parameter: str
+    :param path: Path to folder being checked.
+    :type path: str
+    :return: None
+    :raise: ParameterNotValid
+    """
+    if not os.path.exists(path):
+        raise ParameterNotValid(path, parameter, "Folder does not exists.")
 
 def _get_server_status_code(url):
     """
@@ -255,9 +261,22 @@ def save_configuration(configuration):
         pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
 
 def _get_folder_path(path):
-    ## TODO: Implement this function. If path starts by "/" take it as an
-    ## absolute path, if not take it as relative.
-    pass
+    """ If path is relative, get absolute path of current working directory
+    suffixed by path. If path is absolute, just return it.
+
+    :param path: Path to get absolute form.
+    :type path: str
+    :return: Absolute path.
+    :rtype: str
+    """
+    absolute_directory = None
+    if path.startswith("/"):
+        absolute_directory = path
+    else:
+        current_working_directory = os.getcwd()
+        absolute_directory = "{0}/{1}".format(current_working_directory,
+                                              path)
+    return absolute_directory
 
 class ConfigNotFound(Exception):
     """ Launched when config file is not where is supposed to be."""

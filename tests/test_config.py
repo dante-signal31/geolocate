@@ -52,16 +52,17 @@ class TestConfiguration(unittest.TestCase):
         correct_path = "local_database"
         self._test_correct_parameter("local_database_folder", correct_path)
 
-
-    def test_get_properties(self):
-        configuration = config.Configuration()
-        self.assertEqual(configuration.user_id, config.DEFAULT_USER_ID)
-        self.assertEqual(configuration.license_key,
-                         config.DEFAULT_LICENSE_KEY)
-        self.assertEqual(configuration.download_url,
-                         config.DEFAULT_DATABASE_DOWNLOAD_URL)
-        self.assertEqual(configuration.update_interval,
-                         config.DEFAULT_UPDATE_INTERVAL)
+    def test_get_config_path(self):
+        absolute_path = "/usr/local/"
+        config_absolute_path = config._get_folder_path(absolute_path)
+        expected_path = absolute_path
+        self.assertEqual(config_absolute_path, expected_path)
+        relative_path = "test/"
+        with tempfile.TemporaryDirectory() as temporary_folder:
+            os.chdir(temporary_folder)
+            config_relative_path = config._get_folder_path(relative_path)
+            expected_path = "{0}/{1}".format(temporary_folder, relative_path)
+            self.assertEqual(config_relative_path, expected_path)
 
     def _test_wrong_parameter(self, parameter, value):
         configuration = config.Configuration()
@@ -119,6 +120,16 @@ class TestConfiguration(unittest.TestCase):
         self.assertNotEqual(configuration1, configuration2)
         configuration2.user_id = configuration1.user_id
         self.assertEqual(configuration1, configuration2)
+
+    def test_get_properties(self):
+        configuration = config.Configuration()
+        self.assertEqual(configuration.user_id, config.DEFAULT_USER_ID)
+        self.assertEqual(configuration.license_key,
+                         config.DEFAULT_LICENSE_KEY)
+        self.assertEqual(configuration.download_url,
+                         config.DEFAULT_DATABASE_DOWNLOAD_URL)
+        self.assertEqual(configuration.update_interval,
+                         config.DEFAULT_UPDATE_INTERVAL)
 
 
 class _OriginalConfigSaved(object):
