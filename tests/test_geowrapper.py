@@ -34,6 +34,12 @@ class TestGeoWrapper(unittest.TestCase):
         self.assertIsInstance(connection,
                               geoip2.database.Reader)
 
+    def test_local_database_update(self):
+        self.assertTrue(False)
+
+    def test_local_database_too_old(self):
+        self.assertTrue(False)
+
     def test_geoip_database_add_locators_non_default_configuration(self):
         geoip_database = _create_non_default_geoip_database()
         locators_length = len(geoip_database._locators)
@@ -63,12 +69,12 @@ class TestGeoWrapper(unittest.TestCase):
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
-                           msg="Temporary folder initially not empty.")
+                         msg="Temporary folder initially not empty.")
 
     def _assert_folder_not_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertNotEqual([], files_list,
-                           msg="Nothing downloaded.")
+                            msg="Nothing downloaded.")
 
 
 def _create_default_geoip_database():
@@ -76,15 +82,12 @@ def _create_default_geoip_database():
     geoip_database = geoip.load_geoip_database(configuration)
     return geoip_database
 
+
 def _create_non_default_geoip_database():
     configuration = config.Configuration(user_id="user2014",
                                          license_key="XXXXX")
     geoip_database = geoip.load_geoip_database(configuration)
     return geoip_database
-
-
-
-
 
 if __name__ == '__main__':
     unittest.main()
