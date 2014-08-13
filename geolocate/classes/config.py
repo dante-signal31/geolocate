@@ -25,7 +25,7 @@ DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
-DEFAULT_LOCAL_DATABASE_FOLDER = "geolocate/local_db/"
+DEFAULT_LOCAL_DATABASE_FOLDER = "geolocate/local_database/"
 DEFAULT_LOCAL_DATABASE_NAME = "GeoLite2-City.mmdb"
 
 
@@ -45,11 +45,11 @@ class Configuration(object):
     parameters read from config files to overcome user typos.
     """
     def __init__(self, user_id=DEFAULT_USER_ID,
-                       license_key=DEFAULT_LICENSE_KEY,
-                       download_url=DEFAULT_DATABASE_DOWNLOAD_URL,
-                       update_interval=DEFAULT_UPDATE_INTERVAL,
-                       local_database_folder=DEFAULT_LOCAL_DATABASE_FOLDER,
-                       local_database_name=DEFAULT_LOCAL_DATABASE_NAME):
+                 license_key=DEFAULT_LICENSE_KEY,
+                 download_url=DEFAULT_DATABASE_DOWNLOAD_URL,
+                 update_interval=DEFAULT_UPDATE_INTERVAL,
+                 local_database_folder=DEFAULT_LOCAL_DATABASE_FOLDER,
+                 local_database_name=DEFAULT_LOCAL_DATABASE_NAME):
         self._webservice = {"user_id": user_id,
                             "license_key": license_key}
         self._local_database = {"download_url": download_url,
@@ -106,19 +106,26 @@ class Configuration(object):
 
     @property
     def local_database_name(self):
-        ## TODO: Implement.
-        pass
+        return self._local_database["local_database_name"]
 
     @local_database_name.setter
     def local_database_name(self, database_name):
-        ## TODO: Implement.
-        pass
+        # At first sight every database name should be OK, but I'll leave this
+        # as a property in case I have an idea about a possible check.
+        self._local_database["local_database_name"] = database_name
+
+    @property
+    def local_database_path(self):
+        path = os.path.join(self.local_database_folder,
+                            self.local_database_name)
+        return path
 
     def __eq__(self, other):
         for _property, value in vars(self).items():
             if getattr(other, _property) != value:
                 return False
         return True
+
 
 def _validate_value(parameter, value):
     ## TODO: Add more checks to detect invalid values when you know MaxMind's
@@ -151,6 +158,7 @@ def _validate_url(parameter, url):
         raise ParameterNotValid(url, parameter, "Cannot connect to given "
                                                 "URL.")
 
+
 def _validate_folder(parameter, path):
     """
     :param parameter: Attribute that is being validated.
@@ -162,6 +170,7 @@ def _validate_folder(parameter, path):
     """
     if not os.path.exists(path):
         raise ParameterNotValid(path, parameter, "Folder does not exists.")
+
 
 def _get_server_status_code(url):
     """
@@ -299,13 +308,3 @@ class ParameterNotValid(Exception):
                             "Problem is: \n".format(parameter, provided_value)
         final_message = "".join([parameter_message, message])
         Exception.__init__(self, final_message)
-
-
-
-
-
-
-
-
-
-

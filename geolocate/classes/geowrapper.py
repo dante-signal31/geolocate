@@ -79,8 +79,9 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :return: None
         """
         super().__init__(configuration)
-        # self._update_db()
-        # self._db_connection = geoip2.database.Reader(config.)
+        self._update_db()
+        db_path = configuration.local_database_path
+        self._db_connection = geoip2.database.Reader(db_path)
 
     def _update_db(self):
         """ Download a fresh geolocation database if current is too old.

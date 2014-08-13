@@ -16,10 +16,11 @@ import geolocate.classes.config as config
 
 GEOLOCATE_CONFIG_FILE = os.path.abspath(config.CONFIG_FILE)
 
+
 class TestConfiguration(unittest.TestCase):
 
     def test_user_id_validation(self):
-        wrong_user_id = "john doe" # Spaces don't use to be allowed.
+        wrong_user_id = "john doe"  # Spaces don't use to be allowed.
         self._test_wrong_parameter("user_id", wrong_user_id)
         wrong_user_id = ""
         self._test_wrong_parameter("user_id", wrong_user_id)
@@ -69,7 +70,7 @@ class TestConfiguration(unittest.TestCase):
 
     def _test_wrong_parameter(self, parameter, value):
         configuration = config.Configuration()
-        with self.assertRaises(config.ParameterNotValid) as e:
+        with self.assertRaises(config.ParameterNotValid):
             setattr(configuration, parameter, value)
 
     def _test_correct_parameter(self, parameter, value):
@@ -180,6 +181,7 @@ class _OriginalConfigSaved(object):
         config_file = open(self._config_file_name, "wb")
         config_file.write(content)
         config_file.close()
+
 
 def _remove_config():
     os.remove(GEOLOCATE_CONFIG_FILE)
