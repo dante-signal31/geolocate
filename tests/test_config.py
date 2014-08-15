@@ -11,6 +11,8 @@ import sys
 import tempfile
 import unittest
 import unittest.mock
+
+import tests.test_geowrapper as test_geowrapper
 sys.path.append(os.path.abspath(".."))
 import geolocate.classes.config as config
 
@@ -82,7 +84,7 @@ class TestConfiguration(unittest.TestCase):
                       "parameter")
 
     def test_load_configuration_create_default_config_file(self):
-        with _OriginalConfigSaved():
+        with test_geowrapper._OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             config._create_default_config_file()
             configuration = config.load_configuration()
@@ -92,7 +94,7 @@ class TestConfiguration(unittest.TestCase):
                                  "configuration.")
 
     def test_load_configuration_config_not_found(self):
-        with _OriginalConfigSaved():
+        with test_geowrapper._OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             default_configuration = config.Configuration()
             configuration_loaded = config.load_configuration()
@@ -100,7 +102,7 @@ class TestConfiguration(unittest.TestCase):
                              msg="Default configuration not regenerated.")
 
     def test_read_config_file_config_not_found(self):
-        with _OriginalConfigSaved():
+        with test_geowrapper._OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             with self.assertRaises(config.ConfigNotFound,
                                    msg="Config removed but _read_config() "
@@ -109,7 +111,7 @@ class TestConfiguration(unittest.TestCase):
                 config._read_config_file()
 
     def test_save_configuration(self):
-        with _OriginalConfigSaved():
+        with test_geowrapper._OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             configuration_to_save = config.Configuration(user_id="user1984")
             config.save_configuration(configuration_to_save)
@@ -134,53 +136,6 @@ class TestConfiguration(unittest.TestCase):
                          config.DEFAULT_DATABASE_DOWNLOAD_URL)
         self.assertEqual(configuration.update_interval,
                          config.DEFAULT_UPDATE_INTERVAL)
-
-
-class _OriginalConfigSaved(object):
-    """Context manager to store original configuration in a safe place for
-    tests and restore it after them.
-    """
-    def __init__(self, config_file_name=GEOLOCATE_CONFIG_FILE):
-        self._config_file_name = config_file_name
-        self._backup_config_file = tempfile.TemporaryFile("r+b")
-
-    def __enter__(self):
-        self._backup_config()
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self._restore_config()
-        if exc_type is None:
-            return True
-        else:
-            return False
-
-    def _backup_config(self):
-        original_config_file_content = self._get_original_config()
-        self._backup_config_file.write(original_config_file_content)
-
-    def _get_original_config(self):
-        config_file = open(self._config_file_name, "rb")
-        original_config_file_content = config_file.read()
-        # I don't keep config_file open because some tests remove that file
-        # and I know better than to keep a reference to a removed file.
-        config_file.close()
-        return original_config_file_content
-
-    def _restore_config(self):
-        saved_config_file_content = self._get_backup_config()
-        self._write_config(saved_config_file_content)
-
-    def _get_backup_config(self):
-        self._backup_config_file.seek(0)
-        saved_config_file_content = self._backup_config_file.read()
-        self._backup_config_file.close()
-        return saved_config_file_content
-
-    def _write_config(self, content):
-        config_file = open(self._config_file_name, "wb")
-        config_file.write(content)
-        config_file.close()
 
 
 def _remove_config():
