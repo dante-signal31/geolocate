@@ -95,7 +95,7 @@ def _create_non_default_geoip_database():
     return geoip_database
 
 
-class _OriginalFileSaved(object):
+class OriginalFileSaved(object):
     """Context manager to store original files in a safe place for
     tests and restore it after them.
     """
@@ -103,7 +103,6 @@ class _OriginalFileSaved(object):
         """
         :param original_file_path: File name including path.
         :type original_file_path: str
-        :return: None
         """
         self._original_file_path = original_file_path
         self._original_file_name = _get_file_name(original_file_path)
