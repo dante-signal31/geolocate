@@ -11,15 +11,17 @@ import shutil
 import tempfile
 import sys
 import unittest
-import geoip2.database
-import geoip2.webservice
+import geoip2.database as database
+import geoip2.webservice as webservice
+
+import tests.test_config as test_config
 sys.path.append(os.path.abspath(".."))
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 
 
-class TestGeoWrapper(unittest.TestCase):
 
+class TestGeoWrapper(unittest.TestCase):
     def test_geoip_database_add_locators_default_configuration(self):
         geoip_database = _create_default_geoip_database()
         locators_length = len(geoip_database._locators)
@@ -34,7 +36,7 @@ class TestGeoWrapper(unittest.TestCase):
         geoip_database = _create_default_geoip_database()
         connection = geoip_database._locators[0]._db_connection
         self.assertIsInstance(connection,
-                              geoip2.database.Reader)
+                              database.Reader)
 
     def test_local_database_update(self):
         self.assertTrue(False)
@@ -58,7 +60,7 @@ class TestGeoWrapper(unittest.TestCase):
         geoip_database = _create_non_default_geoip_database()
         connection = geoip_database._locators[0]._db_connection
         self.assertIsInstance(connection,
-                              geoip2.webservice.Client)
+                              webservice.Client)
 
     def test_local_database_geo_locator_download_file(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -69,17 +71,24 @@ class TestGeoWrapper(unittest.TestCase):
             self._assert_folder_not_empty(temporary_directory)
 
     def test_local_database_not_found(self):
-        self.assertTrue(False)
+        configuration = config.Configuration()
+        database_path = configuration.local_database_path
+        with test_config.WorkingDirectoryChanged("./geolocate"), \
+                OriginalFileSaved(database_path):
+            os.remove(database_path)
+            self.assertRaises(geoip.LocalDatabaseNotFound,
+                              geoip.LocalDatabaseGeoLocator,
+                              configuration)
 
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
-                         msg="Temporary folder initially not empty.")
+                           msg="Temporary folder initially not empty.")
 
     def _assert_folder_not_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertNotEqual([], files_list,
-                            msg="Nothing downloaded.")
+                              msg="Nothing downloaded.")
 
 
 def _create_default_geoip_database():
@@ -99,6 +108,7 @@ class OriginalFileSaved(object):
     """Context manager to store original files in a safe place for
     tests and restore it after them.
     """
+
     def __init__(self, original_file_path):
         """
         :param original_file_path: File name including path.
@@ -132,7 +142,6 @@ class OriginalFileSaved(object):
         self._backup_directory.cleanup()
 
 
-
 def _get_file_name(file_path):
     """
     :param file_path: File name including path.
@@ -151,6 +160,7 @@ def _create_temporary_directory():
     """
     temporary_directory = tempfile.TemporaryDirectory()
     return temporary_directory
+
 
 if __name__ == '__main__':
     unittest.main()

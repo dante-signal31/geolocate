@@ -8,8 +8,9 @@
 import abc
 import subprocess
 import tempfile
-import geoip2.database
-import geoip2.webservice
+import geoip2.database as database
+import geoip2.webservice as webservice
+import maxminddb
 
 import geolocate.classes.config as config
 
@@ -67,8 +68,8 @@ class WebServiceGeoLocator(GeoLocator):
         :return: None
         """
         super().__init__(configuration)
-        self._db_connection = geoip2.webservice.Client(configuration.user_id,
-                                                       configuration.license_key)
+        self._db_connection = webservice.Client(configuration.user_id,
+                                                configuration.license_key)
 
 class LocalDatabaseGeoLocator(GeoLocator):
 
@@ -77,11 +78,13 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :param configuration: Geolocate configuration.
         :type configuration: config.Configuration
         :return: None
+        :raise: LocalDatabaseNotFound
+        :raise: InvalidLocalDatabase
         """
         super().__init__(configuration)
         self._update_db()
         db_path = configuration.local_database_path
-        self._db_connection = geoip2.database.Reader(db_path)
+        self._db_connection = _open_local_database(db_path)
 
     def _update_db(self):
         """ Download a fresh geolocation database if current is too old.
@@ -149,12 +152,39 @@ def _decompress_file(temporal_directory):
     ## TODO: Implement.
     pass
 
+def _open_local_database(local_database_path):
+    try:
+        database_connection = database.Reader(local_database_path)
+    # except ValueError:
+        # raise LocalDatabaseNotFound(local_database_path)
+    except maxminddb.InvalidDatabaseError:
+        raise InvalidLocalDatabase(local_database_path)
+    else:
+        return database_connection
+
 
 class IPNotFound(Exception):
-
+    """ Searched IP is not in geolocation database."""
     def __init__(self, IP):
+        self.failed_IP = IP
         message = "The address {0} is not in the database.".format(IP)
         Exception.__init__(self, message)
-        self.failed_IP = IP
+
+
+class LocalDatabaseNotFound(OSError):
+    """ Local database file is missing."""
+    def __init__(self, local_database_path):
+        self.local_database_path = local_database_path
+        message = "Local database file is missing"
+        OSError.__init__(self, message)
+
+
+class InvalidLocalDatabase(Exception):
+    """ Local database exists but is corrupted. """
+    def __init__(self, local_database_path):
+        self.local_database_path = local_database_path
+        message = "Local database is invalid."
+        Exception.__init__(self, message)
+
 
 
