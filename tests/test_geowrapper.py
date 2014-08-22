@@ -71,12 +71,10 @@ class TestGeoWrapper(unittest.TestCase):
     def test_local_database_not_found(self):
         configuration = config.Configuration()
         database_path = configuration.local_database_path
-        with test_config.WorkingDirectoryChanged("./geolocate"), \
-                OriginalFileSaved(database_path):
+        with OriginalFileSaved(database_path):
             os.remove(database_path)
-            self.assertRaises(geoip.LocalDatabaseNotFound,
-                              geoip.LocalDatabaseGeoLocator,
-                              configuration)
+            with self.assertRaises(geoip.LocalDatabaseNotFound):
+                _ = geoip.LocalDatabaseGeoLocator(configuration)
 
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
