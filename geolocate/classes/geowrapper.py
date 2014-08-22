@@ -158,8 +158,7 @@ def _open_local_database(local_database_path):
     except FileNotFoundError:
         raise LocalDatabaseNotFound(local_database_path)
     except maxminddb.InvalidDatabaseError:
-        pass
-        # raise InvalidLocalDatabase(local_database_path)
+        raise InvalidLocalDatabase(local_database_path)
     else:
         return database_connection
 
