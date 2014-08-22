@@ -76,6 +76,16 @@ class TestGeoWrapper(unittest.TestCase):
             with self.assertRaises(geoip.LocalDatabaseNotFound):
                 _ = geoip.LocalDatabaseGeoLocator(configuration)
 
+    def test_local_database_invalid(self):
+        configuration = config.Configuration()
+        database_path = configuration.local_database_path
+        with OriginalFileSaved(database_path):
+            os.remove(database_path)
+            _create_invalid_file(database_path)
+            with self.assertRaises(geoip.InvalidLocalDatabase):
+                _ = geoip.LocalDatabaseGeoLocator(configuration)
+
+
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
@@ -156,6 +166,11 @@ def _create_temporary_directory():
     """
     temporary_directory = tempfile.TemporaryDirectory()
     return temporary_directory
+
+
+def _create_invalid_file(file_path):
+    with open(file_path, "w") as file:
+        file.write("invalid_content")
 
 
 if __name__ == '__main__':
