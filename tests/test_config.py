@@ -7,13 +7,11 @@
 """
 
 import os
-import sys
 import tempfile
 import unittest
 import unittest.mock
 
-import tests.test_geowrapper as test_geowrapper
-sys.path.append(os.path.abspath(".."))
+import test_geowrapper
 import geolocate.classes.config as config
 
 GEOLOCATE_CONFIG_FILE = os.path.abspath(config.CONFIG_FILE)

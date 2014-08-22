@@ -9,13 +9,11 @@ import ntpath
 import os
 import shutil
 import tempfile
-import sys
 import unittest
 import geoip2.database as database
 import geoip2.webservice as webservice
 
-import tests.test_config as test_config
-sys.path.append(os.path.abspath(".."))
+import test_config
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 

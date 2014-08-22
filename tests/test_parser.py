@@ -11,7 +11,7 @@ import os
 import sys
 import unittest
 import unittest.mock
-sys.path.append(os.path.abspath(".."))
+
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 import geolocate.classes.parser as parser
