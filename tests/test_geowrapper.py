@@ -13,10 +13,8 @@ import unittest
 import geoip2.database as database
 import geoip2.webservice as webservice
 
-import test_config
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
-
 
 
 class TestGeoWrapper(unittest.TestCase):
@@ -85,16 +83,15 @@ class TestGeoWrapper(unittest.TestCase):
             with self.assertRaises(geoip.InvalidLocalDatabase):
                 _ = geoip.LocalDatabaseGeoLocator(configuration)
 
-
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
-                           msg="Temporary folder initially not empty.")
+                         msg="Temporary folder initially not empty.")
 
     def _assert_folder_not_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertNotEqual([], files_list,
-                              msg="Nothing downloaded.")
+                            msg="Nothing downloaded.")
 
 
 def _create_default_geoip_database():
