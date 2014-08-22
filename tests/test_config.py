@@ -139,6 +139,7 @@ class TestConfiguration(unittest.TestCase):
 def _remove_config():
     os.remove(GEOLOCATE_CONFIG_FILE)
 
+
 class WorkingDirectoryChanged(object):
     """ Sometimes unit test executes at a different path level than usual
     execution code. This context manager restores normal working directory

@@ -14,6 +14,7 @@ import maxminddb
 
 import geolocate.classes.config as config
 
+
 def load_geoip_database(configuration=None):
     ## TODO: Implement this function.
     return GeoIPDatabase(configuration)
@@ -70,6 +71,7 @@ class WebServiceGeoLocator(GeoLocator):
         super().__init__(configuration)
         self._db_connection = webservice.Client(configuration.user_id,
                                                 configuration.license_key)
+
 
 class LocalDatabaseGeoLocator(GeoLocator):
 
