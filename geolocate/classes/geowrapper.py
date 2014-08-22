@@ -155,10 +155,11 @@ def _decompress_file(temporal_directory):
 def _open_local_database(local_database_path):
     try:
         database_connection = database.Reader(local_database_path)
-    # except ValueError:
-        # raise LocalDatabaseNotFound(local_database_path)
+    except FileNotFoundError:
+        raise LocalDatabaseNotFound(local_database_path)
     except maxminddb.InvalidDatabaseError:
-        raise InvalidLocalDatabase(local_database_path)
+        pass
+        # raise InvalidLocalDatabase(local_database_path)
     else:
         return database_connection
 
