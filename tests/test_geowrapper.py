@@ -10,8 +10,10 @@ import os
 import shutil
 import tempfile
 import unittest
+import datetime
 import geoip2.database as database
 import geoip2.webservice as webservice
+import subprocess
 
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
@@ -38,7 +40,12 @@ class TestGeoWrapper(unittest.TestCase):
         self.assertTrue(False)
 
     def test_local_database_too_old(self):
-        self.assertTrue(False)
+        configuration = config.Configuration()
+        with OriginalFileSaved(configuration.local_database_path):
+            _make_database_file_too_old(configuration)
+            local_database = geoip.LocalDatabaseGeoLocator(configuration)
+            self.assertTrue(local_database._local_database_too_old(),
+                            msg="Too old database not detected.")
 
     def test_geoip_database_add_locators_non_default_configuration(self):
         geoip_database = _create_non_default_geoip_database()
@@ -70,7 +77,7 @@ class TestGeoWrapper(unittest.TestCase):
         configuration = config.Configuration()
         database_path = configuration.local_database_path
         with OriginalFileSaved(database_path):
-            os.remove(database_path)
+            _remove_file(database_path)
             with self.assertRaises(geoip.LocalDatabaseNotFound):
                 _ = geoip.LocalDatabaseGeoLocator(configuration)
 
@@ -105,6 +112,19 @@ def _create_non_default_geoip_database():
                                          license_key="XXXXX")
     geoip_database = geoip.load_geoip_database(configuration)
     return geoip_database
+
+
+def _make_database_file_too_old(configuration):
+    too_many_days = configuration.update_interval + 3
+    too_old_date = datetime.date.today() - datetime.timedelta(days=too_many_days)
+    _set_file_timestamp(configuration.local_database_path, too_old_date)
+
+
+def _set_file_timestamp(file_path, too_old_date):
+    date_string_format = "%y%m%d"
+    too_old_date_string = too_old_date.strftime(date_string_format)
+    touch_time_parameter = "-t {0}".format(too_old_date_string)
+    subprocess.call(["touch", touch_time_parameter, file_path])
 
 
 class OriginalFileSaved(object):
@@ -169,6 +189,14 @@ def _create_invalid_file(file_path):
     with open(file_path, "w") as file:
         file.write("invalid_content")
 
+
+def _remove_file(file_path):
+    """
+    :param file_path: Path to file to be removed.
+    :type file_path: str
+    :return: none
+    """
+    os.remove(file_path)
 
 if __name__ == '__main__':
     unittest.main()
