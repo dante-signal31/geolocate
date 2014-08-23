@@ -79,7 +79,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
         """
         :param configuration: Geolocate configuration.
         :type configuration: config.Configuration
-        :return: None
+        :return: none
         :raise: LocalDatabaseNotFound
         :raise: InvalidLocalDatabase
         """
@@ -91,7 +91,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
     def _update_db(self):
         """ Download a fresh geolocation database if current is too old.
 
-        :return: None
+        :return: none
         """
         if self._local_database_too_old():
             self._download_fresh_database()
@@ -122,6 +122,8 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :type temporal_directory: str
         :return: None
         """
+        ## TODO: I don't like using an external downloader. I must implement
+        ## my own one.
         downloads_folder_parameter = "--directory-prefix={0}".format(temporal_directory)
         subprocess.call(["wget", self._configuration.download_url,
                         downloads_folder_parameter])
