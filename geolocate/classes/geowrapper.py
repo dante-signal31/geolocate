@@ -6,6 +6,8 @@
  email: dante.signal31@gmail.com
 """
 import abc
+import datetime
+import os
 import subprocess
 import tempfile
 import geoip2.database as database
@@ -101,8 +103,13 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :return: True if database file has to be refreshed, False if not.
         :rtype: bool
         """
-        ## TODO: Implement.
-        pass
+        database_path = self._configuration.local_database_path
+        update_interval = self._configuration.update_interval
+        last_modification = _get_database_last_modification(database_path)
+        today_date = datetime.date.today()
+        allowed_age = datetime.timedelta(days=update_interval)
+        return _must_be_updated(today_date, last_modification, allowed_age)
+
 
     def _download_fresh_database(self):
         """ Download compressed database, decompress it and place it instead
@@ -166,6 +173,38 @@ def _open_local_database(local_database_path):
     else:
         return database_connection
 
+
+def _get_database_last_modification(database_path):
+    """
+    :param database_path: Path to database file to be evaluated.
+    :type database_path: str
+    :return: Date of file's last modification.
+    :rtype: datetime.date
+    """
+    try:
+        last_modification = os.stat(database_path).st_mtime
+    except FileNotFoundError:
+        raise LocalDatabaseNotFound(database_path)
+    else:
+        date_last_modification = datetime.date.fromtimestamp(last_modification)
+        return date_last_modification
+
+
+def _must_be_updated(today_date, last_modification, allowed_age):
+    """
+    :param today_date: Today's date.
+    :type today_date: datetime.date
+    :param last_modification: Date of file's last modification.
+    :type last_modification: datetime.date
+    :param allowed_age: Maximum age allowed between today and last modification.
+    :type allowed_age: datetime.timedelta
+    :return: True if last modification is older than allowed age; else False.
+    :rtype: bool
+    """
+    if today_date - last_modification > allowed_age:
+        return True
+    else:
+        return False
 
 class IPNotFound(Exception):
     """ Searched IP is not in geolocation database."""

@@ -20,6 +20,7 @@ import geolocate.classes.geowrapper as geoip
 
 
 class TestGeoWrapper(unittest.TestCase):
+
     def test_geoip_database_add_locators_default_configuration(self):
         geoip_database = _create_default_geoip_database()
         locators_length = len(geoip_database._locators)
@@ -123,7 +124,7 @@ def _make_database_file_too_old(configuration):
 def _set_file_timestamp(file_path, too_old_date):
     date_string_format = "%y%m%d"
     too_old_date_string = too_old_date.strftime(date_string_format)
-    touch_time_parameter = "-t {0}".format(too_old_date_string)
+    touch_time_parameter = "-t {0}0000".format(too_old_date_string)
     subprocess.call(["touch", touch_time_parameter, file_path])
 
 
