@@ -118,7 +118,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :return: None
         """
         with tempfile.TemporaryDirectory() as temporary_directory:
-            self._download_file(temporary_directory.name)
+            self._download_file(temporary_directory)
             decompressed_file_path = _decompress_file(temporary_directory)
             self._remove_old_database()
             self._copy_new_database(decompressed_file_path)
