@@ -38,13 +38,17 @@ class TestGeoWrapper(unittest.TestCase):
                               database.Reader)
 
     def test_local_database_update(self):
-        self.assertTrue(False)
+        configuration = config.Configuration()
+        with OriginalFileSaved(configuration.local_database_path):
+            local_database = _create_too_old_database_locator(configuration)
+            local_database._update_db()
+            self.assertFalse(local_database._local_database_too_old(),
+                             msg="Database not updated.")
 
     def test_local_database_too_old(self):
         configuration = config.Configuration()
         with OriginalFileSaved(configuration.local_database_path):
-            _make_database_file_too_old(configuration)
-            local_database = geoip.LocalDatabaseGeoLocator(configuration)
+            local_database = _create_too_old_database_locator(configuration)
             self.assertTrue(local_database._local_database_too_old(),
                             msg="Too old database not detected.")
 
@@ -114,6 +118,10 @@ def _create_non_default_geoip_database():
     geoip_database = geoip.load_geoip_database(configuration)
     return geoip_database
 
+def _create_too_old_database_locator(configuration):
+    _make_database_file_too_old(configuration)
+    local_database = geoip.LocalDatabaseGeoLocator(configuration)
+    return local_database
 
 def _make_database_file_too_old(configuration):
     too_many_days = configuration.update_interval + 3

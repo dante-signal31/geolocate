@@ -110,7 +110,6 @@ class LocalDatabaseGeoLocator(GeoLocator):
         allowed_age = datetime.timedelta(days=update_interval)
         return _must_be_updated(today_date, last_modification, allowed_age)
 
-
     def _download_fresh_database(self):
         """ Download compressed database, decompress it and place it instead
         old one.
