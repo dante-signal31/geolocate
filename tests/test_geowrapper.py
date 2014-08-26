@@ -124,8 +124,8 @@ def _make_database_file_too_old(configuration):
 def _set_file_timestamp(file_path, too_old_date):
     date_string_format = "%y%m%d"
     too_old_date_string = too_old_date.strftime(date_string_format)
-    touch_time_parameter = "-t {0}0000".format(too_old_date_string)
-    subprocess.call(["touch", touch_time_parameter, file_path])
+    touch_time_parameter = "".join([too_old_date_string, "0000"])
+    subprocess.call(["touch", "-t", touch_time_parameter, file_path])
 
 
 class OriginalFileSaved(object):
