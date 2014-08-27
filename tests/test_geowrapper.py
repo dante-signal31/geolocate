@@ -95,6 +95,27 @@ class TestGeoWrapper(unittest.TestCase):
             with self.assertRaises(geoip.InvalidLocalDatabase):
                 _ = geoip.LocalDatabaseGeoLocator(configuration)
 
+    def test_get_new_database_path_name_find_file(self):
+        configuration = config.Configuration()
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            with self.assertRaises(geoip.NotValidDatabaseFileFound):
+                _ = geoip._get_new_database_path_name(temporary_directory)
+            _create_dummy_database_file(configuration, temporary_directory)
+            database_name_path = _get_database_name_path(configuration,
+                                                         temporary_directory)
+            returned_database_name_path = geoip._get_new_database_path_name(temporary_directory)
+            self.assertEqual(database_name_path, returned_database_name_path)
+
+    def test_decompress_file(self):
+        configuration = config.Configuration()
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            _create_dummy_database_compressed(configuration,
+                                              temporary_directory)
+            geoip._decompress_file(temporary_directory)
+            decompressed_file_path = _get_database_name_path(configuration,
+                                                             temporary_directory)
+            self.assertTrue(os.path.exists(decompressed_file_path))
+
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
@@ -118,10 +139,12 @@ def _create_non_default_geoip_database():
     geoip_database = geoip.load_geoip_database(configuration)
     return geoip_database
 
+
 def _create_too_old_database_locator(configuration):
     _make_database_file_too_old(configuration)
     local_database = geoip.LocalDatabaseGeoLocator(configuration)
     return local_database
+
 
 def _make_database_file_too_old(configuration):
     too_many_days = configuration.update_interval + 3
@@ -135,6 +158,30 @@ def _set_file_timestamp(file_path, too_old_date):
     touch_time_parameter = "".join([too_old_date_string, "0000"])
     subprocess.call(["touch", "-t", touch_time_parameter, file_path])
 
+
+def _copy_database_file(configuration, destination_folder):
+    destination_path = os.path.join(destination_folder,
+                                    configuration.local_database_name)
+    shutil.copyfile(configuration.local_database_path, destination_path)
+
+
+def _get_database_name_path(configuration, temporary_directory):
+    name_path = os.path.join(temporary_directory,
+                             configuration.local_database_name)
+    return name_path
+
+
+def _create_dummy_database_file(configuration, temporary_directory):
+    dummy_database_path_name = os.path.join(temporary_directory,
+                                            configuration.local_database_name)
+    subprocess.call(["touch", dummy_database_path_name])
+
+
+def _create_dummy_database_compressed(configuration, temporary_directory):
+    dummy_database_path_name = os.path.join(temporary_directory,
+                                            configuration.local_database_name)
+    subprocess.call(["touch", dummy_database_path_name])
+    subprocess.call(["gzip", dummy_database_path_name])
 
 class OriginalFileSaved(object):
     """Context manager to store original files in a safe place for
