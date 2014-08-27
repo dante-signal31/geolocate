@@ -8,6 +8,7 @@
 import abc
 import datetime
 import os
+import shutil
 import subprocess
 import tempfile
 import geoip2.database as database
@@ -17,13 +18,15 @@ import maxminddb
 import geolocate.classes.config as config
 
 
+DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
+
+
 def load_geoip_database(configuration=None):
-    ## TODO: Implement this function.
+    # # TODO: Implement this function.
     return GeoIPDatabase(configuration)
 
 
 class GeoIPDatabase(object):
-
     def __init__(self, configuration):
         self._configuration = configuration
         self._locators = []
@@ -35,7 +38,7 @@ class GeoIPDatabase(object):
 
     def _add_webservice_locator(self):
         if self._configuration.user_id != config.DEFAULT_USER_ID and \
-                self._configuration.license_key != config.DEFAULT_LICENSE_KEY:
+                        self._configuration.license_key != config.DEFAULT_LICENSE_KEY:
             webservice_locator = WebServiceGeoLocator(self._configuration)
             self._locators.append(webservice_locator)
 
@@ -45,7 +48,6 @@ class GeoIPDatabase(object):
 
 
 class GeoLocator(metaclass=abc.ABCMeta):
-
     @abc.abstractmethod
     def __init__(self, configuration):
         self._configuration = configuration
@@ -63,7 +65,6 @@ class GeoLocator(metaclass=abc.ABCMeta):
 
 
 class WebServiceGeoLocator(GeoLocator):
-
     def __init__(self, configuration):
         """
         :param configuration: Geolocate configuration.
@@ -76,7 +77,6 @@ class WebServiceGeoLocator(GeoLocator):
 
 
 class LocalDatabaseGeoLocator(GeoLocator):
-
     def __init__(self, configuration):
         """
         :param configuration: Geolocate configuration.
@@ -128,18 +128,18 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :type temporal_directory: str
         :return: None
         """
-        ## TODO: I don't like using an external downloader. I must implement
+        # # TODO: I don't like using an external downloader. I must implement
         ## my own one.
         downloads_folder_parameter = "--directory-prefix={0}".format(temporal_directory)
         subprocess.call(["wget", self._configuration.download_url,
-                        downloads_folder_parameter])
+                         downloads_folder_parameter])
 
     def _remove_old_database(self):
         """
         :return: None
         """
-        ## TODO: Implement.
-        pass
+        database_path = self._configuration.local_database_path
+        os.remove(database_path)
 
     def _copy_new_database(self, decompressed_file_path):
         """
@@ -147,8 +147,9 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :type decompressed_file_path: str
         :return: None
         """
-        ## TODO: Implement.
-        pass
+        database_path = self._configuration.local_database_path
+        new_database_path = _get_new_database_path_name(decompressed_file_path)
+        shutil.copyfile(new_database_path, database_path)
 
 
 def _decompress_file(temporal_directory):
@@ -159,8 +160,10 @@ def _decompress_file(temporal_directory):
     :return: Path to decompressed folder.
     :rtype: str
     """
-    ## TODO: Implement.
-    pass
+    ## TODO: Finish this.
+    compressed_file_name = _find_
+    subprocess.call(["gunzip", compressed_file_path])
+
 
 def _open_local_database(local_database_path):
     try:
@@ -205,8 +208,26 @@ def _must_be_updated(today_date, last_modification, allowed_age):
     else:
         return False
 
+
+def _get_new_database_path_name(decompressed_file_path):
+    """
+    :param decompressed_file_path: Path to temporary folder where new database is located.
+    :type decompressed_file_path: str
+    :return: Temporary folder with database filename and extension appended.
+    :rtype: str
+    """
+    decompressed_files = os.listdir(decompressed_file_path)
+    for file in decompressed_files:
+        if file.endswith(DEFAULT_DATABASE_FILE_EXTENSION):
+            new_database_path_name = os.path.join(decompressed_file_path, file)
+            return new_database_path_name
+    else:
+        raise NotValidDatabaseFileFound(decompressed_file_path)
+
+
 class IPNotFound(Exception):
     """ Searched IP is not in geolocation database."""
+
     def __init__(self, IP):
         self.failed_IP = IP
         message = "The address {0} is not in the database.".format(IP)
@@ -215,6 +236,7 @@ class IPNotFound(Exception):
 
 class LocalDatabaseNotFound(OSError):
     """ Local database file is missing."""
+
     def __init__(self, local_database_path):
         self.local_database_path = local_database_path
         message = "Local database file is missing"
@@ -223,10 +245,22 @@ class LocalDatabaseNotFound(OSError):
 
 class InvalidLocalDatabase(Exception):
     """ Local database exists but is corrupted. """
+
     def __init__(self, local_database_path):
         self.local_database_path = local_database_path
         message = "Local database is invalid."
         Exception.__init__(self, message)
+
+
+class NotValidDatabaseFileFound(OSError):
+    """ Raised when a new database pack is downloaded on local, but after
+    decompression no valid database file is found in decompressed folder.
+    """
+
+    def __init__(self, decompressed_database_path):
+        self.decompressed_database_path = decompressed_database_path
+        message = "No valid database found in downloaded file."
+        OSError.__init__(self, message)
 
 
 
