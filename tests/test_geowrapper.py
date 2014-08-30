@@ -55,7 +55,7 @@ class TestGeoWrapper(unittest.TestCase):
             new_date = geoip._get_database_last_modification(database_path)
             delta = (new_date - too_old_date).days
             # If database has been updated, its new date should be newer than
-            # old one.
+            # old one (delta>0).
             self.assertGreater(delta, 0, msg="Old databse not detected.")
 
     def test_geoip_database_add_locators_non_default_configuration(self):
