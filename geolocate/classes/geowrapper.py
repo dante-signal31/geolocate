@@ -118,9 +118,13 @@ class LocalDatabaseGeoLocator(GeoLocator):
         """
         with tempfile.TemporaryDirectory() as temporary_directory:
             self._download_file(temporary_directory)
-            decompressed_file_path = _decompress_file(temporary_directory)
-            self._remove_old_database()
-            self._copy_new_database(decompressed_file_path)
+            try:
+                _decompress_file(temporary_directory)
+            except CompressedFileNotFound as e:
+                _print_compressed_file_not_found_error(e)
+            else:
+                self._remove_old_database()
+                self._copy_new_database(temporary_directory)
 
     def _download_file(self, temporal_directory):
         """
@@ -152,18 +156,35 @@ class LocalDatabaseGeoLocator(GeoLocator):
         shutil.copyfile(new_database_path, database_path)
 
 
-def _decompress_file(temporal_directory):
-    """ Decompress tar.gz file found in temporal_directory.
+def _decompress_file(temporary_directory):
+    """ Decompress tar.gz file found in temporary_directory.
 
-    :param temporal_directory: Folder path to compressed file.
-    :type temporal_directory: str
+    :param temporary_directory: Folder path to compressed file.
+    :type temporary_directoryy: str
     :return: Path to decompressed folder.
     :rtype: str
+    :raise: CompressedFileNotFoud
     """
-    ## TODO: Finish this.
-    compressed_file_name = _find_
-    subprocess.call(["gunzip", compressed_file_path])
+    compressed_file_name_path = _find_compressed_file(temporary_directory)
+    subprocess.call(["gunzip", compressed_file_name_path])
+    return compressed_file_name_path
 
+
+def _find_compressed_file(temporary_directory):
+    """ Find .gz file name downloaded to temporary directory.
+
+    :param temporary_directory: Folder to search compressed file in.
+    :type temporary_directory: str
+    :return: Absolute path name of found file.
+    :rtype: str
+    :raise: CompressedFileNotFound
+    """
+    for file_name in os.listdir(temporary_directory):
+        if file_name.endswith(".gz"):
+            file_name_path = os.path.join(temporary_directory, file_name)
+            return file_name_path
+    else:
+        raise CompressedFileNotFound(temporary_directory)
 
 def _open_local_database(local_database_path):
     try:
@@ -225,6 +246,17 @@ def _get_new_database_path_name(decompressed_file_path):
         raise NotValidDatabaseFileFound(decompressed_file_path)
 
 
+def _print_compressed_file_not_found_error(e):
+    """
+    :param e: Exception caught.
+    :type e: CompressedFileNotFound
+    :return: none
+    """
+    print("Problem decompressing updated database.")
+    path = e.compressed_database_path
+    message = "No .gz file found at {0}".format(path)
+    print(message)
+
 class IPNotFound(Exception):
     """ Searched IP is not in geolocation database."""
 
@@ -262,5 +294,15 @@ class NotValidDatabaseFileFound(OSError):
         message = "No valid database found in downloaded file."
         OSError.__init__(self, message)
 
+
+class CompressedFileNotFound(OSError):
+    """ Raised when no .gz compressed file is found in temporary folder where
+    downloaded data is placed.
+    """
+
+    def __init__(self, compressed_database_path):
+        self.compressed_database_path = compressed_database_path
+        message = "No compressed file found in downloaded data."
+        OSError.__init__(self, message)
 
 
