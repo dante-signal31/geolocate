@@ -47,10 +47,16 @@ class TestGeoWrapper(unittest.TestCase):
 
     def test_local_database_too_old(self):
         configuration = config.Configuration()
-        with OriginalFileSaved(configuration.local_database_path):
-            local_database = _create_too_old_database_locator(configuration)
-            self.assertTrue(local_database._local_database_too_old(),
-                            msg="Too old database not detected.")
+        database_path = configuration.local_database_path
+        with OriginalFileSaved(database_path):
+            _make_database_file_too_old(configuration)
+            too_old_date = geoip._get_database_last_modification(database_path)
+            _ = geoip.LocalDatabaseGeoLocator(configuration)
+            new_date = geoip._get_database_last_modification(database_path)
+            delta = (new_date - too_old_date).days
+            # If database has been updated, its new date should be newer than
+            # old one.
+            self.assertGreater(delta, 0, msg="Old databse not detected.")
 
     def test_geoip_database_add_locators_non_default_configuration(self):
         geoip_database = _create_non_default_geoip_database()
@@ -115,6 +121,19 @@ class TestGeoWrapper(unittest.TestCase):
             decompressed_file_path = _get_database_name_path(configuration,
                                                              temporary_directory)
             self.assertTrue(os.path.exists(decompressed_file_path))
+
+    def test_find_compressed_file(self):
+        configuration = config.Configuration()
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            with self.assertRaises(geoip.CompressedFileNotFound):
+                geoip._find_compressed_file(temporary_directory)
+            _create_dummy_database_compressed(configuration,
+                                              temporary_directory)
+            dummy_path_name = _get_dummy_database_path_name(configuration,
+                                                            temporary_directory)
+            file_name_path = geoip._find_compressed_file(temporary_directory)
+            self.assertTrue(file_name_path, dummy_path_name)
+
 
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
@@ -182,6 +201,15 @@ def _create_dummy_database_compressed(configuration, temporary_directory):
                                             configuration.local_database_name)
     subprocess.call(["touch", dummy_database_path_name])
     subprocess.call(["gzip", dummy_database_path_name])
+
+
+def _get_dummy_database_path_name(configuration, temporary_directory):
+    uncompressed_name_path = os.path.join(temporary_directory,
+                                     configuration.local_database_name)
+    compressed_name_path = ".".join([uncompressed_name_path, "gz"])
+    return compressed_name_path
+
+
 
 class OriginalFileSaved(object):
     """Context manager to store original files in a safe place for
