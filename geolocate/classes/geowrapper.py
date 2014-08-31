@@ -37,8 +37,10 @@ class GeoIPDatabase(object):
         self._add_local_database_locator()
 
     def _add_webservice_locator(self):
-        if self._configuration.user_id != config.DEFAULT_USER_ID and \
-                        self._configuration.license_key != config.DEFAULT_LICENSE_KEY:
+        default_user_id = config.DEFAULT_USER_ID
+        default_license_key = config.DEFAULT_LICENSE_KEY
+        if self._configuration.user_id != default_user_id and \
+                         self._configuration.license_key != default_license_key:
             webservice_locator = WebServiceGeoLocator(self._configuration)
             self._locators.append(webservice_locator)
 
@@ -160,11 +162,12 @@ def _decompress_file(temporary_directory):
     """ Decompress tar.gz file found in temporary_directory.
 
     :param temporary_directory: Folder path to compressed file.
-    :type temporary_directoryy: str
+    :type temporary_directory: str
     :return: Path to decompressed folder.
     :rtype: str
     :raise: CompressedFileNotFoud
     """
+    ## TODO: Implement my own decompressor using built in python libs.
     compressed_file_name_path = _find_compressed_file(temporary_directory)
     subprocess.call(["gunzip", compressed_file_name_path])
     return compressed_file_name_path
@@ -185,6 +188,7 @@ def _find_compressed_file(temporary_directory):
             return file_name_path
     else:
         raise CompressedFileNotFound(temporary_directory)
+
 
 def _open_local_database(local_database_path):
     try:
@@ -257,12 +261,13 @@ def _print_compressed_file_not_found_error(e):
     message = "No .gz file found at {0}".format(path)
     print(message)
 
+
 class IPNotFound(Exception):
     """ Searched IP is not in geolocation database."""
 
-    def __init__(self, IP):
-        self.failed_IP = IP
-        message = "The address {0} is not in the database.".format(IP)
+    def __init__(self, ip_address):
+        self.failed_IP = ip_address
+        message = "The address {0} is not in the database.".format(ip_address)
         Exception.__init__(self, message)
 
 
