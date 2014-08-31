@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-coverage3 run ./run_tests.py
+python3-coverage run --omit "/usr/*" ./run_tests.py
 echo "Removing previous reports..."
 rm -rf htmlcov/*
 rmdir htmlcov
 echo "Removed."
 echo "Building coverage report..."
-coverage3 html
+python3-coverage html
 echo "Coverage report built."
 echo "Let's show report."
 (firefox htmlcov/index.html &> /dev/null &)

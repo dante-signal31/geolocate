@@ -51,12 +51,13 @@ class TestGeoWrapper(unittest.TestCase):
         with OriginalFileSaved(database_path):
             _make_database_file_too_old(configuration)
             too_old_date = geoip._get_database_last_modification(database_path)
+            # LocalDatabaseGeolocator __init__ refreshes database.
             _ = geoip.LocalDatabaseGeoLocator(configuration)
             new_date = geoip._get_database_last_modification(database_path)
             delta = (new_date - too_old_date).days
             # If database has been updated, its new date should be newer than
             # old one (delta>0).
-            self.assertGreater(delta, 0, msg="Old databse not detected.")
+            self.assertGreater(delta, 0, msg="Old database not detected.")
 
     def test_geoip_database_add_locators_non_default_configuration(self):
         geoip_database = _create_non_default_geoip_database()
