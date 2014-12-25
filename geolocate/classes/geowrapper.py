@@ -27,20 +27,37 @@ def load_geoip_database(configuration=None):
 
 
 class GeoIPDatabase(object):
+    """ Location engines may have multiple query methods. This class
+    encapsulates them all in _locators list.
+    """
     def __init__(self, configuration):
+        """
+        :param configuration: Geolocate configuration.
+        :type configuration: config.Configuration
+        """
         self._configuration = configuration
+        # TODO: Maybe a list is not an ideal container for this because it
+        # makes difficult select an specific locator. A dictionary might be
+        # more suitable.
         self._locators = []
         self._add_locators()
 
     def _add_locators(self):
+        """ Add query methods for this location engine. """
         self._add_webservice_locator()
         self._add_local_database_locator()
 
-    def _add_webservice_locator(self):
+    def _web_service_access_configured(self):
         default_user_id = config.DEFAULT_USER_ID
         default_license_key = config.DEFAULT_LICENSE_KEY
         if self._configuration.user_id != default_user_id and \
-                         self._configuration.license_key != default_license_key:
+                        self._configuration.license_key != default_license_key:
+            return True
+        else:
+            return False
+
+    def _add_webservice_locator(self):
+        if self._web_service_access_configured():
             webservice_locator = WebServiceGeoLocator(self._configuration)
             self._locators.append(webservice_locator)
 
