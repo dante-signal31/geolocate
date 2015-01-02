@@ -3,7 +3,7 @@ geolocate
 ================
 This program accepts any text and searchs inside every IP address. With
 each of them geolocate queries Maxmind GeoIP database <http://www.maxmind.com>
-to look for the city and country where IP aor URL is located.
+to look for the city and country where IP or URL is located.
 
 Geolocate is designed to be used in console with pipes and redirections along
 with applications like traceroute, etc.
