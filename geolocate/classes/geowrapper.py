@@ -19,6 +19,8 @@ import geolocate.classes.config as config
 
 
 DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
+# Remember add new locators here or locate won't use them.
+DEFAULT_LOCATORS_PREFERENCE = ["geoip2_webservice", "geoip2_local"]
 GEOIP2_WEBSERVICE_TAG = "geoip2_webservice"
 GEOIP2_LOCAL_TAG = "geoip2_localdatabase"
 
@@ -40,6 +42,7 @@ class GeoIPDatabase(object):
         self._configuration = configuration
         self._locators = {}
         self._add_locators()
+        self._locators_preference = DEFAULT_LOCATORS_PREFERENCE
 
     def _add_locators(self):
         """ Add query methods for this location engine.
@@ -86,6 +89,28 @@ class GeoIPDatabase(object):
     @property
     def geoip2_local(self):
         return self._locators[GEOIP2_LOCAL_TAG]
+
+    @property
+    def locators_preference(self):
+        return self._locators_preference
+
+    @locators_preference.setter
+    def locators_preference(self, new_locator_list):
+        if _unknown_locators(new_locator_list):
+            unknown_locators = _get_unknown_locators(new_locator_list)
+            raise UnknownLocators(unknown_locators)
+        else:
+            self._locators_preference = new_locator_list
+
+    def reset_locators_preference(self):
+        self.locators_preference = DEFAULT_LOCATORS_PREFERENCE
+
+    @property
+    def disabled_locators(self):
+        # default_locators_set = set(DEFAULT_LOCATORS_PREFERENCE)
+        # enabled_locators_set = set
+        # return
+        pass
 
 
 class GeoLocator(metaclass=abc.ABCMeta):
@@ -309,6 +334,34 @@ def _print_compressed_file_not_found_error(e):
     print(message)
 
 
+def _unknown_locators(locator_list):
+    """ Detects if any locator in provided list is not registered as a valid one.
+
+    Enabled locators are registered in DEFAULT_LOCATORS_PREFERENCE constant.
+    Locators have to be one of them to be declared valid.
+
+    :param locator_list: String list with locator names.
+    :type locator_list: list
+    :return: True if any locator in list is not within default locator list, else False.
+    :rtype: bool
+    """
+    locator_set = set(locator_list)
+    default_locator_set = set(DEFAULT_LOCATORS_PREFERENCE)
+    if locator_set <= default_locator_set:
+        return False
+    else:
+        return True
+
+def _get_unknown_locators(locator_list):
+    """
+    :param locator_list: String list with locator names.
+    :type locator_list: list
+    :return: Set with unknown locators detected.
+    :rtype: set
+    """
+    locator_set = set(locator_list)
+    default_locator_set = set(DEFAULT_LOCATORS_PREFERENCE)
+    return locator_set - default_locator_set
 
 class GeoIP2WebServiceNotConfigured(Exception):
     """ GeoIP2 WebService access is still not configured."""
@@ -317,6 +370,7 @@ class GeoIP2WebServiceNotConfigured(Exception):
         message = "You tried a query to GeoIP2 webservice, but no valid " \
                   "credentials were found in configuration."
         Exception.__init__(self, message)
+
 
 class IPNotFound(Exception):
     """ Searched IP is not in geolocation database."""
@@ -365,5 +419,17 @@ class CompressedFileNotFound(OSError):
         self.compressed_database_path = compressed_database_path
         message = "No compressed file found in downloaded data."
         OSError.__init__(self, message)
+
+
+class UnknownLocators(Exception):
+    """ Raised when an still not implemented location is referenced in any
+    operation.
+    """
+
+    def __init__(self, unknown_locators):
+        unknown_locators_text = " ".join(unknown_locators)
+        message = " ".join(["You tried to use non implemented locators:",
+                           unknown_locators_text])
+        Exception.__init__(self, message)
 
 

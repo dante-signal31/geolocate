@@ -11,9 +11,6 @@ import sys
 import geolocate.classes.geowrapper as geowrapper
 
 
-############
-# CLASSES
-############
 class GeolocateInputParser(object):
 
     _VERBOSITY_FIELDS = ["continent_name",
@@ -31,7 +28,6 @@ class GeolocateInputParser(object):
     def __iter__(self):
         return self
 
-    ## TODO: Write unittest for __next__().
     def __next__(self):
         """Read a line from entered text, search for an IP and get
         their geolocation data.
