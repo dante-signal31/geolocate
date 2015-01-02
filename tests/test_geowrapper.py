@@ -10,6 +10,7 @@ import os
 import shutil
 import tempfile
 import unittest
+from unittest.mock import create_autospec
 import datetime
 import geoip2.database as database
 import geoip2.webservice as webservice
@@ -18,6 +19,8 @@ import subprocess
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 
+TEST_IP = "128.101.101.101"
+TEST_IP_CITY = "Minneapolis"
 
 class TestGeoWrapper(unittest.TestCase):
 
@@ -28,12 +31,12 @@ class TestGeoWrapper(unittest.TestCase):
         # activated.
         self.assertEqual(locators_length, 1,
                          msg="Locator list have not the expected length.")
-        self.assertIsInstance(geoip_database._locators[0],
+        self.assertIsInstance(geoip_database.geoip2_local,
                               geoip.LocalDatabaseGeoLocator)
 
     def test_local_database_geo_locator_creation(self):
         geoip_database = _create_default_geoip_database()
-        connection = geoip_database._locators[0]._db_connection
+        connection = geoip_database.geoip2_local._db_connection
         self.assertIsInstance(connection,
                               database.Reader)
 
@@ -59,6 +62,11 @@ class TestGeoWrapper(unittest.TestCase):
             # old one (delta>0).
             self.assertGreater(delta, 0, msg="Old database not detected.")
 
+    def test_local_database_locate(self):
+        geoip_database = _create_default_geoip_database()
+        geodata = geoip_database.geoip2_local.locate(TEST_IP)
+        self.assertEqual(geodata.city.name, TEST_IP_CITY)
+
     def test_geoip_database_add_locators_non_default_configuration(self):
         geoip_database = _create_non_default_geoip_database()
         locators_length = len(geoip_database._locators)
@@ -66,16 +74,21 @@ class TestGeoWrapper(unittest.TestCase):
         # should be activated.
         self.assertEqual(locators_length, 2,
                          msg="Locator list have not the expected length.")
-        self.assertIsInstance(geoip_database._locators[0],
+        self.assertIsInstance(geoip_database.geoip2_webservice,
                               geoip.WebServiceGeoLocator)
-        self.assertIsInstance(geoip_database._locators[1],
+        self.assertIsInstance(geoip_database.geoip2_local,
                               geoip.LocalDatabaseGeoLocator)
 
     def test_web_service_geo_locator_creation(self):
         geoip_database = _create_non_default_geoip_database()
-        connection = geoip_database._locators[0]._db_connection
+        connection = geoip_database.geoip2_webservice._db_connection
         self.assertIsInstance(connection,
                               webservice.Client)
+
+    def test_web_service_geo_locator_failed_creation(self):
+        geoip_database = _create_default_geoip_database()
+        with self.assertRaises(geoip.GeoIP2WebServiceNotConfigured):
+            _ = geoip_database.geoip2_webservice
 
     def test_local_database_geo_locator_download_file(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -87,11 +100,21 @@ class TestGeoWrapper(unittest.TestCase):
 
     def test_local_database_not_found(self):
         configuration = config.Configuration()
-        database_path = configuration.local_database_path
-        with OriginalFileSaved(database_path):
-            _remove_file(database_path)
+        db_path = configuration.local_database_path
+        with OriginalFileSaved(db_path):
+            geolocator = geoip.LocalDatabaseGeoLocator(configuration)
+            _remove_file(db_path)
             with self.assertRaises(geoip.LocalDatabaseNotFound):
-                _ = geoip.LocalDatabaseGeoLocator(configuration)
+                geolocator._db_connection = geoip._open_local_database(db_path)
+
+    def test_local_database_get_modification_time_failed(self):
+        configuration = config.Configuration()
+        db_path = configuration.local_database_path
+        with OriginalFileSaved(db_path):
+            _ = geoip.LocalDatabaseGeoLocator(configuration)
+            _remove_file(db_path)
+            with self.assertRaises(geoip.LocalDatabaseNotFound):
+                geoip._get_database_last_modification(db_path)
 
     def test_local_database_invalid(self):
         configuration = config.Configuration()
@@ -122,6 +145,15 @@ class TestGeoWrapper(unittest.TestCase):
             decompressed_file_path = _get_database_name_path(configuration,
                                                              temporary_directory)
             self.assertTrue(os.path.exists(decompressed_file_path))
+
+    def test_decompress_file_failed(self):
+        # I've didn't get this to pass although debug shows mocked function is
+        # actually executed. I guess I'm not dealing right with mock library.
+        # Nevertheless I leave the test here, someone may fix it.
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            mocked_function = create_autospec(geoip._print_compressed_file_not_found_error)
+            geoip._decompress_file(temporary_directory)
+            self.assertTrue(mocked_function.called)
 
     def test_find_compressed_file(self):
         configuration = config.Configuration()
