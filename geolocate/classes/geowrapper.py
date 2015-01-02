@@ -19,6 +19,8 @@ import geolocate.classes.config as config
 
 
 DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
+GEOIP2_WEBSERVICE_TAG = "geoip2_webservice"
+GEOIP2_LOCAL_TAG = "geoip2_localdatabase"
 
 
 def load_geoip_database(configuration=None):
@@ -36,18 +38,21 @@ class GeoIPDatabase(object):
         :type configuration: config.Configuration
         """
         self._configuration = configuration
-        # TODO: Maybe a list is not an ideal container for this because it
-        # makes difficult select an specific locator. A dictionary might be
-        # more suitable.
-        self._locators = []
+        self._locators = {}
         self._add_locators()
 
     def _add_locators(self):
-        """ Add query methods for this location engine. """
+        """ Add query methods for this location engine.
+        :return: None
+        """
         self._add_webservice_locator()
         self._add_local_database_locator()
 
     def _web_service_access_configured(self):
+        """
+        :return: True if access credential to web service are configured, False if not.
+        :rtype: bool
+        """
         default_user_id = config.DEFAULT_USER_ID
         default_license_key = config.DEFAULT_LICENSE_KEY
         if self._configuration.user_id != default_user_id and \
@@ -57,13 +62,30 @@ class GeoIPDatabase(object):
             return False
 
     def _add_webservice_locator(self):
+        """
+        :return: None
+        """
         if self._web_service_access_configured():
             webservice_locator = WebServiceGeoLocator(self._configuration)
-            self._locators.append(webservice_locator)
+            self._locators[GEOIP2_WEBSERVICE_TAG] = webservice_locator
 
     def _add_local_database_locator(self):
+        """
+        :return: None
+        """
         local_db_locator = LocalDatabaseGeoLocator(self._configuration)
-        self._locators.append(local_db_locator)
+        self._locators[GEOIP2_LOCAL_TAG] = local_db_locator
+
+    @property
+    def geoip2_webservice(self):
+        try:
+            return self._locators[GEOIP2_WEBSERVICE_TAG]
+        except KeyError:
+            raise GeoIP2WebServiceNotConfigured()
+
+    @property
+    def geoip2_local(self):
+        return self._locators[GEOIP2_LOCAL_TAG]
 
 
 class GeoLocator(metaclass=abc.ABCMeta):
@@ -74,6 +96,7 @@ class GeoLocator(metaclass=abc.ABCMeta):
 
     def locate(self, ip):
         """ Get geolocation data from database.
+
         :param ip: IP address we are asking about.
         :type ip: str
         :return: Geolocation data.
@@ -112,7 +135,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
     def _update_db(self):
         """ Download a fresh geolocation database if current is too old.
 
-        :return: none
+        :return: None
         """
         if self._local_database_too_old():
             self._download_fresh_database()
@@ -124,10 +147,14 @@ class LocalDatabaseGeoLocator(GeoLocator):
         """
         database_path = self._configuration.local_database_path
         update_interval = self._configuration.update_interval
-        last_modification = _get_database_last_modification(database_path)
-        today_date = datetime.date.today()
-        allowed_age = datetime.timedelta(days=update_interval)
-        return _must_be_updated(today_date, last_modification, allowed_age)
+        try:
+            last_modification = _get_database_last_modification(database_path)
+        except LocalDatabaseNotFound:
+            return True
+        else:
+            today_date = datetime.date.today()
+            allowed_age = datetime.timedelta(days=update_interval)
+            return _must_be_updated(today_date, last_modification, allowed_age)
 
     def _download_fresh_database(self):
         """ Download compressed database, decompress it and place it instead
@@ -151,8 +178,8 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :type temporal_directory: str
         :return: None
         """
-        # # TODO: I don't like using an external downloader. I must implement
-        ## my own one.
+        # TODO: I don't like using an external downloader. I must implement
+        # my own one.
         downloads_folder_parameter = "--directory-prefix={0}".format(temporal_directory)
         subprocess.call(["wget", self._configuration.download_url,
                          downloads_folder_parameter])
@@ -182,12 +209,15 @@ def _decompress_file(temporary_directory):
     :type temporary_directory: str
     :return: Path to decompressed folder.
     :rtype: str
-    :raise: CompressedFileNotFoud
     """
     ## TODO: Implement my own decompressor using built in python libs.
-    compressed_file_name_path = _find_compressed_file(temporary_directory)
-    subprocess.call(["gunzip", compressed_file_name_path])
-    return compressed_file_name_path
+    try:
+        compressed_file_name_path = _find_compressed_file(temporary_directory)
+    except CompressedFileNotFound as e:
+        _print_compressed_file_not_found_error(e)
+    else:
+        subprocess.call(["gunzip", compressed_file_name_path])
+        return compressed_file_name_path
 
 
 def _find_compressed_file(temporary_directory):
@@ -253,7 +283,7 @@ def _must_be_updated(today_date, last_modification, allowed_age):
 
 def _get_new_database_path_name(decompressed_file_path):
     """
-    :param decompressed_file_path: Path to temporary folder where new database is located.
+    :param decompressed_file_path: Temporary folder path where new database is.
     :type decompressed_file_path: str
     :return: Temporary folder with database filename and extension appended.
     :rtype: str
@@ -278,6 +308,15 @@ def _print_compressed_file_not_found_error(e):
     message = "No .gz file found at {0}".format(path)
     print(message)
 
+
+
+class GeoIP2WebServiceNotConfigured(Exception):
+    """ GeoIP2 WebService access is still not configured."""
+
+    def __init__(self):
+        message = "You tried a query to GeoIP2 webservice, but no valid " \
+                  "credentials were found in configuration."
+        Exception.__init__(self, message)
 
 class IPNotFound(Exception):
     """ Searched IP is not in geolocation database."""
