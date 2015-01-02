@@ -30,7 +30,7 @@ DEFAULT_LOCAL_DATABASE_NAME = "GeoLite2-City.mmdb"
 
 
 class Configuration(object):
-    # I've discovered Maxmind website blocks clients who exceeds a conenection
+    # I've discovered Maxmind website blocks clients who exceeds a connection
     # threshold. If we make a connection each time we run geolocate, in order
     # to check that configured URL is OK, we can end in Maxmind blacklist. So,
     # we have to minimize connections. Check only when configuration is updated
