@@ -55,13 +55,24 @@ class TestGeoWrapper(unittest.TestCase):
         self.assertEqual(geoip.DEFAULT_LOCATORS_PREFERENCE,
                          reseted_locator_preference)
 
-    def tests_geoip_database_get_disabled_locators_preference(self):
+    def test_geoip_database_get_disabled_locators_preference(self):
         new_locator_list = ["geoip2_local",]
         disabled_locator_list = ["geoip2_webservice"]
         geoip_database = _create_default_geoip_database()
         geoip_database.locators_preference = new_locator_list
         detected_disabled_locator_list = list(geoip_database.disabled_locators)
         self.assertEqual(disabled_locator_list,detected_disabled_locator_list)
+
+    def test_geoip_database_locate(self):
+        new_locator_list = ["geoip2_local", "geoip2_webservice"]
+        geoip_database = _create_default_geoip_database()
+        geoip_database.locators_preference = new_locator_list
+        geodata = geoip_database.locate(TEST_IP)
+        self.assertEqual(geodata.city.name, TEST_IP_CITY)
+        new_locator_list = ["geoip2_webservice", "geoip2_local"]
+        geoip_database.locators_preference = new_locator_list
+        geodata = geoip_database.locate(TEST_IP)
+        self.assertEqual(geodata.city.name, TEST_IP_CITY)
 
     def test_local_database_geo_locator_creation(self):
         geoip_database = _create_default_geoip_database()
