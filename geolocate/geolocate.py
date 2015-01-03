@@ -19,6 +19,7 @@ from geolocate.classes import parser
 from geolocate.classes import config
 
 def parse_arguments():
+    # TODO: Implement arguments to deal with preferences of multiple locator.
     verbosity_choices = parser.GeolocateInputParser.VERBOSITY_NUMBERS
     arg_parser = argparse.ArgumentParser(description="Locate IP adresses and "
                                                  "URLs in given text.\n")

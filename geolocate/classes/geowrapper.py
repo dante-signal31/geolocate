@@ -22,7 +22,7 @@ DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
 # Remember add new locators here or locate won't use them.
 DEFAULT_LOCATORS_PREFERENCE = ["geoip2_webservice", "geoip2_local"]
 GEOIP2_WEBSERVICE_TAG = "geoip2_webservice"
-GEOIP2_LOCAL_TAG = "geoip2_localdatabase"
+GEOIP2_LOCAL_TAG = "geoip2_local"
 
 
 def load_geoip_database(configuration=None):
@@ -81,6 +81,11 @@ class GeoIPDatabase(object):
 
     @property
     def geoip2_webservice(self):
+        """
+        :return: GeoIPLocateor to query GeoIP webservice.
+        :rtype: WebServiceGeoLocator
+        :raises: GeoIP2WebServiceNotConfigured
+        """
         try:
             return self._locators[GEOIP2_WEBSERVICE_TAG]
         except KeyError:
@@ -92,6 +97,10 @@ class GeoIPDatabase(object):
 
     @property
     def locators_preference(self):
+        """
+        :return: Enabled locators for this GeoIPDatabase ordered by preference.
+        :rtype: list
+        """
         return self._locators_preference
 
     @locators_preference.setter
@@ -103,14 +112,42 @@ class GeoIPDatabase(object):
             self._locators_preference = new_locator_list
 
     def reset_locators_preference(self):
-        self.locators_preference = DEFAULT_LOCATORS_PREFERENCE
+        """ Reset locators preference to default order.
+        :return: None
+        """
+        self._locators_preference = DEFAULT_LOCATORS_PREFERENCE
 
     @property
     def disabled_locators(self):
-        # default_locators_set = set(DEFAULT_LOCATORS_PREFERENCE)
-        # enabled_locators_set = set
-        # return
-        pass
+        """ Locators registered as default one but not enabled in this GeoIPDatabase.
+
+        :return: Disabled locators in this GeoIPDatabase.
+        :rtype: set
+        """
+        default_locators_set = set(DEFAULT_LOCATORS_PREFERENCE)
+        enabled_locators_set = set(self.locators_preference)
+        disabled_locators_set = default_locators_set - enabled_locators_set
+        return disabled_locators_set
+
+    def locate(self, ip):
+        """ Query enabled locators in preference order until getting any geodata.
+
+        :param ip: IP address to look for.
+        :type ip: IP address string.
+        :return: Location data for that address.
+        :rtype: geoip2.models.City
+        """
+        for locator_id in self.locators_preference:
+            try:
+                locator = self._locators[locator_id]
+                geodata = locator.locate(ip)
+            except:
+                continue
+            else:
+                break
+        else:
+            raise IPNotFound(ip)
+        return geodata
 
 
 class GeoLocator(metaclass=abc.ABCMeta):
@@ -235,7 +272,7 @@ def _decompress_file(temporary_directory):
     :return: Path to decompressed folder.
     :rtype: str
     """
-    ## TODO: Implement my own decompressor using built in python libs.
+    # TODO: Implement my own decompressor using built in python libs.
     try:
         compressed_file_name_path = _find_compressed_file(temporary_directory)
     except CompressedFileNotFound as e:
@@ -352,6 +389,7 @@ def _unknown_locators(locator_list):
     else:
         return True
 
+
 def _get_unknown_locators(locator_list):
     """
     :param locator_list: String list with locator names.
@@ -362,6 +400,7 @@ def _get_unknown_locators(locator_list):
     locator_set = set(locator_list)
     default_locator_set = set(DEFAULT_LOCATORS_PREFERENCE)
     return locator_set - default_locator_set
+
 
 class GeoIP2WebServiceNotConfigured(Exception):
     """ GeoIP2 WebService access is still not configured."""
@@ -431,5 +470,3 @@ class UnknownLocators(Exception):
         message = " ".join(["You tried to use non implemented locators:",
                            unknown_locators_text])
         Exception.__init__(self, message)
-
-

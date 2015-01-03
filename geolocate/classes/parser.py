@@ -105,8 +105,8 @@ def _find_ips_in_text(text):
     :rtype: set
     """
     ipv4_addresses = _find_ipv4_addresses(text)
-    ## TODO: Implement a _find_ipv6_addresses() so in the end we can do:
-    ##          found_addresses = ipv4_addresses.union(ipv6_addresses)
+    # TODO: Implement a _find_ipv6_addresses() so in the end we can do:
+    #          found_addresses = ipv4_addresses.union(ipv6_addresses)
     found_addresses = ipv4_addresses
     return found_addresses
 
