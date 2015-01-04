@@ -11,7 +11,7 @@ import os
 import pickle
 import urllib.parse as urlparse
 
-CONFIG_FILE = "geolocate/etc/geolocate.conf"
+CONFIG_FILE = "etc/geolocate.conf"
 CONFIG_FILE_NAME = os.path.abspath(CONFIG_FILE)
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
@@ -25,7 +25,7 @@ DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
-DEFAULT_LOCAL_DATABASE_FOLDER = "geolocate/local_database/"
+DEFAULT_LOCAL_DATABASE_FOLDER = "local_database/"
 DEFAULT_LOCAL_DATABASE_NAME = "GeoLite2-City.mmdb"
 
 

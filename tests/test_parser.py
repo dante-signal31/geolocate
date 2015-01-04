@@ -11,7 +11,9 @@ import os
 import sys
 import unittest
 import unittest.mock
+from collections import namedtuple
 
+import test_geowrapper
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 import geolocate.classes.parser as parser
@@ -74,11 +76,18 @@ TEST_IP_GEOLOCATION_STRINGS = {
                           "Mountain View | 37.419200000000004, -122.0574]"}
             }
 
-MOCKED_LOCATE_RESPONSE = {"continent_name": "North America",
-                          "country_name": "United States",
-                          "city_name": "Mountain View",
-                          "latitude": "37.419200000000004",
-                          "longitude": "-122.0574"}
+
+locate_response = namedtuple("locate_response", "continent country"
+                                                " city location")
+city_response = namedtuple("city", "name")
+country_response = namedtuple("country", "name")
+continent_response = namedtuple("continent", "name")
+location_response = namedtuple("location", "latitude longitude")
+MOCKED_LOCATE_RESPONSE = locate_response(continent_response("North America"),
+                                         country_response("United States"),
+                                         city_response("Mountain View"),
+                                         location_response("37.419200000000004",
+                                                           "-122.0574"))
 
 IP_NOT_FOUND_MESSAGE = "IP not found"
 
@@ -126,14 +135,14 @@ class TestParser(unittest.TestCase):
         """Check class is able to analyze input line by line and return
         lines with geodata strings included.
         """
-        ## TODO: Remove mocks when geoip is implemented.
         TestInputReader._inject_to_stdin(TEST_STRING)
-        geoip_database = unittest.mock.MagicMock(name="GeoIPDatabase",
-                                                 spec=geoip.GeoIPDatabase)
+        # geoip_database = unittest.mock.MagicMock(name="GeoIPDatabase",
+        #                                          spec=geoip.GeoIPDatabase)
+        geoip_database = test_geowrapper._create_default_geoip_database()
         input_parser = parser.GeolocateInputParser(0, geoip_database)
-        input_parser._geoip_database.locate = unittest.mock.MagicMock(
-                                                    name="locate",
-                                                    side_effect=self.__class__._mocked_locate_results)
+        # input_parser._geoip_database.locate = unittest.mock.MagicMock(
+        #                                             name="locate",
+        #                                             side_effect=self.__class__._mocked_locate_results)
         lines = []
         for line in input_parser:
             lines.append(line)
@@ -158,17 +167,15 @@ class TestParser(unittest.TestCase):
         """Check locate() returns an string correctly formatted for every
         verbosity level.
         """
-        ## TODO: Remove mocked_locate_response when _geoip_database.locate is
-        ## implemented.
         verbosity_levels = parser.GeolocateInputParser.VERBOSITY_LEVELS
         ip_to_find = TEST_IP
         test_configuration = config.Configuration()
         geoip_database = geoip.load_geoip_database(test_configuration)
         for verbosity in verbosity_levels:
             input_parser = parser.GeolocateInputParser(verbosity, geoip_database)
-            ## TODO: Remove Mock when _geoip_database.locate is implemented.
-            input_parser._geoip_database.locate = unittest.mock.MagicMock(
-                                                    return_value=MOCKED_LOCATE_RESPONSE)
+            # ## TODO: Remove Mock when _geoip_database.locate is implemented.
+            # input_parser._geoip_database.locate = unittest.mock.MagicMock(
+            #                                         return_value=MOCKED_LOCATE_RESPONSE)
             location_string = input_parser._locate(ip_to_find)
             self.assertEqual(location_string,
                              TEST_IP_LOCATION_STRINGS[TEST_IP][verbosity])

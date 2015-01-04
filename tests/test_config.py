@@ -15,6 +15,7 @@ import test_geowrapper
 import geolocate.classes.config as config
 
 GEOLOCATE_CONFIG_FILE = os.path.abspath(config.CONFIG_FILE)
+WORKING_DIR = "./"
 
 
 class TestConfiguration(unittest.TestCase):
@@ -50,7 +51,7 @@ class TestConfiguration(unittest.TestCase):
     def test_database_folder_validation(self):
         # Current working dir is at setup.py folder level, so we have to go
         # deeper into geolocate as we would be at production.
-        with WorkingDirectoryChanged("./geolocate"):
+        with WorkingDirectoryChanged(WORKING_DIR):
             wrong_path = "database"
             self._test_wrong_parameter("local_database_folder", wrong_path)
             correct_path = "local_database"
