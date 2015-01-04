@@ -14,13 +14,13 @@ Geolocate is possible thanks to `Maxmind GeoIP database <http://www.maxmind.com>
 and their API.
 """
 import argparse
-from geolocate.classes import geowrapper
-from geolocate.classes import parser
-from geolocate.classes import config
+from classes import geowrapper
+from classes import parser
+from classes import config
 
 def parse_arguments():
     # TODO: Implement arguments to deal with preferences of multiple locator.
-    verbosity_choices = parser.GeolocateInputParser.VERBOSITY_NUMBERS
+    verbosity_choices = parser.GeolocateInputParser.VERBOSITY_LEVELS
     arg_parser = argparse.ArgumentParser(description="Locate IP adresses and "
                                                  "URLs in given text.\n")
     arg_parser.add_argument(dest="text_to_parse", metavar="text to parse",

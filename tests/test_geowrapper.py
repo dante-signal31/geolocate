@@ -21,6 +21,7 @@ import geolocate.classes.geowrapper as geoip
 
 TEST_IP = "128.101.101.101"
 TEST_IP_CITY = "Minneapolis"
+WORKING_DIR = "./"
 
 class TestGeoWrapper(unittest.TestCase):
 

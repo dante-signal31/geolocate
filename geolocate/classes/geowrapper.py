@@ -15,7 +15,7 @@ import geoip2.database as database
 import geoip2.webservice as webservice
 import maxminddb
 
-import geolocate.classes.config as config
+import classes.config as config
 
 
 DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
@@ -26,7 +26,6 @@ GEOIP2_LOCAL_TAG = "geoip2_local"
 
 
 def load_geoip_database(configuration=None):
-    # # TODO: Implement this function.
     return GeoIPDatabase(configuration)
 
 
@@ -161,6 +160,7 @@ class GeoLocator(metaclass=abc.ABCMeta):
 
         :param ip: IP address we are asking about.
         :type ip: str
+        :raises: geoip2.errors.AddressNotFoundError
         :return: Geolocation data.
         :rtype: geoip2.models.City
         """

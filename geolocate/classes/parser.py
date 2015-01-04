@@ -8,7 +8,9 @@
 
 import re
 import sys
-import geolocate.classes.geowrapper as geowrapper
+
+from geowrapper import IPNotFound
+# import classes.geowrapper as geowrapper
 
 
 class GeolocateInputParser(object):
@@ -43,7 +45,7 @@ class GeolocateInputParser(object):
                     location = self._locate(ip)
                     line = _include_location_in_line(line, ip, location)
                 return line
-            except geowrapper.IPNotFound:
+            except IPNotFound:
                 location_string = _join_ip_to_location(ip,
                                                        self.__class__._IP_NOT_FOUND_MESSAGE)
                 line = _include_location_in_line(line, ip, location_string)
@@ -54,7 +56,7 @@ class GeolocateInputParser(object):
         """Query database to get IP address location and format
         location depending of desired verbosity.
 
-        :param ip: String with P address.
+        :param ip: String with IP address.
         :type ip: str
         :return: String with location.
         :rtype: str
@@ -73,25 +75,48 @@ class GeolocateInputParser(object):
         :return: String with location.
         :rtype: str
         """
+        # location_string = "["
+        # verbosity_levels_to_show = range(self._verbosity+1)
+        # VERBOSITY_FIELDS = self.__class__._VERBOSITY_FIELDS
+        # # The more verbosity the more data you append to returned string.
+        # for i in verbosity_levels_to_show:
+        #     if VERBOSITY_FIELDS[i] == "lat-long":
+        #         lat_long = ", ".join([location_data["latitude"],
+        #                               location_data["longitude"]])
+        #         location_string = " | ".join([location_string,
+        #                                       lat_long])
+        #     elif VERBOSITY_FIELDS[i] == "continent_name":
+        #         # Continent_name is first level of verbosity so it is not
+        #         # prepended by an "|"
+        #         location_string = "".join([location_string,
+        #                                   location_data["continent_name"]])
+        #     else:
+        #         location_string = " | ".join([location_string,
+        #                                       location_data[VERBOSITY_FIELDS[i]]
+        #                                      ])
+        # location_string = "".join([location_string, "]"])
+        # return location_string
         location_string = "["
         verbosity_levels_to_show = range(self._verbosity+1)
         VERBOSITY_FIELDS = self.__class__._VERBOSITY_FIELDS
         # The more verbosity the more data you append to returned string.
         for i in verbosity_levels_to_show:
             if VERBOSITY_FIELDS[i] == "lat-long":
-                lat_long = ", ".join([location_data["latitude"],
-                                      location_data["longitude"]])
+                lat_long = ", ".join([str(location_data.location.latitude),
+                                      str(location_data.location.longitude)])
                 location_string = " | ".join([location_string,
                                               lat_long])
             elif VERBOSITY_FIELDS[i] == "continent_name":
                 # Continent_name is first level of verbosity so it is not
                 # prepended by an "|"
                 location_string = "".join([location_string,
-                                          location_data["continent_name"]])
-            else:
+                                          location_data.continent.name])
+            elif VERBOSITY_FIELDS[i] == "city_name":
                 location_string = " | ".join([location_string,
-                                              location_data[VERBOSITY_FIELDS[i]]
-                                             ])
+                                              location_data.city.name])
+            elif VERBOSITY_FIELDS[i] == "country_name":
+                location_string = " | ".join([location_string,
+                                              location_data.country.name])
         location_string = "".join([location_string, "]"])
         return location_string
 
