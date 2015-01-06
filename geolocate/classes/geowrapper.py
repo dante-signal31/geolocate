@@ -15,8 +15,8 @@ import geoip2.database as database
 import geoip2.webservice as webservice
 import maxminddb
 
-import classes.config as config
-
+import config
+import exceptions
 
 DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
 # Remember add new locators here or locate won't use them.
@@ -145,7 +145,7 @@ class GeoIPDatabase(object):
             else:
                 break
         else:
-            raise IPNotFound(ip)
+            raise exceptions.IPNotFound(ip)
         return geodata
 
 
@@ -408,15 +408,6 @@ class GeoIP2WebServiceNotConfigured(Exception):
     def __init__(self):
         message = "You tried a query to GeoIP2 webservice, but no valid " \
                   "credentials were found in configuration."
-        Exception.__init__(self, message)
-
-
-class IPNotFound(Exception):
-    """ Searched IP is not in geolocation database."""
-
-    def __init__(self, ip_address):
-        self.failed_IP = ip_address
-        message = "The address {0} is not in the database.".format(ip_address)
         Exception.__init__(self, message)
 
 
