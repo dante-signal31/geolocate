@@ -7,7 +7,6 @@
 """
 
 import io
-import os
 import sys
 import unittest
 import unittest.mock
