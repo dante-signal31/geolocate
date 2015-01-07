@@ -11,7 +11,6 @@ import sys
 
 import exceptions
 
-
 class GeolocateInputParser(object):
 
     _VERBOSITY_FIELDS = ["continent_name",
@@ -60,7 +59,7 @@ class GeolocateInputParser(object):
         :type ip: str
         :return: String with location.
         :rtype: str
-        :raises: geowrapper.IPNotFound.
+        :raises: exceptions.IPNotFound.
         """
         try:
             location_data = self._geoip_database.locate(ip)

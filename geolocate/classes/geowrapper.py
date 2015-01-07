@@ -112,13 +112,15 @@ class GeoIPDatabase(object):
 
     def reset_locators_preference(self):
         """ Reset locators preference to default order.
+
         :return: None
         """
         self._locators_preference = DEFAULT_LOCATORS_PREFERENCE
 
     @property
     def disabled_locators(self):
-        """ Locators registered as default one but not enabled in this GeoIPDatabase.
+        """ Locators registered as default one but not enabled in this
+        GeoIPDatabase.
 
         :return: Disabled locators in this GeoIPDatabase.
         :rtype: set
@@ -129,7 +131,8 @@ class GeoIPDatabase(object):
         return disabled_locators_set
 
     def locate(self, ip):
-        """ Query enabled locators in preference order until getting any geodata.
+        """ Query enabled locators in preference order until getting any
+        geodata.
 
         :param ip: IP address to look for.
         :type ip: IP address string.
@@ -212,7 +215,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
         try:
             last_modification = _get_database_last_modification(database_path)
         except LocalDatabaseNotFound:
-            return True
+            return True  # This should force a database download.
         else:
             today_date = datetime.date.today()
             allowed_age = datetime.timedelta(days=update_interval)
@@ -440,17 +443,6 @@ class NotValidDatabaseFileFound(OSError):
         OSError.__init__(self, message)
 
 
-class CompressedFileNotFound(OSError):
-    """ Raised when no .gz compressed file is found in temporary folder where
-    downloaded data is placed.
-    """
-
-    def __init__(self, compressed_database_path):
-        self.compressed_database_path = compressed_database_path
-        message = "No compressed file found in downloaded data."
-        OSError.__init__(self, message)
-
-
 class UnknownLocators(Exception):
     """ Raised when an still not implemented location is referenced in any
     operation.
@@ -461,3 +453,14 @@ class UnknownLocators(Exception):
         message = " ".join(["You tried to use non implemented locators:",
                            unknown_locators_text])
         Exception.__init__(self, message)
+
+
+class CompressedFileNotFound(OSError):
+    """ Raised when no .gz compressed file is found in temporary folder where
+    downloaded data is placed.
+    """
+
+    def __init__(self, compressed_database_path):
+        self.compressed_database_path = compressed_database_path
+        message = "No compressed file found in downloaded data."
+        OSError.__init__(self, message)

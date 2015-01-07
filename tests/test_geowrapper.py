@@ -10,7 +10,6 @@ import os
 import shutil
 import tempfile
 import unittest
-from unittest.mock import create_autospec
 import datetime
 import geoip2.database as database
 import geoip2.webservice as webservice
@@ -200,7 +199,7 @@ class TestGeoWrapper(unittest.TestCase):
     def test_find_compressed_file(self):
         configuration = config.Configuration()
         with tempfile.TemporaryDirectory() as temporary_directory:
-            with self.assertRaises(geoip.CompressedFileNotFound):
+            with self.assertRaises(geoip.CompressedFileNotFound) as e:
                 geoip._find_compressed_file(temporary_directory)
             _create_dummy_database_compressed(configuration,
                                               temporary_directory)
