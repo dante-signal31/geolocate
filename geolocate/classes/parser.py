@@ -8,6 +8,7 @@
 
 import re
 import sys
+import collections
 
 from classes import exceptions
 
@@ -86,31 +87,63 @@ class GeolocateInputParser(object):
         location_string = "["
         verbosity_levels_to_show = range(self._verbosity+1)
         VERBOSITY_FIELDS = self.__class__._VERBOSITY_FIELDS
+        location_fields = _find_unknowns(location_data)
         # The more verbosity the more data you append to returned string.
         for i in verbosity_levels_to_show:
             if VERBOSITY_FIELDS[i] == "lat-long":
-                lat_long = ", ".join([str(location_data.location.latitude),
-                                      str(location_data.location.longitude)])
+                lat_long = ", ".join([location_fields["lat-long"]["latitude"],
+                                      location_fields["lat-long"]["longitude"]])
                 location_string = " | ".join([location_string,
                                               lat_long])
             elif VERBOSITY_FIELDS[i] == "continent_name":
                 # Continent_name is first level of verbosity so it is not
                 # prepended by an "|"
                 location_string = "".join([location_string,
-                                          location_data.continent.name])
+                                          location_fields["continent_name"]])
             elif VERBOSITY_FIELDS[i] == "city_name":
-                if location_data.city.name is None:
-                    city_name = "Unknown city"
-                else:
-                    city_name = location_data.city.name
                 location_string = " | ".join([location_string,
-                                              city_name])
+                                              location_fields["city_name"]])
             elif VERBOSITY_FIELDS[i] == "country_name":
                 location_string = " | ".join([location_string,
-                                              location_data.country.name])
+                                              location_fields["country_name"]])
         location_string = "".join([location_string, "]"])
         return location_string
 
+def _find_unknowns(location_data):
+    """ Find any unknown attribute and convert it in a informational string.
+    :param location_data: GeoIP record.
+    :type location_data: geoip2.models.City
+    :return: Informational strings.
+    :rtype: dict
+    """
+    location_strings = _default_location_strings()
+    if location_data.continent.name is None:
+        location_strings["continent_name"] = "Unknown continent"
+    else:
+        location_strings["continent_name"] = location_data.continent.name
+    if location_data.country.name is None:
+        location_strings["country_name"] = "Unknown country"
+    else:
+        location_strings["country_name"] = location_data.country.name
+    if location_data.city.name is None:
+        location_strings["city_name"] = "Unknown city"
+    else:
+        location_strings["city_name"] = location_data.city.name
+    if location_data.location.latitude is None:
+        location_strings["lat-long"]["latitude"] = "Unknown latitude"
+    else:
+        location_strings["lat-long"]["latitude"] = str(location_data.location.latitude)
+    if location_data.location.longitude is None:
+        location_strings["lat-long"]["longitude"] = "Unknown longitude"
+    else:
+        location_strings["lat-long"]["longitude"] = str(location_data.location.longitude)
+    return location_strings
+
+
+def _default_location_strings():
+    location_strings = collections.defaultdict()
+    location_strings["lat-long"] = collections.defaultdict()
+    return location_strings
 
 def _find_ips_in_text(text):
     """Return a set with all IP addresses found in text

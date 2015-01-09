@@ -87,6 +87,27 @@ MOCKED_LOCATE_RESPONSE = locate_response(continent_response("North America"),
                                          city_response("Mountain View"),
                                          location_response("37.419200000000004",
                                                            "-122.0574"))
+MOCKED_LOCATE_RESPONSE_CONTINENT_UNKNOWN = locate_response(continent_response(None),
+                                         country_response("Spain"),
+                                         city_response("Madrid"),
+                                         location_response("40",
+                                                           "-4"))
+MOCKED_LOCATE_RESPONSE_COUNTRY_UNKNOWN = locate_response(continent_response("Europe"),
+                                         country_response(None),
+                                         city_response("Madrid"),
+                                         location_response("40",
+                                                           "-4"))
+MOCKED_LOCATE_RESPONSE_CITY_UNKNOWN = locate_response(continent_response("Europe"),
+                                         country_response("Spain"),
+                                         city_response(None),
+                                         location_response("40",
+                                                           "-4"))
+MOCKED_LOCATE_RESPONSE_LATLONG_UNKNOWN = locate_response(continent_response("Europe"),
+                                         country_response("Spain"),
+                                         city_response("None"),
+                                         location_response(None,
+                                                           None))
+
 
 IP_NOT_FOUND_MESSAGE = "IP not found"
 
@@ -235,6 +256,23 @@ class TestParser(unittest.TestCase):
         obtained_line_list = [line for line in line_generator]
         self.assertEqual(lines, obtained_line_list)
 
+    def test_find_unknowns(self):
+        """ Check unknowns attributes are correctly translated to informational
+        strings.
+        """
+        location_strings = parser._find_unknowns(MOCKED_LOCATE_RESPONSE_CONTINENT_UNKNOWN)
+        self.assertEqual(location_strings["continent_name"], "Unknown continent")
+        self.assertEqual(location_strings["country_name"], "Spain")
+        location_strings = parser._find_unknowns(MOCKED_LOCATE_RESPONSE_COUNTRY_UNKNOWN)
+        self.assertEqual(location_strings["country_name"], "Unknown country")
+        self.assertEqual(location_strings["continent_name"], "Europe")
+        location_strings = parser._find_unknowns(MOCKED_LOCATE_RESPONSE_CITY_UNKNOWN)
+        self.assertEqual(location_strings["city_name"], "Unknown city")
+        self.assertEqual(location_strings["lat-long"]["latitude"], "40")
+        self.assertEqual(location_strings["lat-long"]["longitude"], "-4")
+        location_strings = parser._find_unknowns(MOCKED_LOCATE_RESPONSE_LATLONG_UNKNOWN)
+        self.assertEqual(location_strings["lat-long"]["latitude"], "Unknown latitude")
+        self.assertEqual(location_strings["lat-long"]["longitude"], "Unknown longitude")
 
 
 class TestInputReader(unittest.TestCase):
