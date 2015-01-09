@@ -130,22 +130,31 @@ class TestParser(unittest.TestCase):
     def tearDownClass():
         TestInputReader._restore_stdin()
 
-    def test_GeolocateInputParser_next(self):
+    def test_GeolocateInputParser_next_stdin(self):
         """Check class is able to analyze input line by line and return
         lines with geodata strings included.
         """
         TestInputReader._inject_to_stdin(TEST_STRING)
-        # geoip_database = unittest.mock.MagicMock(name="GeoIPDatabase",
-        #                                          spec=geoip.GeoIPDatabase)
         geoip_database = test_geowrapper._create_default_geoip_database()
-        input_parser = parser.GeolocateInputParser(0, geoip_database)
-        # input_parser._geoip_database.locate = unittest.mock.MagicMock(
-        #                                             name="locate",
-        #                                             side_effect=self.__class__._mocked_locate_results)
+        self._geolocate_input_parsing(0, geoip_database)
+
+    def test_GeolocateInputParser_next_text(self):
+        """Check class is able to analyze a text and return it with geodata
+        strings included.
+        """
+        geoip_database = test_geowrapper._create_default_geoip_database()
+        self._geolocate_input_parsing(0, geoip_database, TEST_STRING, "\n")
+
+    def _geolocate_input_parsing(self, verbosity, geoip_database,
+                                 text=None, join_char=""):
+        if text is None:
+            input_parser = parser.GeolocateInputParser(0, geoip_database)
+        else:
+            input_parser = parser.GeolocateInputParser(0, geoip_database, text)
         lines = []
         for line in input_parser:
             lines.append(line)
-        result_text = _rejoin_lines(lines)
+        result_text = _rejoin_lines(lines, join_char)
         self.assertEqual(result_text,
                          CORRECT_RESULT_TEXT,
                          msg="Rebuilt text and test string doesn't match.\n"
@@ -218,6 +227,15 @@ class TestParser(unittest.TestCase):
                              "Test string:\n {1}".format(returned_line,
                                                          correct_line))
 
+    def test_get_lines(self):
+        """Check text lines are correctly retrieved."""
+        text = "Locate this: 128.101.101.101 \n and this too: 195.113.3.45"
+        lines = ["Locate this: 128.101.101.101 ", " and this too: 195.113.3.45"]
+        line_generator = parser._get_lines(text)
+        obtained_line_list = [line for line in line_generator]
+        self.assertEqual(lines, obtained_line_list)
+
+
 
 class TestInputReader(unittest.TestCase):
 
@@ -264,6 +282,6 @@ def _read_stdin(input_reader):
     return lines_read
 
 
-def _rejoin_lines(lines):
-    rebuilt_text = "".join(lines)
+def _rejoin_lines(lines, join_char=""):
+    rebuilt_text = join_char.join(lines)
     return rebuilt_text
