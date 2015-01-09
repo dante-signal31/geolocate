@@ -9,7 +9,8 @@
 import re
 import sys
 
-import exceptions
+from classes import exceptions
+
 
 class GeolocateInputParser(object):
 
@@ -20,10 +21,13 @@ class GeolocateInputParser(object):
     VERBOSITY_LEVELS = range(len(_VERBOSITY_FIELDS))
     _IP_NOT_FOUND_MESSAGE = "[IP not found]"
 
-    def __init__(self, verbosity, geoip_database):
+    def __init__(self, verbosity, geoip_database, text=None):
         self._verbosity = verbosity
         self._geoip_database = geoip_database
-        self._entered_text = InputReader()
+        if text is None:
+            self._entered_text = InputReader()
+        else:
+            self._entered_text = _get_lines(text)
 
     def __iter__(self):
         return self
@@ -74,7 +78,7 @@ class GeolocateInputParser(object):
         verbosity.
 
         :param location_data: GeoIP record.
-        :type location_data: dict
+        :type location_data: geoip2.models.City
         :return: String with location.
         :rtype: str
         """
@@ -95,8 +99,12 @@ class GeolocateInputParser(object):
                 location_string = "".join([location_string,
                                           location_data.continent.name])
             elif VERBOSITY_FIELDS[i] == "city_name":
+                if location_data.city.name is None:
+                    city_name = "Unknown city"
+                else:
+                    city_name = location_data.city.name
                 location_string = " | ".join([location_string,
-                                              location_data.city.name])
+                                              city_name])
             elif VERBOSITY_FIELDS[i] == "country_name":
                 location_string = " | ".join([location_string,
                                               location_data.country.name])
@@ -156,6 +164,18 @@ def _join_ip_to_location(ip, location):
     """
     location_string = " ".join([ip, location])
     return location_string
+
+
+def _get_lines(text):
+    """ Get a generator object with text lines.
+
+    :param text: Text to parse.
+    :type text: str
+    :return: Text lines.
+    :rtype: generator
+    """
+    lines = (line for line in text.split("\n"))
+    return lines
 
 
 class InputReader(object):

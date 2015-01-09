@@ -15,8 +15,8 @@ import geoip2.database as database
 import geoip2.webservice as webservice
 import maxminddb
 
-import config
-import exceptions
+from classes import config
+from classes import exceptions
 
 DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
 # Remember add new locators here or locate won't use them.
