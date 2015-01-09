@@ -111,6 +111,7 @@ class GeolocateInputParser(object):
 
 def _find_unknowns(location_data):
     """ Find any unknown attribute and convert it in a informational string.
+    
     :param location_data: GeoIP record.
     :type location_data: geoip2.models.City
     :return: Informational strings.
@@ -141,6 +142,11 @@ def _find_unknowns(location_data):
 
 
 def _default_location_strings():
+    """ Generates a dict object suitable for location strings.
+
+    :return: location strings object.
+    :rtype: dict
+    """
     location_strings = collections.defaultdict()
     location_strings["lat-long"] = collections.defaultdict()
     return location_strings
