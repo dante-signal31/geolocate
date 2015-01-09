@@ -45,6 +45,7 @@ class GeoIPDatabase(object):
 
     def _add_locators(self):
         """ Add query methods for this location engine.
+
         :return: None
         """
         self._add_webservice_locator()
