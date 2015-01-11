@@ -88,25 +88,25 @@ MOCKED_LOCATE_RESPONSE = locate_response(continent_response("North America"),
                                          location_response("37.419200000000004",
                                                            "-122.0574"))
 MOCKED_LOCATE_RESPONSE_CONTINENT_UNKNOWN = locate_response(continent_response(None),
-                                         country_response("Spain"),
-                                         city_response("Madrid"),
-                                         location_response("40",
-                                                           "-4"))
+                                                    country_response("Spain"),
+                                                    city_response("Madrid"),
+                                                    location_response("40",
+                                                                      "-4"))
 MOCKED_LOCATE_RESPONSE_COUNTRY_UNKNOWN = locate_response(continent_response("Europe"),
-                                         country_response(None),
-                                         city_response("Madrid"),
-                                         location_response("40",
-                                                           "-4"))
+                                                    country_response(None),
+                                                    city_response("Madrid"),
+                                                    location_response("40",
+                                                                      "-4"))
 MOCKED_LOCATE_RESPONSE_CITY_UNKNOWN = locate_response(continent_response("Europe"),
-                                         country_response("Spain"),
-                                         city_response(None),
-                                         location_response("40",
-                                                           "-4"))
+                                                    country_response("Spain"),
+                                                    city_response(None),
+                                                    location_response("40",
+                                                                      "-4"))
 MOCKED_LOCATE_RESPONSE_LATLONG_UNKNOWN = locate_response(continent_response("Europe"),
-                                         country_response("Spain"),
-                                         city_response("None"),
-                                         location_response(None,
-                                                           None))
+                                                    country_response("Spain"),
+                                                    city_response("None"),
+                                                    location_response(None,
+                                                                      None))
 
 
 IP_NOT_FOUND_MESSAGE = "IP not found"
