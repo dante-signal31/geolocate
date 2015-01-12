@@ -6,6 +6,7 @@
  email: dante.signal31@gmail.com
 """
 
+
 # This class shouldn't be here. Initially it was defined at geowrapper module.
 # Problem is that when class is there, test_GeolocateInputParser_next (at
 # test_parser.TestParser) fails because IPNotFound is not caught in parser's
@@ -17,5 +18,5 @@ class IPNotFound(Exception):
 
     def __init__(self, ip_address):
         self.failed_IP = ip_address
-        message = "The address {0} is not in the database.".format(ip_address)
-        Exception.__init__(self, message)
+        self.message = "The address {0} is not in the database.".format(ip_address)
+        Exception.__init__(self, self.message)
