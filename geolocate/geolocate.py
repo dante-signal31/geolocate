@@ -106,8 +106,6 @@ def process_optional_parameters(arguments):
     :type arguments: Namespace
     :return: None
     """
-    # TODO: Locators preference should be stored in configuration between
-    # sessions. I have to connect configuration and geowrapper objects.
     valid_arguments = _get_user_arguments(arguments)
     for argument in valid_arguments:
         try:
@@ -195,8 +193,8 @@ class NoFunctionAssignedToArgument(Exception):
 
 if __name__ == "__main__":
     arguments = parse_arguments()
-    configuration = config.load_configuration()
     process_optional_parameters(arguments)
+    configuration = config.load_configuration()
     geoip_database = geowrapper.load_geoip_database(configuration)
     input_parser = parser.GeolocateInputParser(arguments.verbosity,
                                                geoip_database,

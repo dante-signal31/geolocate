@@ -19,8 +19,6 @@ from classes import config
 from classes import exceptions
 
 DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
-# Remember add new locators here or locate won't use them.
-DEFAULT_LOCATORS_PREFERENCE = ["geoip2_webservice", "geoip2_local"]
 GEOIP2_WEBSERVICE_TAG = "geoip2_webservice"
 GEOIP2_LOCAL_TAG = "geoip2_local"
 
@@ -41,7 +39,7 @@ class GeoIPDatabase(object):
         self._configuration = configuration
         self._locators = {}
         self._add_locators()
-        self._locators_preference = DEFAULT_LOCATORS_PREFERENCE
+        self._locators_preference = configuration.locators_preference
 
     def _add_locators(self):
         """ Add query methods for this location engine.
@@ -95,42 +93,6 @@ class GeoIPDatabase(object):
     def geoip2_local(self):
         return self._locators[GEOIP2_LOCAL_TAG]
 
-    @property
-    def locators_preference(self):
-        """
-        :return: Enabled locators for this GeoIPDatabase ordered by preference.
-        :rtype: list
-        """
-        return self._locators_preference
-
-    @locators_preference.setter
-    def locators_preference(self, new_locator_list):
-        if _unknown_locators(new_locator_list):
-            unknown_locators = _get_unknown_locators(new_locator_list)
-            raise UnknownLocators(unknown_locators)
-        else:
-            self._locators_preference = new_locator_list
-
-    def reset_locators_preference(self):
-        """ Reset locators preference to default order.
-
-        :return: None
-        """
-        self._locators_preference = DEFAULT_LOCATORS_PREFERENCE
-
-    @property
-    def disabled_locators(self):
-        """ Locators registered as default one but not enabled in this
-        GeoIPDatabase.
-
-        :return: Disabled locators in this GeoIPDatabase.
-        :rtype: set
-        """
-        default_locators_set = set(DEFAULT_LOCATORS_PREFERENCE)
-        enabled_locators_set = set(self.locators_preference)
-        disabled_locators_set = default_locators_set - enabled_locators_set
-        return disabled_locators_set
-
     def locate(self, ip):
         """ Query enabled locators in preference order until getting any
         geodata.
@@ -140,7 +102,7 @@ class GeoIPDatabase(object):
         :return: Location data for that address.
         :rtype: geoip2.models.City
         """
-        for locator_id in self.locators_preference:
+        for locator_id in self._locators_preference:
             try:
                 locator = self._locators[locator_id]
                 geodata = locator.locate(ip)
@@ -375,36 +337,36 @@ def _print_compressed_file_not_found_error(e):
     print(message)
 
 
-def _unknown_locators(locator_list):
-    """ Detects if any locator in provided list is not registered as a valid one.
+# def _unknown_locators(locator_list):
+#     """ Detects if any locator in provided list is not registered as a valid one.
+#
+#     Enabled locators are registered in DEFAULT_LOCATORS_PREFERENCE constant.
+#     Locators have to be one of them to be declared valid.
+#
+#     :param locator_list: String list with locator names.
+#     :type locator_list: list
+#     :return: True if any locator in list is not within default locator list, else False.
+#     :rtype: bool
+#     """
+#     locator_set = set(locator_list)
+#     default_locator_set = set(config.DEFAULT_LOCATORS_PREFERENCE)
+#     if locator_set <= default_locator_set:
+#         return False
+#     else:
+#         return True
 
-    Enabled locators are registered in DEFAULT_LOCATORS_PREFERENCE constant.
-    Locators have to be one of them to be declared valid.
-
-    :param locator_list: String list with locator names.
-    :type locator_list: list
-    :return: True if any locator in list is not within default locator list, else False.
-    :rtype: bool
-    """
-    locator_set = set(locator_list)
-    default_locator_set = set(DEFAULT_LOCATORS_PREFERENCE)
-    if locator_set <= default_locator_set:
-        return False
-    else:
-        return True
-
-
-def _get_unknown_locators(locator_list):
-    """
-    :param locator_list: String list with locator names.
-    :type locator_list: list
-    :return: Set with unknown locators detected.
-    :rtype: set
-    """
-    locator_set = set(locator_list)
-    default_locator_set = set(DEFAULT_LOCATORS_PREFERENCE)
-    return locator_set - default_locator_set
-
+#
+# def _get_unknown_locators(locator_list):
+#     """
+#     :param locator_list: String list with locator names.
+#     :type locator_list: list
+#     :return: Set with unknown locators detected.
+#     :rtype: set
+#     """
+#     locator_set = set(locator_list)
+#     default_locator_set = set(config.DEFAULT_LOCATORS_PREFERENCE)
+#     return locator_set - default_locator_set
+#
 
 class GeoIP2WebServiceNotConfigured(Exception):
     """ GeoIP2 WebService access is still not configured."""
@@ -444,16 +406,16 @@ class NotValidDatabaseFileFound(OSError):
         OSError.__init__(self, message)
 
 
-class UnknownLocators(Exception):
-    """ Raised when an still not implemented location is referenced in any
-    operation.
-    """
-
-    def __init__(self, unknown_locators):
-        unknown_locators_text = " ".join(unknown_locators)
-        message = " ".join(["You tried to use non implemented locators:",
-                           unknown_locators_text])
-        Exception.__init__(self, message)
+# class UnknownLocators(Exception):
+#     """ Raised when an still not implemented location is referenced in any
+#     operation.
+#     """
+#
+#     def __init__(self, unknown_locators):
+#         unknown_locators_text = " ".join(unknown_locators)
+#         message = " ".join(["You tried to use non implemented locators:",
+#                            unknown_locators_text])
+#         Exception.__init__(self, message)
 
 
 class CompressedFileNotFound(OSError):
