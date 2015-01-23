@@ -136,6 +136,34 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(configuration.update_interval,
                          config.DEFAULT_UPDATE_INTERVAL)
 
+    def test_config_get_disabled_locators_preference(self):
+        new_locator_list = ["geoip2_local",]
+        disabled_locator_list = ["geoip2_webservice"]
+        configuration = config.Configuration()
+        configuration.locators_preference = new_locator_list
+        detected_disabled_locator_list = list(configuration.disabled_locators)
+        self.assertEqual(disabled_locator_list,detected_disabled_locator_list)
+
+    def test_config_reset_locators_preference(self):
+        new_locator_list = ["geoip2_local", "geoip2_webservice"]
+        configuration = config.Configuration()
+        configuration.locators_preference = new_locator_list
+        configuration.reset_locators_preference()
+        reseted_locator_preference = list(configuration.locators_preference)
+        self.assertEqual(config.DEFAULT_LOCATORS_PREFERENCE,
+                         reseted_locator_preference)
+
+    def test_config_set_locators_preference_error(self):
+        bad_locator_list = ["dummy", "geoip2_webservice", "geoip2_local"]
+        configuration = config.Configuration()
+        with self.assertRaises(config.UnknownLocators):
+            configuration.locators_preference = bad_locator_list
+
+    def test_config_set_locators_preference(self):
+        new_locator_list = ["geoip2_local", "geoip2_webservice"]
+        configuration = config.Configuration()
+        configuration.locators_preference = new_locator_list
+        self.assertEqual(new_locator_list, configuration.locators_preference)
 
 def _remove_config():
     os.remove(GEOLOCATE_CONFIG_FILE)
