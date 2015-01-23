@@ -142,8 +142,9 @@ def _remove_non_user_attributes(attributes_set):
     """
     # Arguments object returned by ArgumentParser.parse_args() include by
     # default "index" and "count" public attributes. We don't need them so we
-    # strip them off.
-    non_user_attributes = {"index", "count"}
+    # strip them off. Arguments "verbosity" and "text_to_parse" is not an
+    # optional parameter and shouldn't be processed as one.
+    non_user_attributes = {"index", "count", "verbosity", "text_to_parse"}
     return attributes_set.difference(non_user_attributes)
 
 
