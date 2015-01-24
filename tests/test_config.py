@@ -165,6 +165,17 @@ class TestConfiguration(unittest.TestCase):
         configuration.locators_preference = new_locator_list
         self.assertEqual(new_locator_list, configuration.locators_preference)
 
+    def test_config_OpenConfigurationToUpdate(self):
+        correct_configuration = config.Configuration(user_id="test",
+                                                     license_key="key")
+        with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+            with config.OpenConfigurationToUpdate() as f:
+                new_configuration = correct_configuration
+                f.configuration = new_configuration
+            saved_configuration = config.load_configuration()
+            self.assertEqual(saved_configuration, correct_configuration)
+
+
 def _remove_config():
     os.remove(GEOLOCATE_CONFIG_FILE)
 
