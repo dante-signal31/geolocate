@@ -391,3 +391,22 @@ class UnknownLocators(Exception):
         message = " ".join(["You tried to use non implemented locators:",
                            unknown_locators_text])
         Exception.__init__(self, message)
+
+
+class OpenConfigurationToUpdate(object):
+    """ Context manager to get a configuration file and save it automatically.
+    """
+    def __init__(self):
+        self.configuration = load_configuration()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        save_configuration(self.configuration)
+        if exc_type is None:
+            return True
+        else:
+            return False
+
+

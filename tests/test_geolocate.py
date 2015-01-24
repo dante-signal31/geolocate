@@ -7,10 +7,15 @@
 """
 
 from collections import namedtuple
+import io
+import sys
+import os.path
 from unittest.mock import patch
 import unittest
 
 import geolocate.geolocate as geolocate
+import geolocate.classes.config as config
+import tests.test_geowrapper as test_geowrappers
 
 
 ERRONEOUS_ARGUMENT = "erroneous_argument"
@@ -26,6 +31,8 @@ ErroneousArguments = namedtuple("ErroneousArguments",
                                           "show_disabled_locators "
                                           "reset_locators_preference ",
                                           ERRONEOUS_ARGUMENT]))
+
+CONFIGURATION_PATH = os.path.abspath(config.CONFIG_FILE)
 
 class MockedArguments(object):
     """ Used to detect private attributes.
@@ -87,9 +94,101 @@ class TestGeoLocate(unittest.TestCase):
         self.assertEqual(valid_arguments, correct_arguments_set)
 
 
+    def test_show_enabled_locators(self):
+        correct_string = "Enabled locators:\n" \
+                         "geoip2_webservice\n" \
+                         "geoip2_local\n"
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            _reset_locators()
+            with MockedConsoleOutput() as console:
+                geolocate.show_enabled_locators()
+                returned_output = console.output()
+                self.assertEqual(returned_output, correct_string)
+
+    def test_show_disabled_locators(self):
+        correct_string = "Disabled locators:\n" \
+                         "geoip2_webservice\n"
+        enabled_locators = ["geoip2_local",]
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            _set_locators_preference(enabled_locators)
+            with MockedConsoleOutput() as console:
+                geolocate.show_disabled_locators()
+                returned_output = console.output()
+                self.assertEqual(returned_output, correct_string)
+
+    def test_set_locators_preference(self):
+        correct_string = "Enabled locators:\n" \
+                         "geoip2_local\n" \
+                         "geoip2_webservice\n"
+        new_locators_preference = ["geoip2_local", "geoip2_webservice"]
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            _set_locators_preference(new_locators_preference)
+            with MockedConsoleOutput() as console:
+                geolocate.show_enabled_locators()
+                returned_output = console.output()
+                self.assertEqual(returned_output, correct_string)
+
+    def test_reset_locators_preference(self):
+        changed_string = "Enabled locators:\n" \
+                         "geoip2_local\n" \
+                         "geoip2_webservice\n"
+        correct_string = "Enabled locators:\n" \
+                         "geoip2_webservice\n" \
+                         "geoip2_local\n"
+        new_locators_preference = ["geoip2_local", "geoip2_webservice"]
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            _set_locators_preference(new_locators_preference)
+            with MockedConsoleOutput() as console:
+                geolocate.show_enabled_locators()
+                returned_output = console.output()
+                self.assertEqual(returned_output, changed_string)
+                _reset_locators()
+                geolocate.show_enabled_locators()
+                returned_output = console.output()
+                self.assertEqual(returned_output, correct_string)
+
+
+def _reset_locators():
+    with config.OpenConfigurationToUpdate() as f:
+        f.configuration.reset_locators_preference()
+
+
+def _set_locators_preference(new_preference_list):
+    """
+    :param new_preference_list: Locator list ordered by preference.
+    :type new_preference_list: list
+    :return: None
+    """
+    with config.OpenConfigurationToUpdate() as f:
+        f.configuration.locators_preference = new_preference_list
+
 
 def _assert_geolocate_function_called(function_name, arguments):
     target_to_patch = ".".join(["geolocate.geolocate", function_name])
     with patch(target_to_patch) as mocked_function:
         geolocate.process_optional_parameters(arguments)
     return mocked_function.called
+
+
+class MockedConsoleOutput(object):
+    """ Context manager to catch console output. """
+    def __init__(self):
+        self._saved_stdout = sys.stdout
+        self._mocked_stdout = io.StringIO()
+
+    def __enter__(self):
+        sys.stdout = self._mocked_stdout
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stdout = self._saved_stdout
+        if exc_type is None:
+            return True
+        else:
+            return False
+
+    def output(self):
+        """
+        :return: Console output.
+        :rtype: str
+        """
+        return self._mocked_stdout.getvalue().split()
