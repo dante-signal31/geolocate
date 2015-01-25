@@ -109,6 +109,7 @@ class GeolocateInputParser(object):
         location_string = "".join([location_string, "]"])
         return location_string
 
+
 def _find_unknowns(location_data):
     """ Find any unknown attribute and convert it in a informational string.
 
@@ -150,6 +151,7 @@ def _default_location_strings():
     location_strings = collections.defaultdict()
     location_strings["lat-long"] = collections.defaultdict()
     return location_strings
+
 
 def _find_ips_in_text(text):
     """Return a set with all IP addresses found in text

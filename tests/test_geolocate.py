@@ -34,6 +34,7 @@ ErroneousArguments = namedtuple("ErroneousArguments",
 
 CONFIGURATION_PATH = os.path.abspath(config.CONFIG_FILE)
 
+
 class MockedArguments(object):
     """ Used to detect private attributes.
 
@@ -83,7 +84,6 @@ class TestGeoLocate(unittest.TestCase):
             geolocate._execute_function(ERRONEOUS_ARGUMENT, arguments)
         self.assertEqual(e.exception.argument, ERRONEOUS_ARGUMENT)
 
-
     def test_get_user_attributes(self):
         correct_arguments_set = {"show_enabled_locators",
                                  "set_locators_preference",
@@ -92,7 +92,6 @@ class TestGeoLocate(unittest.TestCase):
         test_arguments_object = MockedArguments(True, True, True, True)
         valid_arguments = geolocate._get_user_arguments(test_arguments_object)
         self.assertEqual(valid_arguments, correct_arguments_set)
-
 
     def test_show_enabled_locators(self):
         correct_string = "Enabled locators:\n" \
@@ -108,7 +107,7 @@ class TestGeoLocate(unittest.TestCase):
     def test_show_disabled_locators(self):
         correct_string = "Disabled locators:\n" \
                          "geoip2_webservice\n"
-        enabled_locators = ["geoip2_local",]
+        enabled_locators = ["geoip2_local", ]
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(enabled_locators)
             with MockedConsoleOutput() as console:
@@ -149,21 +148,6 @@ class TestGeoLocate(unittest.TestCase):
                 self.assertEqual(returned_output, correct_string)
 
 
-# def _reset_locators():
-#     with config.OpenConfigurationToUpdate() as f:
-#         f.configuration.reset_locators_preference()
-#
-#
-# def _set_locators_preference(new_preference_list):
-#     """
-#     :param new_preference_list: Locator list ordered by preference.
-#     :type new_preference_list: list
-#     :return: None
-#     """
-#     with config.OpenConfigurationToUpdate() as f:
-#         f.configuration.locators_preference = new_preference_list
-
-
 def _assert_geolocate_function_called(function_name, arguments):
     target_to_patch = ".".join(["geolocate.geolocate", function_name])
     with patch(target_to_patch) as mocked_function:
@@ -195,7 +179,8 @@ class MockedConsoleOutput(object):
         """
         return self._mocked_stdout.getvalue()
 
-    def reset(self):
+    @staticmethod
+    def reset():
         """ Reinit output buffer.
 
         :return: None

@@ -18,7 +18,6 @@ import sys
 from classes import geowrapper
 from classes import parser
 from classes import config
-from classes import exceptions
 
 _must_pass_in_user_arguments = {"show_enabled_locators": False,
                                 "set_locators_preference": True,
@@ -27,17 +26,17 @@ _must_pass_in_user_arguments = {"show_enabled_locators": False,
 
 
 def parse_arguments():
-    # TODO: Include arguments to change default configuration.
     verbosity_choices = parser.GeolocateInputParser.VERBOSITY_LEVELS
     arg_parser = argparse.ArgumentParser(description="Locate IP adresses "
-                                                 "in given text.\n")
+                                                     "in given text.\n")
     arg_parser.add_argument(dest="text_to_parse", metavar="\"text to parse\"",
                             nargs="?", type=str, default=None,
                             help="Text to analyze surrounded by double quotes.")
     arg_parser.add_argument("-v", "--verbosity", dest="verbosity",
                             choices=verbosity_choices, type=int, default=0,
                             help="0-3 The higher the more geodata.")
-    arg_parser.add_argument("-l", "--show_enabled", dest="show_enabled_locators",
+    arg_parser.add_argument("-l", "--show_enabled",
+                            dest="show_enabled_locators",
                             action="store_true", default=False,
                             help="Show enabled locators ordered by preference.")
     arg_parser.add_argument("-p", "--set_preference",
@@ -54,16 +53,13 @@ def parse_arguments():
     return arg_parser.parse_args()
 
 
-
 def show_enabled_locators():
     """ Print in console enabled locators ordered by preference.
 
     :return: None
     """
-    # configuration = config.load_configuration()
-    # enabled_locators = configuration.locators_preference
-    # _print_locators_list("Enabled locators:", enabled_locators)
-    pass
+    enabled_locators = _get_enabled_locators_list()
+    _print_locators_list("Enabled locators:", enabled_locators)
 
 
 def set_locators_preference(arguments):
@@ -73,8 +69,8 @@ def set_locators_preference(arguments):
     :type arguments: Namespace
     :return: None
     """
-    # TODO: Implement.
-    pass
+    with config.OpenConfigurationToUpdate() as f:
+        f.configuration.locators_preference = arguments
 
 
 def show_disabled_locators():
@@ -82,8 +78,10 @@ def show_disabled_locators():
 
     :return: None
     """
-    # TODO: Implement.
-    pass
+    enabled_locators_set = set(_get_enabled_locators_list())
+    complete_locators_set = set(config.DEFAULT_LOCATORS_PREFERENCE)
+    disabled_locators_set = complete_locators_set - enabled_locators_set
+    _print_locators_list("Disabled locators:", disabled_locators_set)
 
 
 def reset_locators_preference():
@@ -91,24 +89,35 @@ def reset_locators_preference():
 
     :return: None
     """
-    # TODO: Implement.
-    pass
+    with config.OpenConfigurationToUpdate() as f:
+        f.configuration.reset_locators_preference()
+
+
+def _get_enabled_locators_list():
+    """
+    :return: Configuration locators preference.
+    :rtype: list
+    """
+    configuration = config.load_configuration()
+    enabled_locators = configuration.locators_preference
+    return enabled_locators
 
 
 def print_lines_parsed(parser):
     for line in parser:
         print(line, end="")
 
+
 def _print_locators_list(header, locators_list):
     """ Print on console a formatted list of locators.
 
     :param header: Title of list.
     :type header: str
-    :param locators_list: Locators to list.
-    :type locators_list: list
+    :param locators_list: Locators list.
+    :type locators_list: list or set
     :return: None
     """
-    components = locators_list
+    components = list(locators_list)
     components.insert(0, header)
     message = "\n".join(components)
     print(message)
@@ -122,12 +131,26 @@ def process_optional_parameters(arguments):
     :type arguments: Namespace
     :return: None
     """
-    valid_arguments = _get_user_arguments(arguments)
-    for argument in valid_arguments:
+    functions_to_execute = _get_functions_to_execute(arguments)
+    # valid_arguments = _get_user_arguments(arguments)
+    for functions in functions_to_execute:
         try:
-            _execute_function(argument, arguments)
+            _execute_function(functions, arguments)
         except NoFunctionAssignedToArgument as e:
             sys.exit(". ".join([e.message, "Exiting"]))
+
+
+def _get_functions_to_execute(arguments):
+    """
+    :param arguments: Arguments object returned by ArgumentParser.parse_args()
+    :type arguments: Namespace
+    :return: Function names set to execute.
+    :rtype: set
+    """
+    valid_arguments = _get_user_arguments(arguments)
+    functions_names_set = {argument for argument in valid_arguments
+                           if getattr(arguments, argument)}
+    return functions_names_set
 
 
 def _get_user_arguments(arguments):
@@ -143,7 +166,8 @@ def _get_user_arguments(arguments):
     :rtype: set
     """
     attribute_list = dir(arguments)
-    public_attributes_set = {argument for argument in attribute_list if not argument.startswith("_")}
+    public_attributes_set = {argument for argument in attribute_list
+                             if not argument.startswith("_")}
     public_attributes_set = _remove_non_user_attributes(public_attributes_set)
     return public_attributes_set
 

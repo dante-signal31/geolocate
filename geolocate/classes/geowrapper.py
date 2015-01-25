@@ -57,7 +57,7 @@ class GeoIPDatabase(object):
         default_user_id = config.DEFAULT_USER_ID
         default_license_key = config.DEFAULT_LICENSE_KEY
         if self._configuration.user_id != default_user_id and \
-                        self._configuration.license_key != default_license_key:
+           self._configuration.license_key != default_license_key:
             return True
         else:
             return False
@@ -337,37 +337,6 @@ def _print_compressed_file_not_found_error(e):
     print(message)
 
 
-# def _unknown_locators(locator_list):
-#     """ Detects if any locator in provided list is not registered as a valid one.
-#
-#     Enabled locators are registered in DEFAULT_LOCATORS_PREFERENCE constant.
-#     Locators have to be one of them to be declared valid.
-#
-#     :param locator_list: String list with locator names.
-#     :type locator_list: list
-#     :return: True if any locator in list is not within default locator list, else False.
-#     :rtype: bool
-#     """
-#     locator_set = set(locator_list)
-#     default_locator_set = set(config.DEFAULT_LOCATORS_PREFERENCE)
-#     if locator_set <= default_locator_set:
-#         return False
-#     else:
-#         return True
-
-#
-# def _get_unknown_locators(locator_list):
-#     """
-#     :param locator_list: String list with locator names.
-#     :type locator_list: list
-#     :return: Set with unknown locators detected.
-#     :rtype: set
-#     """
-#     locator_set = set(locator_list)
-#     default_locator_set = set(config.DEFAULT_LOCATORS_PREFERENCE)
-#     return locator_set - default_locator_set
-#
-
 class GeoIP2WebServiceNotConfigured(Exception):
     """ GeoIP2 WebService access is still not configured."""
 
@@ -404,18 +373,6 @@ class NotValidDatabaseFileFound(OSError):
         self.decompressed_database_path = decompressed_database_path
         message = "No valid database found in downloaded file."
         OSError.__init__(self, message)
-
-
-# class UnknownLocators(Exception):
-#     """ Raised when an still not implemented location is referenced in any
-#     operation.
-#     """
-#
-#     def __init__(self, unknown_locators):
-#         unknown_locators_text = " ".join(unknown_locators)
-#         message = " ".join(["You tried to use non implemented locators:",
-#                            unknown_locators_text])
-#         Exception.__init__(self, message)
 
 
 class CompressedFileNotFound(OSError):
