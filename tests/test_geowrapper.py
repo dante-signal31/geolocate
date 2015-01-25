@@ -17,6 +17,7 @@ import subprocess
 
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
+import tests.console_mocks as console_mocks
 
 TEST_IP = "128.101.101.101"
 TEST_IP_CITY = "Minneapolis"
@@ -178,6 +179,22 @@ class TestGeoWrapper(unittest.TestCase):
                                                             temporary_directory)
             file_name_path = geoip._find_compressed_file(temporary_directory)
             self.assertTrue(file_name_path, dummy_path_name)
+
+    def test_print_compressed_file_not_found_error(self):
+        error_message = "Problem decompressing updated database."
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            with console_mocks.MockedConsoleOutput() as console:
+                geoip._decompress_file(temporary_directory)
+                console_output = console.output()
+                self.assertTrue(error_message in console_output)
+
+    def test_local_database_too_old_local_database_not_found(self):
+        geoip_database = _create_default_geoip_database()
+        configuration = geoip_database._configuration
+        with OriginalFileSaved(configuration.local_database_path):
+            _remove_file(configuration.local_database_path)
+            is_too_old = geoip_database.geoip2_local._local_database_too_old()
+            self.assertTrue(is_too_old)
 
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)

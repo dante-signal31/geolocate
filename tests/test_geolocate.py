@@ -7,14 +7,13 @@
 """
 
 from collections import namedtuple
-import io
-import sys
 import os.path
 from unittest.mock import patch
 import unittest
 
 import geolocate.geolocate as geolocate
 import geolocate.classes.config as config
+import tests.console_mocks as console_mocks
 import tests.test_geowrapper as test_geowrappers
 
 
@@ -99,7 +98,7 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_local\n"
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.reset_locators_preference()
-            with MockedConsoleOutput() as console:
+            with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
                 self.assertEqual(returned_output, correct_string)
@@ -110,7 +109,7 @@ class TestGeoLocate(unittest.TestCase):
         enabled_locators = ["geoip2_local", ]
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(enabled_locators)
-            with MockedConsoleOutput() as console:
+            with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_disabled_locators()
                 returned_output = console.output()
                 self.assertEqual(returned_output, correct_string)
@@ -122,7 +121,7 @@ class TestGeoLocate(unittest.TestCase):
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(new_locators_preference)
-            with MockedConsoleOutput() as console:
+            with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
                 self.assertEqual(returned_output, correct_string)
@@ -137,7 +136,7 @@ class TestGeoLocate(unittest.TestCase):
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(new_locators_preference)
-            with MockedConsoleOutput() as console:
+            with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
                 self.assertEqual(returned_output, changed_string)
@@ -153,37 +152,3 @@ def _assert_geolocate_function_called(function_name, arguments):
     with patch(target_to_patch) as mocked_function:
         geolocate.process_optional_parameters(arguments)
     return mocked_function.called
-
-
-class MockedConsoleOutput(object):
-    """ Context manager to catch console output. """
-    def __init__(self):
-        self._saved_stdout = sys.stdout
-        self._mocked_stdout = io.StringIO()
-
-    def __enter__(self):
-        sys.stdout = self._mocked_stdout
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        sys.stdout = self._saved_stdout
-        if exc_type is None:
-            return True
-        else:
-            return False
-
-    def output(self):
-        """
-        :return: Console output.
-        :rtype: str
-        """
-        return self._mocked_stdout.getvalue()
-
-    @staticmethod
-    def reset():
-        """ Reinit output buffer.
-
-        :return: None
-        """
-        sys.stdout.truncate(0)
-        sys.stdout.seek(0)
