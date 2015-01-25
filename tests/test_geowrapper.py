@@ -179,7 +179,6 @@ class TestGeoWrapper(unittest.TestCase):
             file_name_path = geoip._find_compressed_file(temporary_directory)
             self.assertTrue(file_name_path, dummy_path_name)
 
-
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
@@ -250,10 +249,9 @@ def _create_dummy_database_compressed(configuration, temporary_directory):
 
 def _get_dummy_database_path_name(configuration, temporary_directory):
     uncompressed_name_path = os.path.join(temporary_directory,
-                                     configuration.local_database_name)
+                                          configuration.local_database_name)
     compressed_name_path = ".".join([uncompressed_name_path, "gz"])
     return compressed_name_path
-
 
 
 class OriginalFileSaved(object):

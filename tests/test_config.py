@@ -137,12 +137,12 @@ class TestConfiguration(unittest.TestCase):
                          config.DEFAULT_UPDATE_INTERVAL)
 
     def test_config_get_disabled_locators_preference(self):
-        new_locator_list = ["geoip2_local",]
+        new_locator_list = ["geoip2_local", ]
         disabled_locator_list = ["geoip2_webservice"]
         configuration = config.Configuration()
         configuration.locators_preference = new_locator_list
         detected_disabled_locator_list = list(configuration.disabled_locators)
-        self.assertEqual(disabled_locator_list,detected_disabled_locator_list)
+        self.assertEqual(disabled_locator_list, detected_disabled_locator_list)
 
     def test_config_reset_locators_preference(self):
         new_locator_list = ["geoip2_local", "geoip2_webservice"]
