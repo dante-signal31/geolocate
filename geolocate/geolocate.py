@@ -60,7 +60,9 @@ def show_enabled_locators():
 
     :return: None
     """
-    # TODO: Implement.
+    # configuration = config.load_configuration()
+    # enabled_locators = configuration.locators_preference
+    # _print_locators_list("Enabled locators:", enabled_locators)
     pass
 
 
@@ -96,6 +98,20 @@ def reset_locators_preference():
 def print_lines_parsed(parser):
     for line in parser:
         print(line, end="")
+
+def _print_locators_list(header, locators_list):
+    """ Print on console a formatted list of locators.
+
+    :param header: Title of list.
+    :type header: str
+    :param locators_list: Locators to list.
+    :type locators_list: list
+    :return: None
+    """
+    components = locators_list
+    components.insert(0, header)
+    message = "\n".join(components)
+    print(message)
 
 
 def process_optional_parameters(arguments):

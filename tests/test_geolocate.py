@@ -99,7 +99,7 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_webservice\n" \
                          "geoip2_local\n"
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-            _reset_locators()
+            geolocate.reset_locators_preference()
             with MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
@@ -110,7 +110,7 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_webservice\n"
         enabled_locators = ["geoip2_local",]
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-            _set_locators_preference(enabled_locators)
+            geolocate.set_locators_preference(enabled_locators)
             with MockedConsoleOutput() as console:
                 geolocate.show_disabled_locators()
                 returned_output = console.output()
@@ -122,7 +122,7 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_webservice\n"
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-            _set_locators_preference(new_locators_preference)
+            geolocate.set_locators_preference(new_locators_preference)
             with MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
@@ -137,30 +137,31 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_local\n"
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-            _set_locators_preference(new_locators_preference)
+            geolocate.set_locators_preference(new_locators_preference)
             with MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
                 self.assertEqual(returned_output, changed_string)
-                _reset_locators()
+                console.reset()
+                geolocate.reset_locators_preference()
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
                 self.assertEqual(returned_output, correct_string)
 
 
-def _reset_locators():
-    with config.OpenConfigurationToUpdate() as f:
-        f.configuration.reset_locators_preference()
-
-
-def _set_locators_preference(new_preference_list):
-    """
-    :param new_preference_list: Locator list ordered by preference.
-    :type new_preference_list: list
-    :return: None
-    """
-    with config.OpenConfigurationToUpdate() as f:
-        f.configuration.locators_preference = new_preference_list
+# def _reset_locators():
+#     with config.OpenConfigurationToUpdate() as f:
+#         f.configuration.reset_locators_preference()
+#
+#
+# def _set_locators_preference(new_preference_list):
+#     """
+#     :param new_preference_list: Locator list ordered by preference.
+#     :type new_preference_list: list
+#     :return: None
+#     """
+#     with config.OpenConfigurationToUpdate() as f:
+#         f.configuration.locators_preference = new_preference_list
 
 
 def _assert_geolocate_function_called(function_name, arguments):
@@ -178,6 +179,7 @@ class MockedConsoleOutput(object):
 
     def __enter__(self):
         sys.stdout = self._mocked_stdout
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         sys.stdout = self._saved_stdout
@@ -191,4 +193,12 @@ class MockedConsoleOutput(object):
         :return: Console output.
         :rtype: str
         """
-        return self._mocked_stdout.getvalue().split()
+        return self._mocked_stdout.getvalue()
+
+    def reset(self):
+        """ Reinit output buffer.
+
+        :return: None
+        """
+        sys.stdout.truncate(0)
+        sys.stdout.seek(0)
