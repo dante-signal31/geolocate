@@ -22,16 +22,31 @@ from classes import config
 _must_pass_in_user_arguments = {"show_enabled_locators": False,
                                 "set_locators_preference": True,
                                 "show_disabled_locators": False,
-                                "reset_locators_preference": False}
+                                "reset_locators_preference": False,
+                                "set_user": True,
+                                "set_password": True}
 
 
 def parse_arguments():
     verbosity_choices = parser.GeolocateInputParser.VERBOSITY_LEVELS
     arg_parser = argparse.ArgumentParser(description="Locate IP adresses "
-                                                     "in given text.\n")
-    arg_parser.add_argument(dest="text_to_parse", metavar="\"text to parse\"",
-                            nargs="?", type=str, default=None,
-                            help="Text to analyze surrounded by double quotes.")
+                                                     "in given text.\n",
+                                         epilog="This program is possible "
+                                                "thanks to Maxmind GeoIP "
+                                                "database "
+                                                "<http://www.maxmind.com> and "
+                                                "their API.")
+    data_input_arguments = arg_parser.add_mutually_exclusive_group()
+    data_input_arguments.add_argument(dest="text_to_parse",
+                                      metavar="\"text to parse\"",
+                                      nargs="?", type=str, default=None,
+                                      help="Text to analyze surrounded by "
+                                           "double quotes.")
+    data_input_arguments.add_argument("-s", "--stream",
+                                      dest="stream_mode",
+                                      action="store_true", default=False,
+                                      help="Program will analyze piped output "
+                                           "from another program.")
     arg_parser.add_argument("-v", "--verbosity", dest="verbosity",
                             choices=verbosity_choices, type=int, default=0,
                             help="0-3 The higher the more geodata.")
@@ -41,15 +56,25 @@ def parse_arguments():
                             help="Show enabled locators ordered by preference.")
     arg_parser.add_argument("-p", "--set_preference",
                             dest="set_locators_preference",
-                            nargs="?", type=list, default=None,
+                            nargs="*", default=None,
                             help="Set preferred locator order.",
-                            metavar="locator1 locator2 locator3")
+                            metavar="locator")
     arg_parser.add_argument("-d", "--show_disabled",
                             dest="show_disabled_locators", action="store_true",
                             default=False, help="Show disabled locators.")
     arg_parser.add_argument("-r", "--reset", dest="reset_locators_preference",
                             action="store_true", default=False,
                             help="Restore default locator order.")
+    arg_parser.add_argument("-u", "--set_user",
+                            dest="set_user",
+                            type=str, default=None,
+                            help="Set user for webservice database access.",
+                            metavar="account_id")
+    arg_parser.add_argument("-w", "--set_password",
+                            dest="set_password",
+                            type=str, default=None,
+                            help="Set password for webservice database access.",
+                            metavar="account_password")
     return arg_parser.parse_args()
 
 
@@ -70,7 +95,8 @@ def set_locators_preference(arguments):
     :return: None
     """
     with config.OpenConfigurationToUpdate() as f:
-        f.configuration.locators_preference = arguments
+        f.configuration.locators_preference = arguments.set_locators_preference
+
 
 
 def show_disabled_locators():
@@ -103,6 +129,28 @@ def _get_enabled_locators_list():
     return enabled_locators
 
 
+def set_user(arguments):
+    """ Set user for webservice database access.
+
+    :param arguments:  Arguments object returned by ArgumentParser.parse_args()
+    :type arguments: Namespace
+    :return: None
+    """
+    # TODO: Implement.
+    pass
+
+
+def set_password(arguments):
+    """ Set password for webservice database access.
+
+    :param arguments:  Arguments object returned by ArgumentParser.parse_args()
+    :type arguments: Namespace
+    :return: None
+    """
+    # TODO: Implement.
+    pass
+
+
 def print_lines_parsed(parser):
     for line in parser:
         print(line, end="")
@@ -132,11 +180,10 @@ def process_optional_parameters(arguments):
     :return: None
     """
     functions_to_execute = _get_functions_to_execute(arguments)
-    # valid_arguments = _get_user_arguments(arguments)
     for functions in functions_to_execute:
         try:
             _execute_function(functions, arguments)
-        except NoFunctionAssignedToArgument as e:
+        except (NoFunctionAssignedToArgument, config.UnknownLocators) as e:
             sys.exit(". ".join([e.message, "Exiting"]))
 
 
@@ -237,8 +284,9 @@ if __name__ == "__main__":
     process_optional_parameters(arguments)
     configuration = config.load_configuration()
     geoip_database = geowrapper.load_geoip_database(configuration)
-    input_parser = parser.GeolocateInputParser(arguments.verbosity,
-                                               geoip_database,
-                                               arguments.text_to_parse)
-    print_lines_parsed(input_parser)
+    if arguments.text_to_parse or arguments.stream_mode:
+        input_parser = parser.GeolocateInputParser(arguments.verbosity,
+                                           geoip_database,
+                                           arguments.text_to_parse)
+        print_lines_parsed(input_parser)
     print()

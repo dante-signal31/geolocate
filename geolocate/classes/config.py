@@ -388,9 +388,9 @@ class UnknownLocators(Exception):
 
     def __init__(self, unknown_locators):
         unknown_locators_text = " ".join(unknown_locators)
-        message = " ".join(["You tried to use non implemented locators:",
-                           unknown_locators_text])
-        Exception.__init__(self, message)
+        self.message = " ".join(["You tried to use not implemented locators:",
+                                 unknown_locators_text])
+        Exception.__init__(self, self.message)
 
 
 class OpenConfigurationToUpdate(object):

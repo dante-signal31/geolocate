@@ -103,6 +103,7 @@ class GeoIPDatabase(object):
         :rtype: geoip2.models.City
         """
         for locator_id in self._locators_preference:
+            # TODO: Try to disable webservice to see if this is really working.
             try:
                 locator = self._locators[locator_id]
                 geodata = locator.locate(ip)
