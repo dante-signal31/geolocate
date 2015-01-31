@@ -107,8 +107,9 @@ class TestGeoLocate(unittest.TestCase):
         correct_string = "Disabled locators:\n" \
                          "geoip2_webservice\n"
         enabled_locators = ["geoip2_local", ]
+        mocked_arguments = Arguments(False, enabled_locators, False, False)
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_locators_preference(enabled_locators)
+            geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_disabled_locators()
                 returned_output = console.output()
@@ -119,8 +120,10 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_local\n" \
                          "geoip2_webservice\n"
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
+        mocked_arguments = Arguments(False, new_locators_preference, False,
+                                     False)
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_locators_preference(new_locators_preference)
+            geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
@@ -134,8 +137,10 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_webservice\n" \
                          "geoip2_local\n"
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
+        mocked_arguments = Arguments(False, new_locators_preference, False,
+                                     False)
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_locators_preference(new_locators_preference)
+            geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
                 returned_output = console.output()
