@@ -19,13 +19,16 @@ from classes import geowrapper
 from classes import parser
 from classes import config
 
-_must_pass_in_user_arguments = {"show_enabled_locators": False,
+# These arguments activate functions with their same name. True or False depends
+# on passing in user arguments to called function or not.
+MUST_PASS_IN_USER_ARGUMENTS = {"show_enabled_locators": False,
                                 "set_locators_preference": True,
                                 "show_disabled_locators": False,
                                 "reset_locators_preference": False,
                                 "set_user": True,
                                 "set_password": True}
-
+# This arguments don't activate a function with their same name.
+NOT_CALLABLE_ARGUMENTS = {"verbosity", "text_to_parse", "stream_mode"}
 
 def parse_arguments():
     verbosity_choices = parser.GeolocateInputParser.VERBOSITY_LEVELS
@@ -231,9 +234,9 @@ def _remove_non_user_attributes(attributes_set):
     # default "index" and "count" public attributes. We don't need them so we
     # strip them off. Arguments "verbosity", "text_to_parse" and "stream_mode"
     # is not an optional parameter and shouldn't be processed as one.
-    non_user_attributes = {"index", "count", "verbosity", "text_to_parse",
-                           "stream_mode"}
-    return attributes_set.difference(non_user_attributes)
+    non_user_attributes = {"index", "count"} | NOT_CALLABLE_ARGUMENTS
+    user_attributes = attributes_set.difference(non_user_attributes)
+    return user_attributes
 
 
 def _execute_function(argument, arguments):
@@ -246,8 +249,8 @@ def _execute_function(argument, arguments):
     :raise: NoFunctionAssignedToArgument
     """
     try:
-        if _must_pass_in_user_arguments[argument]:
-            # Arguments names are equal to names of function to call.
+        if MUST_PASS_IN_USER_ARGUMENTS[argument]:
+            # Arguments names are equal to names of functions to call.
             _call_function(argument, arguments)
         else:
             _call_function(argument)
