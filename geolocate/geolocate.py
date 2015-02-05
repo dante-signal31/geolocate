@@ -109,7 +109,6 @@ def set_locators_preference(arguments):
         f.configuration.locators_preference = arguments.set_locators_preference
 
 
-
 def show_disabled_locators():
     """ Print in console enabled locators ordered by preference.
 
@@ -147,7 +146,8 @@ def set_user(arguments):
     :type arguments: Namespace
     :return: None
     """
-    pass
+    with config.OpenConfigurationToUpdate() as f:
+        f.configuration.user_id = arguments.set_user
 
 
 def set_password(arguments):
@@ -157,8 +157,8 @@ def set_password(arguments):
     :type arguments: Namespace
     :return: None
     """
-    # TODO: Implement.
-    pass
+    with config.OpenConfigurationToUpdate() as f:
+        f.configuration.license_key = arguments.set_password
 
 
 def show_user():
@@ -166,8 +166,10 @@ def show_user():
 
     :return: None
     """
-    # TODO: Implement
-    pass
+    configuration = config.load_configuration()
+    output_string = "User:\n" \
+                    "{0}".format(configuration.user_id)
+    print(output_string)
 
 
 def show_password():
@@ -175,8 +177,10 @@ def show_password():
 
     :return: None
     """
-    # TODO: Implement.
-    pass
+    configuration = config.load_configuration()
+    output_string = "Password:\n" \
+                    "{0}".format(configuration.license_key)
+    print(output_string)
 
 
 def print_lines_parsed(parser):
@@ -315,7 +319,7 @@ if __name__ == "__main__":
     geoip_database = geowrapper.load_geoip_database(configuration)
     if arguments.text_to_parse or arguments.stream_mode:
         input_parser = parser.GeolocateInputParser(arguments.verbosity,
-                                           geoip_database,
-                                           arguments.text_to_parse)
+                                                   geoip_database,
+                                                   arguments.text_to_parse)
         print_lines_parsed(input_parser)
     print()

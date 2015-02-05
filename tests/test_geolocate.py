@@ -192,7 +192,7 @@ class TestGeoLocate(unittest.TestCase):
                           "{0}\n".format(password)
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             new_configuration = config.Configuration()
-            new_configuration.user_id = password
+            new_configuration.license_key = password
             config.save_configuration(new_configuration)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_password()
