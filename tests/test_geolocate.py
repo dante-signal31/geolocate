@@ -22,7 +22,9 @@ ERRONEOUS_ARGUMENT = "erroneous_argument"
 Arguments = namedtuple("Arguments", "show_enabled_locators "
                                     "set_locators_preference "
                                     "show_disabled_locators "
-                                    "reset_locators_preference ")
+                                    "reset_locators_preference "
+                                    "set_user "
+                                    "set_password")
 
 ErroneousArguments = namedtuple("ErroneousArguments",
                                 " ".join(["show_enabled_locators "
@@ -53,26 +55,26 @@ class MockedArguments(object):
 class TestGeoLocate(unittest.TestCase):
 
     def test_process_optional_parameters_show_enabled_locators(self):
-        arguments = Arguments(True, None, False, False)
+        arguments = Arguments(True, None, False, False, None, None)
         result = _assert_geolocate_function_called("show_enabled_locators",
                                                    arguments)
         self.assertTrue(result)
 
     def test_process_optional_parameters_set_locators_preference(self):
         arguments = Arguments(False, ["geoip2_local", "geoip2_webservice"],
-                              False, False)
+                              False, False, None, None)
         result = _assert_geolocate_function_called("set_locators_preference",
                                                    arguments)
         self.assertTrue(result)
 
     def test_process_optional_parameters_show_disabled_locators(self):
-        arguments = Arguments(False, None, True, False)
+        arguments = Arguments(False, None, True, False, None, None)
         result = _assert_geolocate_function_called("show_disabled_locators",
                                                    arguments)
         self.assertTrue(result)
 
     def test_process_optional_parameters_reset_locators_preference(self):
-        arguments = Arguments(False, None, False, True)
+        arguments = Arguments(False, None, False, True, None, None)
         result = _assert_geolocate_function_called("reset_locators_preference",
                                                    arguments)
         self.assertTrue(result)
@@ -100,20 +102,19 @@ class TestGeoLocate(unittest.TestCase):
             geolocate.reset_locators_preference()
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
-                returned_output = console.output()
-                self.assertEqual(returned_output, correct_string)
+                self._assertConsoleOutputEqual(correct_string, console)
 
     def test_show_disabled_locators(self):
         correct_string = "Disabled locators:\n" \
                          "geoip2_webservice\n"
         enabled_locators = ["geoip2_local", ]
-        mocked_arguments = Arguments(False, enabled_locators, False, False)
+        mocked_arguments = Arguments(False, enabled_locators, False, False,
+                                     None, None)
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_disabled_locators()
-                returned_output = console.output()
-                self.assertEqual(returned_output, correct_string)
+                self._assertConsoleOutputEqual(correct_string, console)
 
     def test_set_locators_preference(self):
         correct_string = "Enabled locators:\n" \
@@ -121,13 +122,12 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_webservice\n"
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         mocked_arguments = Arguments(False, new_locators_preference, False,
-                                     False)
+                                     False, None, None)
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
-                returned_output = console.output()
-                self.assertEqual(returned_output, correct_string)
+                self._assertConsoleOutputEqual(correct_string, console)
 
     def test_reset_locators_preference(self):
         changed_string = "Enabled locators:\n" \
@@ -138,7 +138,7 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_local\n"
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         mocked_arguments = Arguments(False, new_locators_preference, False,
-                                     False)
+                                     False, None, None)
         with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
@@ -148,8 +148,59 @@ class TestGeoLocate(unittest.TestCase):
                 console.reset()
                 geolocate.reset_locators_preference()
                 geolocate.show_enabled_locators()
-                returned_output = console.output()
-                self.assertEqual(returned_output, correct_string)
+                self._assertConsoleOutputEqual(correct_string, console)
+
+    def test_set_user(self):
+        user = "user_2015"
+        returned_string = "User:\n" \
+                          "{0}\n".format(user)
+        mocked_arguments = Arguments(False, None, False,
+                                     False, user, None)
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.set_user(mocked_arguments)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_user()
+                self._assertConsoleOutputEqual(returned_string, console)
+
+    def test_set_password(self):
+        password = "mocked_password"
+        returned_string = "Password:\n" \
+                          "{0}\n".format(password)
+        mocked_arguments = Arguments(False, None, False, False, None,
+                                     password)
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.set_password(mocked_arguments)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_password()
+                self._assertConsoleOutputEqual(returned_string, console)
+
+    def test_show_user(self):
+        user = "user_2015"
+        returned_string = "User:\n" \
+                          "{0}\n".format(user)
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            new_configuration = config.Configuration()
+            new_configuration.user_id = user
+            config.save_configuration(new_configuration)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_user()
+                self._assertConsoleOutputEqual(returned_string, console)
+
+    def test_show_password(self):
+        password = "mocked_password"
+        returned_string = "Password:\n" \
+                          "{0}\n".format(password)
+        with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            new_configuration = config.Configuration()
+            new_configuration.user_id = password
+            config.save_configuration(new_configuration)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_password()
+                self._assertConsoleOutputEqual(returned_string, console)
+
+    def _assertConsoleOutputEqual(self, string_to_match, console):
+        returned_output = console.output()
+        self.assertEqual(returned_output, string_to_match)
 
 
 def _assert_geolocate_function_called(function_name, arguments):
@@ -157,3 +208,4 @@ def _assert_geolocate_function_called(function_name, arguments):
     with patch(target_to_patch) as mocked_function:
         geolocate.process_optional_parameters(arguments)
     return mocked_function.called
+
