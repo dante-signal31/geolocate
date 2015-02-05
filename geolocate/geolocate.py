@@ -82,7 +82,7 @@ def parse_arguments():
                             dest="show_user", action="store_true",
                             default=False, help="Show user configured for "
                                                 "webservice access.")
-    arg_parser.add_argument("-k", "--show_user",
+    arg_parser.add_argument("-k", "--show_password",
                             dest="show_password", action="store_true",
                             default=False, help="Show password configured for "
                                                 "webservice access.")
