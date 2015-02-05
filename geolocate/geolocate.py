@@ -78,6 +78,14 @@ def parse_arguments():
                             type=str, default=None,
                             help="Set password for webservice database access.",
                             metavar="account_password")
+    arg_parser.add_argument("-i", "--show_user",
+                            dest="show_user", action="store_true",
+                            default=False, help="Show user configured for "
+                                                "webservice access.")
+    arg_parser.add_argument("-k", "--show_user",
+                            dest="show_password", action="store_true",
+                            default=False, help="Show password configured for "
+                                                "webservice access.")
     return arg_parser.parse_args()
 
 
@@ -139,7 +147,6 @@ def set_user(arguments):
     :type arguments: Namespace
     :return: None
     """
-    # TODO: Implement.
     pass
 
 
@@ -148,6 +155,24 @@ def set_password(arguments):
 
     :param arguments:  Arguments object returned by ArgumentParser.parse_args()
     :type arguments: Namespace
+    :return: None
+    """
+    # TODO: Implement.
+    pass
+
+
+def show_user():
+    """ Print on console user configured for webservice database access.
+
+    :return: None
+    """
+    # TODO: Implement
+    pass
+
+
+def show_password():
+    """ Print on console password configured for webservice database access.
+
     :return: None
     """
     # TODO: Implement.
