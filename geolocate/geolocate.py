@@ -26,7 +26,9 @@ MUST_PASS_IN_USER_ARGUMENTS = {"show_enabled_locators": False,
                                 "show_disabled_locators": False,
                                 "reset_locators_preference": False,
                                 "set_user": True,
-                                "set_password": True}
+                                "set_password": True,
+                                "show_user": False,
+                                "show_password": False}
 # This arguments don't activate a function with their same name.
 NOT_CALLABLE_ARGUMENTS = {"verbosity", "text_to_parse", "stream_mode"}
 
