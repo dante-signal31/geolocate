@@ -5,7 +5,7 @@ setup(name="geolocate",
       description="This scripts scan given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation appended.",
-      long_description=open("README.rst").read(),
+      long_description=open("HOME.rst").read(),
       author="Dante Signal31",
       author_email="dante.signal31@gmail.com",
       license="LICENSE.txt",
@@ -17,5 +17,5 @@ setup(name="geolocate",
       #                            "*.qm",
       #                            "pyqtmake_help/*.html"]},
       scripts=["run_tests.py", "geolocate/geolocate"],
-      data_files=[(".", ["README.rst",]),]
+      data_files=[(".", ["HOME.rst",]),]
       )

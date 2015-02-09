@@ -11,5 +11,7 @@ with applications like traceroute, etc.
 Geolocate's output is the same text than input but each IP is going to
 have appended its country and city.
 
+See wiki folder for more detailed info.
+
 **Author:** Dante Signal31
 **e-mail:** dante.signal31@gmail.com
