@@ -14,4 +14,4 @@ you have to check your system has some application geolocate depends on:
  tool installed. *HINT:* Try "gunzip -h" in your console to see if you already
  have it installed.
 
-Back to `Main page <HOME>`_-
+Back to `Main page <Home>`_-
