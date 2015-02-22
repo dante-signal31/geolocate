@@ -12,7 +12,7 @@ import unittest
 import unittest.mock
 from collections import namedtuple
 
-import test_geowrapper
+import tests.test_geowrapper as test_geowrapper
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 import geolocate.classes.parser as parser
