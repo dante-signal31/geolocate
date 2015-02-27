@@ -1,8 +1,8 @@
 from distutils.core import setup
 
 setup(name="geolocate",
-      version="0.1.0",
-      description="This scripts scan given text to find urls and IP addresses. "
+      version="1.0.0",
+      description="This script scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation appended.",
       long_description=open("Home.rst").read(),
