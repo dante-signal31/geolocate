@@ -16,9 +16,9 @@ and their API.
 import argparse
 import sys
 
-import geolocate.classes.geowrapper as geowrapper
-import geolocate.classes.parser as parser
-import geolocate.classes.config as config
+from classes import geowrapper
+from classes import parser
+from classes import config
 
 # These arguments activate functions with their same name. True or False depends
 # on passing in user arguments to called function or not.
