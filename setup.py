@@ -37,5 +37,6 @@ setup(name="geolocate",
       entry_points={'console_scripts': ['geolocate=geolocate.geolocate:main', ],
                     },
       data_files=[("etc", ["geolocate/etc/geolocate.conf", ]),
-                  ("local_database", ["", ])]
+                  ("local_database", ["empty.txt", ])
+                  ]
       )
