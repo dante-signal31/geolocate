@@ -16,6 +16,10 @@ and their API.
 import argparse
 import sys
 
+# TODO: Convert imports to absolute ones, compliant with PEP-8.
+# I know PEP-8 advises absolute imports. I actually tried them but haven't got
+# them to work. Error message says that geolocate is not a package althought it
+# has a __init__.py file. A good contribution might be to fix this.
 from classes import geowrapper
 from classes import parser
 from classes import config
