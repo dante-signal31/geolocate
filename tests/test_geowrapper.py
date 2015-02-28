@@ -18,124 +18,138 @@ import subprocess
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 import tests.console_mocks as console_mocks
+import test_config
 
 TEST_IP = "128.101.101.101"
 TEST_IP_CITY = "Minneapolis"
-WORKING_DIR = "./"
+WORKING_DIR = "./geolocate/"
 
 class TestGeoWrapper(unittest.TestCase):
 
     def test_geoip_database_add_locators_default_configuration(self):
-        geoip_database = _create_default_geoip_database()
-        locators_length = len(geoip_database._locators)
-        # With default configuration only local database locator should be
-        # activated.
-        self.assertEqual(locators_length, 1,
-                         msg="Locator list have not the expected length.")
-        self.assertIsInstance(geoip_database.geoip2_local,
-                              geoip.LocalDatabaseGeoLocator)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = _create_default_geoip_database()
+            locators_length = len(geoip_database._locators)
+            # With default configuration only local database locator should be
+            # activated.
+            self.assertEqual(locators_length, 1,
+                             msg="Locator list have not the expected length.")
+            self.assertIsInstance(geoip_database.geoip2_local,
+                                  geoip.LocalDatabaseGeoLocator)
 
     def test_geoip_database_locate(self):
-        new_locator_list = ["geoip2_local", "geoip2_webservice"]
-        geoip_database = _create_default_geoip_database()
-        geoip_database.locators_preference = new_locator_list
-        geodata = geoip_database.locate(TEST_IP)
-        self.assertEqual(geodata.city.name, TEST_IP_CITY)
-        new_locator_list = ["geoip2_webservice", "geoip2_local"]
-        geoip_database.locators_preference = new_locator_list
-        geodata = geoip_database.locate(TEST_IP)
-        self.assertEqual(geodata.city.name, TEST_IP_CITY)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            new_locator_list = ["geoip2_local", "geoip2_webservice"]
+            geoip_database = _create_default_geoip_database()
+            geoip_database.locators_preference = new_locator_list
+            geodata = geoip_database.locate(TEST_IP)
+            self.assertEqual(geodata.city.name, TEST_IP_CITY)
+            new_locator_list = ["geoip2_webservice", "geoip2_local"]
+            geoip_database.locators_preference = new_locator_list
+            geodata = geoip_database.locate(TEST_IP)
+            self.assertEqual(geodata.city.name, TEST_IP_CITY)
 
     def test_local_database_geo_locator_creation(self):
-        geoip_database = _create_default_geoip_database()
-        connection = geoip_database.geoip2_local._db_connection
-        self.assertIsInstance(connection,
-                              database.Reader)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = _create_default_geoip_database()
+            connection = geoip_database.geoip2_local._db_connection
+            self.assertIsInstance(connection,
+                                  database.Reader)
 
     def test_local_database_update(self):
-        configuration = config.Configuration()
-        with OriginalFileSaved(configuration.local_database_path):
-            local_database = _create_too_old_database_locator(configuration)
-            local_database._update_db()
-            self.assertFalse(local_database._local_database_too_old(),
-                             msg="Database not updated.")
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            configuration = config.Configuration()
+            with OriginalFileSaved(configuration.local_database_path):
+                local_database = _create_too_old_database_locator(configuration)
+                local_database._update_db()
+                self.assertFalse(local_database._local_database_too_old(),
+                                 msg="Database not updated.")
 
     def test_local_database_too_old(self):
-        configuration = config.Configuration()
-        database_path = configuration.local_database_path
-        with OriginalFileSaved(database_path):
-            _make_database_file_too_old(configuration)
-            too_old_date = geoip._get_database_last_modification(database_path)
-            # LocalDatabaseGeolocator __init__ refreshes database.
-            _ = geoip.LocalDatabaseGeoLocator(configuration)
-            new_date = geoip._get_database_last_modification(database_path)
-            delta = (new_date - too_old_date).days
-            # If database has been updated, its new date should be newer than
-            # old one (delta>0).
-            self.assertGreater(delta, 0, msg="Old database not detected.")
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            configuration = config.Configuration()
+            database_path = configuration.local_database_path
+            with OriginalFileSaved(database_path):
+                _make_database_file_too_old(configuration)
+                too_old_date = geoip._get_database_last_modification(database_path)
+                # LocalDatabaseGeolocator __init__ refreshes database.
+                _ = geoip.LocalDatabaseGeoLocator(configuration)
+                new_date = geoip._get_database_last_modification(database_path)
+                delta = (new_date - too_old_date).days
+                # If database has been updated, its new date should be newer than
+                # old one (delta>0).
+                self.assertGreater(delta, 0, msg="Old database not detected.")
 
     def test_local_database_locate(self):
-        geoip_database = _create_default_geoip_database()
-        geodata = geoip_database.geoip2_local.locate(TEST_IP)
-        self.assertEqual(geodata.city.name, TEST_IP_CITY)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = _create_default_geoip_database()
+            geodata = geoip_database.geoip2_local.locate(TEST_IP)
+            self.assertEqual(geodata.city.name, TEST_IP_CITY)
 
     def test_geoip_database_add_locators_non_default_configuration(self):
-        geoip_database = _create_non_default_geoip_database()
-        locators_length = len(geoip_database._locators)
-        # With non default configuration webservice and local database locators
-        # should be activated.
-        self.assertEqual(locators_length, 2,
-                         msg="Locator list have not the expected length.")
-        self.assertIsInstance(geoip_database.geoip2_webservice,
-                              geoip.WebServiceGeoLocator)
-        self.assertIsInstance(geoip_database.geoip2_local,
-                              geoip.LocalDatabaseGeoLocator)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = _create_non_default_geoip_database()
+            locators_length = len(geoip_database._locators)
+            # With non default configuration webservice and local database locators
+            # should be activated.
+            self.assertEqual(locators_length, 2,
+                             msg="Locator list have not the expected length.")
+            self.assertIsInstance(geoip_database.geoip2_webservice,
+                                  geoip.WebServiceGeoLocator)
+            self.assertIsInstance(geoip_database.geoip2_local,
+                                  geoip.LocalDatabaseGeoLocator)
 
     def test_web_service_geo_locator_creation(self):
-        geoip_database = _create_non_default_geoip_database()
-        connection = geoip_database.geoip2_webservice._db_connection
-        self.assertIsInstance(connection,
-                              webservice.Client)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = _create_non_default_geoip_database()
+            connection = geoip_database.geoip2_webservice._db_connection
+            self.assertIsInstance(connection,
+                                  webservice.Client)
 
     def test_web_service_geo_locator_failed_creation(self):
-        geoip_database = _create_default_geoip_database()
-        with self.assertRaises(geoip.GeoIP2WebServiceNotConfigured):
-            _ = geoip_database.geoip2_webservice
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = _create_default_geoip_database()
+            with self.assertRaises(geoip.GeoIP2WebServiceNotConfigured):
+                _ = geoip_database.geoip2_webservice
 
     def test_local_database_geo_locator_download_file(self):
-        with tempfile.TemporaryDirectory() as temporary_directory:
-            configuration = config.Configuration()
-            self._assert_folder_empty(temporary_directory)
-            geoip_local_database = geoip.LocalDatabaseGeoLocator(configuration)
-            geoip_local_database._download_file(temporary_directory)
-            self._assert_folder_not_empty(temporary_directory)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            with tempfile.TemporaryDirectory() as temporary_directory:
+                configuration = config.Configuration()
+                self._assert_folder_empty(temporary_directory)
+                geoip_local_database = geoip.LocalDatabaseGeoLocator(configuration)
+                geoip_local_database._download_file(temporary_directory)
+                self._assert_folder_not_empty(temporary_directory)
 
     def test_local_database_not_found(self):
-        configuration = config.Configuration()
-        db_path = configuration.local_database_path
-        with OriginalFileSaved(db_path):
-            geolocator = geoip.LocalDatabaseGeoLocator(configuration)
-            _remove_file(db_path)
-            with self.assertRaises(geoip.LocalDatabaseNotFound):
-                geolocator._db_connection = geoip._open_local_database(db_path)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            configuration = config.Configuration()
+            db_path = configuration.local_database_path
+            with OriginalFileSaved(db_path):
+                geolocator = geoip.LocalDatabaseGeoLocator(configuration)
+                _remove_file(db_path)
+                with self.assertRaises(geoip.LocalDatabaseNotFound):
+                    geolocator._db_connection = geoip._open_local_database(db_path)
 
     def test_local_database_get_modification_time_failed(self):
-        configuration = config.Configuration()
-        db_path = configuration.local_database_path
-        with OriginalFileSaved(db_path):
-            _ = geoip.LocalDatabaseGeoLocator(configuration)
-            _remove_file(db_path)
-            with self.assertRaises(geoip.LocalDatabaseNotFound):
-                geoip._get_database_last_modification(db_path)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            configuration = config.Configuration()
+            db_path = configuration.local_database_path
+            with OriginalFileSaved(db_path):
+                _ = geoip.LocalDatabaseGeoLocator(configuration)
+                _remove_file(db_path)
+                with self.assertRaises(geoip.LocalDatabaseNotFound):
+                    geoip._get_database_last_modification(db_path)
 
     def test_local_database_invalid(self):
-        configuration = config.Configuration()
-        database_path = configuration.local_database_path
-        with OriginalFileSaved(database_path):
-            os.remove(database_path)
-            _create_invalid_file(database_path)
-            with self.assertRaises(geoip.InvalidLocalDatabase):
-                _ = geoip.LocalDatabaseGeoLocator(configuration)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            configuration = config.Configuration()
+            database_path = configuration.local_database_path
+            with OriginalFileSaved(database_path):
+                os.remove(database_path)
+                _create_invalid_file(database_path)
+                with self.assertRaises(geoip.InvalidLocalDatabase):
+                    _ = geoip.LocalDatabaseGeoLocator(configuration)
 
     def test_get_new_database_path_name_find_file(self):
         configuration = config.Configuration()
@@ -189,12 +203,13 @@ class TestGeoWrapper(unittest.TestCase):
                 self.assertTrue(error_message in console_output)
 
     def test_local_database_too_old_local_database_not_found(self):
-        geoip_database = _create_default_geoip_database()
-        configuration = geoip_database._configuration
-        with OriginalFileSaved(configuration.local_database_path):
-            _remove_file(configuration.local_database_path)
-            is_too_old = geoip_database.geoip2_local._local_database_too_old()
-            self.assertTrue(is_too_old)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = _create_default_geoip_database()
+            configuration = geoip_database._configuration
+            with OriginalFileSaved(configuration.local_database_path):
+                _remove_file(configuration.local_database_path)
+                is_too_old = geoip_database.geoip2_local._local_database_too_old()
+                self.assertTrue(is_too_old)
 
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
