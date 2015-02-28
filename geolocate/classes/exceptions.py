@@ -6,7 +6,7 @@
  email: dante.signal31@gmail.com
 """
 
-
+# TODO: Find the way to take this code back to geowrapper module.
 # This class shouldn't be here. Initially it was defined at geowrapper module.
 # Problem is that when class is there, test_GeolocateInputParser_next (at
 # test_parser.TestParser) fails because IPNotFound is not caught in parser's
