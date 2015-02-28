@@ -12,7 +12,6 @@ import unittest
 import unittest.mock
 
 import geolocate.classes.config as config
-import tests.test_geowrapper as test_geowrapper
 import tests.testing_tools as testing_tools
 
 WORKING_DIR = "./geolocate/"
@@ -86,7 +85,7 @@ class TestConfiguration(unittest.TestCase):
 
     def test_load_configuration_create_default_config_file(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+                testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             config._create_default_config_file()
             configuration = config.load_configuration()
@@ -97,7 +96,7 @@ class TestConfiguration(unittest.TestCase):
 
     def test_load_configuration_config_not_found(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+                testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             default_configuration = config.Configuration()
             configuration_loaded = config.load_configuration()
@@ -106,7 +105,7 @@ class TestConfiguration(unittest.TestCase):
 
     def test_read_config_file_config_not_found(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+                testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             with self.assertRaises(config.ConfigNotFound,
                                    msg="Config removed but _read_config() "
@@ -116,7 +115,7 @@ class TestConfiguration(unittest.TestCase):
 
     def test_save_configuration(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR),\
-                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+                testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
             configuration_to_save = config.Configuration(user_id="user1984")
             config.save_configuration(configuration_to_save)
@@ -175,7 +174,7 @@ class TestConfiguration(unittest.TestCase):
         correct_configuration = config.Configuration(user_id="test",
                                                      license_key="key")
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+                testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             with config.OpenConfigurationToUpdate() as f:
                 new_configuration = correct_configuration
                 f.configuration = new_configuration
