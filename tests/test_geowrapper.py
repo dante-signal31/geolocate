@@ -5,7 +5,6 @@
 
  email: dante.signal31@gmail.com
 """
-import ntpath
 import os
 import shutil
 import tempfile
@@ -59,7 +58,7 @@ class TestGeoWrapper(unittest.TestCase):
     def test_local_database_update(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             configuration = config.Configuration()
-            with OriginalFileSaved(configuration.local_database_path):
+            with testing_tools.OriginalFileSaved(configuration.local_database_path):
                 local_database = _create_too_old_database_locator(configuration)
                 local_database._update_db()
                 self.assertFalse(local_database._local_database_too_old(),
@@ -69,7 +68,7 @@ class TestGeoWrapper(unittest.TestCase):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             configuration = config.Configuration()
             database_path = configuration.local_database_path
-            with OriginalFileSaved(database_path):
+            with testing_tools.OriginalFileSaved(database_path):
                 _make_database_file_too_old(configuration)
                 too_old_date = geoip._get_database_last_modification(
                     database_path)
@@ -126,7 +125,7 @@ class TestGeoWrapper(unittest.TestCase):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             configuration = config.Configuration()
             db_path = configuration.local_database_path
-            with OriginalFileSaved(db_path):
+            with testing_tools.OriginalFileSaved(db_path):
                 geolocator = geoip.LocalDatabaseGeoLocator(configuration)
                 _remove_file(db_path)
                 with self.assertRaises(geoip.LocalDatabaseNotFound):
@@ -137,7 +136,7 @@ class TestGeoWrapper(unittest.TestCase):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             configuration = config.Configuration()
             db_path = configuration.local_database_path
-            with OriginalFileSaved(db_path):
+            with testing_tools.OriginalFileSaved(db_path):
                 _ = geoip.LocalDatabaseGeoLocator(configuration)
                 _remove_file(db_path)
                 with self.assertRaises(geoip.LocalDatabaseNotFound):
@@ -147,7 +146,7 @@ class TestGeoWrapper(unittest.TestCase):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             configuration = config.Configuration()
             database_path = configuration.local_database_path
-            with OriginalFileSaved(database_path):
+            with testing_tools.OriginalFileSaved(database_path):
                 os.remove(database_path)
                 _create_invalid_file(database_path)
                 with self.assertRaises(geoip.InvalidLocalDatabase):
@@ -209,7 +208,7 @@ class TestGeoWrapper(unittest.TestCase):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             geoip_database = _create_default_geoip_database()
             configuration = geoip_database._configuration
-            with OriginalFileSaved(configuration.local_database_path):
+            with testing_tools.OriginalFileSaved(configuration.local_database_path):
                 _remove_file(configuration.local_database_path)
                 is_too_old = geoip_database.geoip2_local._local_database_too_old()
                 self.assertTrue(is_too_old)
@@ -288,64 +287,6 @@ def _get_dummy_database_path_name(configuration, temporary_directory):
                                           configuration.local_database_name)
     compressed_name_path = ".".join([uncompressed_name_path, "gz"])
     return compressed_name_path
-
-
-class OriginalFileSaved(object):
-    """Context manager to store original files in a safe place for
-    tests and restore it after them.
-    """
-
-    def __init__(self, original_file_path):
-        """
-        :param original_file_path: File name including path.
-        :type original_file_path: str
-        """
-        self._original_file_path = original_file_path
-        self._original_file_name = _get_file_name(original_file_path)
-        self._backup_directory = _create_temporary_directory()
-        self._backup_file_path = os.path.join(self._backup_directory.name,
-                                              self._original_file_name)
-
-    def __enter__(self):
-        self._backup_file()
-        return self
-
-    def _backup_file(self):
-        shutil.copyfile(self._original_file_path, self._backup_file_path)
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self._restore_file()
-        self._remove_backup_directory()
-        if exc_type is None:
-            return True
-        else:
-            return False
-
-    def _restore_file(self):
-        shutil.copyfile(self._backup_file_path, self._original_file_path)
-
-    def _remove_backup_directory(self):
-        self._backup_directory.cleanup()
-
-
-def _get_file_name(file_path):
-    """
-    :param file_path: File name including path.
-    :type file_path: str
-    :return: File name.
-    :rtype: str
-    """
-    file_name = ntpath.basename(file_path)
-    return file_name
-
-
-def _create_temporary_directory():
-    """
-    :return: Temporary directory just created.
-    :rtype: TemporaryDirectory.
-    """
-    temporary_directory = tempfile.TemporaryDirectory()
-    return temporary_directory
 
 
 def _create_invalid_file(file_path):

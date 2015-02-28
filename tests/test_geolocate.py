@@ -13,7 +13,6 @@ import unittest
 import geolocate.geolocate as geolocate
 import geolocate.classes.config as config
 import tests.console_mocks as console_mocks
-import tests.test_geowrapper as test_geowrappers
 import tests.testing_tools as testing_tools
 
 
@@ -99,7 +98,7 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_webservice\n" \
                          "geoip2_local\n"
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.reset_locators_preference()
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
@@ -112,7 +111,7 @@ class TestGeoLocate(unittest.TestCase):
         mocked_arguments = Arguments(False, enabled_locators, False, False,
                                      None, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_disabled_locators()
@@ -126,7 +125,7 @@ class TestGeoLocate(unittest.TestCase):
         mocked_arguments = Arguments(False, new_locators_preference, False,
                                      False, None, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
@@ -143,7 +142,7 @@ class TestGeoLocate(unittest.TestCase):
         mocked_arguments = Arguments(False, new_locators_preference, False,
                                      False, None, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_enabled_locators()
@@ -161,7 +160,7 @@ class TestGeoLocate(unittest.TestCase):
         mocked_arguments = Arguments(False, None, False,
                                      False, user, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_user(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_user()
@@ -174,7 +173,7 @@ class TestGeoLocate(unittest.TestCase):
         mocked_arguments = Arguments(False, None, False, False, None,
                                      password)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             geolocate.set_password(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
                 geolocate.show_password()
@@ -185,7 +184,7 @@ class TestGeoLocate(unittest.TestCase):
         returned_string = "User:\n" \
                           "{0}\n".format(user)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             new_configuration = config.Configuration()
             new_configuration.user_id = user
             config.save_configuration(new_configuration)
@@ -198,7 +197,7 @@ class TestGeoLocate(unittest.TestCase):
         returned_string = "Password:\n" \
                           "{0}\n".format(password)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+                testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             new_configuration = config.Configuration()
             new_configuration.license_key = password
             config.save_configuration(new_configuration)
