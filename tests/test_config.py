@@ -85,45 +85,45 @@ class TestConfiguration(unittest.TestCase):
                       "parameter")
 
     def test_load_configuration_create_default_config_file(self):
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
-                _remove_config()
-                config._create_default_config_file()
-                configuration = config.load_configuration()
-                default_configuration = config.Configuration()
-                self.assertEqual(configuration, default_configuration,
-                                 msg="Read configuration is not a default "
-                                     "configuration.")
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+            _remove_config()
+            config._create_default_config_file()
+            configuration = config.load_configuration()
+            default_configuration = config.Configuration()
+            self.assertEqual(configuration, default_configuration,
+                             msg="Read configuration is not a default "
+                                 "configuration.")
 
     def test_load_configuration_config_not_found(self):
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
-                _remove_config()
-                default_configuration = config.Configuration()
-                configuration_loaded = config.load_configuration()
-                self.assertEqual(default_configuration, configuration_loaded,
-                                 msg="Default configuration not regenerated.")
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+            _remove_config()
+            default_configuration = config.Configuration()
+            configuration_loaded = config.load_configuration()
+            self.assertEqual(default_configuration, configuration_loaded,
+                             msg="Default configuration not regenerated.")
 
     def test_read_config_file_config_not_found(self):
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
-                _remove_config()
-                with self.assertRaises(config.ConfigNotFound,
-                                       msg="Config removed but _read_config() "
-                                           "didn't raise ConfigNotFound "
-                                           "exception."):
-                    config._read_config_file()
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+            _remove_config()
+            with self.assertRaises(config.ConfigNotFound,
+                                   msg="Config removed but _read_config() "
+                                       "didn't raise ConfigNotFound "
+                                       "exception."):
+                config._read_config_file()
 
     def test_save_configuration(self):
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
-                _remove_config()
-                configuration_to_save = config.Configuration(user_id="user1984")
-                config.save_configuration(configuration_to_save)
-                configuration_loaded = config.load_configuration()
-                self.assertEqual(configuration_to_save, configuration_loaded,
-                                 msg="Configuration loaded is not the same as "
-                                     "configuration saved.")
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR),\
+                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+            _remove_config()
+            configuration_to_save = config.Configuration(user_id="user1984")
+            config.save_configuration(configuration_to_save)
+            configuration_loaded = config.load_configuration()
+            self.assertEqual(configuration_to_save, configuration_loaded,
+                             msg="Configuration loaded is not the same as "
+                                 "configuration saved.")
 
     def test_configuration_equality(self):
         configuration1 = config.Configuration(user_id="userXXX")
@@ -174,13 +174,13 @@ class TestConfiguration(unittest.TestCase):
     def test_config_OpenConfigurationToUpdate(self):
         correct_configuration = config.Configuration(user_id="test",
                                                      license_key="key")
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
-                with config.OpenConfigurationToUpdate() as f:
-                    new_configuration = correct_configuration
-                    f.configuration = new_configuration
-                saved_configuration = config.load_configuration()
-                self.assertEqual(saved_configuration, correct_configuration)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+            with config.OpenConfigurationToUpdate() as f:
+                new_configuration = correct_configuration
+                f.configuration = new_configuration
+            saved_configuration = config.load_configuration()
+            self.assertEqual(saved_configuration, correct_configuration)
 
 
 def _remove_config():

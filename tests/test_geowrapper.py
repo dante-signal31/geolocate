@@ -24,8 +24,8 @@ TEST_IP = "128.101.101.101"
 TEST_IP_CITY = "Minneapolis"
 WORKING_DIR = "./geolocate/"
 
-class TestGeoWrapper(unittest.TestCase):
 
+class TestGeoWrapper(unittest.TestCase):
     def test_geoip_database_add_locators_default_configuration(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             geoip_database = _create_default_geoip_database()
@@ -71,7 +71,8 @@ class TestGeoWrapper(unittest.TestCase):
             database_path = configuration.local_database_path
             with OriginalFileSaved(database_path):
                 _make_database_file_too_old(configuration)
-                too_old_date = geoip._get_database_last_modification(database_path)
+                too_old_date = geoip._get_database_last_modification(
+                    database_path)
                 # LocalDatabaseGeolocator __init__ refreshes database.
                 _ = geoip.LocalDatabaseGeoLocator(configuration)
                 new_date = geoip._get_database_last_modification(database_path)
@@ -113,13 +114,13 @@ class TestGeoWrapper(unittest.TestCase):
                 _ = geoip_database.geoip2_webservice
 
     def test_local_database_geo_locator_download_file(self):
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with tempfile.TemporaryDirectory() as temporary_directory:
-                configuration = config.Configuration()
-                self._assert_folder_empty(temporary_directory)
-                geoip_local_database = geoip.LocalDatabaseGeoLocator(configuration)
-                geoip_local_database._download_file(temporary_directory)
-                self._assert_folder_not_empty(temporary_directory)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                tempfile.TemporaryDirectory() as temporary_directory:
+            configuration = config.Configuration()
+            self._assert_folder_empty(temporary_directory)
+            geoip_local_database = geoip.LocalDatabaseGeoLocator(configuration)
+            geoip_local_database._download_file(temporary_directory)
+            self._assert_folder_not_empty(temporary_directory)
 
     def test_local_database_not_found(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
@@ -129,7 +130,8 @@ class TestGeoWrapper(unittest.TestCase):
                 geolocator = geoip.LocalDatabaseGeoLocator(configuration)
                 _remove_file(db_path)
                 with self.assertRaises(geoip.LocalDatabaseNotFound):
-                    geolocator._db_connection = geoip._open_local_database(db_path)
+                    geolocator._db_connection = geoip._open_local_database(
+                        db_path)
 
     def test_local_database_get_modification_time_failed(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
@@ -159,7 +161,8 @@ class TestGeoWrapper(unittest.TestCase):
             _create_dummy_database_file(configuration, temporary_directory)
             database_name_path = _get_database_name_path(configuration,
                                                          temporary_directory)
-            returned_database_name_path = geoip._get_new_database_path_name(temporary_directory)
+            returned_database_name_path = geoip._get_new_database_path_name(
+                temporary_directory)
             self.assertEqual(database_name_path, returned_database_name_path)
 
     def test_decompress_file(self):
@@ -177,15 +180,15 @@ class TestGeoWrapper(unittest.TestCase):
     # Nevertheless I leave the test here, someone may fix it.
     #
     # def test_decompress_file_failed(self):
-    #     with tempfile.TemporaryDirectory() as temporary_directory:
-    #         mocked_function = create_autospec(geoip._print_compressed_file_not_found_error)
+    # with tempfile.TemporaryDirectory() as temporary_directory:
+    # mocked_function = create_autospec(geoip._print_compressed_file_not_found_error)
     #         geoip._decompress_file(temporary_directory)
     #         self.assertTrue(mocked_function.called)
 
     def test_find_compressed_file(self):
         configuration = config.Configuration()
         with tempfile.TemporaryDirectory() as temporary_directory:
-            with self.assertRaises(geoip.CompressedFileNotFound) as e:
+            with self.assertRaises(geoip.CompressedFileNotFound):
                 geoip._find_compressed_file(temporary_directory)
             _create_dummy_database_compressed(configuration,
                                               temporary_directory)
@@ -196,11 +199,11 @@ class TestGeoWrapper(unittest.TestCase):
 
     def test_print_compressed_file_not_found_error(self):
         error_message = "Problem decompressing updated database."
-        with tempfile.TemporaryDirectory() as temporary_directory:
-            with console_mocks.MockedConsoleOutput() as console:
-                geoip._decompress_file(temporary_directory)
-                console_output = console.output()
-                self.assertTrue(error_message in console_output)
+        with tempfile.TemporaryDirectory() as temporary_directory,\
+                console_mocks.MockedConsoleOutput() as console:
+            geoip._decompress_file(temporary_directory)
+            console_output = console.output()
+            self.assertTrue(error_message in console_output)
 
     def test_local_database_too_old_local_database_not_found(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
@@ -214,12 +217,12 @@ class TestGeoWrapper(unittest.TestCase):
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
-                         msg="Temporary folder initially not empty.")
+                           msg="Temporary folder initially not empty.")
 
     def _assert_folder_not_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertNotEqual([], files_list,
-                            msg="Nothing downloaded.")
+                              msg="Nothing downloaded.")
 
 
 def _create_default_geoip_database():
@@ -243,7 +246,8 @@ def _create_too_old_database_locator(configuration):
 
 def _make_database_file_too_old(configuration):
     too_many_days = configuration.update_interval + 3
-    too_old_date = datetime.date.today() - datetime.timedelta(days=too_many_days)
+    too_old_date = datetime.date.today() - datetime.timedelta(
+        days=too_many_days)
     _set_file_timestamp(configuration.local_database_path, too_old_date)
 
 
@@ -356,6 +360,7 @@ def _remove_file(file_path):
     :return: none
     """
     os.remove(file_path)
+
 
 if __name__ == '__main__':
     unittest.main()
