@@ -16,7 +16,7 @@ import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 import geolocate.classes.parser as parser
 import tests.test_geowrapper as test_geowrapper
-import tests.test_config as test_config
+import tests.testing_tools as testing_tools
 
 WORKING_DIR = "./geolocate"
 
@@ -156,7 +156,7 @@ class TestParser(unittest.TestCase):
         """Check class is able to analyze input line by line and return
         lines with geodata strings included.
         """
-        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             TestInputReader._inject_to_stdin(TEST_STRING)
             geoip_database = test_geowrapper._create_default_geoip_database()
             self._geolocate_input_parsing(0, geoip_database)
@@ -165,7 +165,7 @@ class TestParser(unittest.TestCase):
         """Check class is able to analyze a text and return it with geodata
         strings included.
         """
-        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             geoip_database = test_geowrapper._create_default_geoip_database()
             self._geolocate_input_parsing(0, geoip_database, TEST_STRING, "\n")
 
@@ -199,7 +199,7 @@ class TestParser(unittest.TestCase):
         """Check locate() returns an string correctly formatted for every
         verbosity level.
         """
-        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             verbosity_levels = parser.GeolocateInputParser.VERBOSITY_LEVELS
             ip_to_find = TEST_IP
             test_configuration = config.Configuration()

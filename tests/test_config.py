@@ -11,8 +11,9 @@ import tempfile
 import unittest
 import unittest.mock
 
-import test_geowrapper
 import geolocate.classes.config as config
+import tests.test_geowrapper as test_geowrapper
+import tests.testing_tools as testing_tools
 
 WORKING_DIR = "./geolocate/"
 _config_file = os.path.join(WORKING_DIR, config.CONFIG_FILE)
@@ -52,7 +53,7 @@ class TestConfiguration(unittest.TestCase):
     def test_database_folder_validation(self):
         # Current working dir is at setup.py folder level, so we have to go
         # deeper into geolocate as we would be at production.
-        with WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             wrong_path = "database"
             self._test_wrong_parameter("local_database_folder", wrong_path)
             correct_path = "local_database"
@@ -65,7 +66,7 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(config_absolute_path, expected_path)
         relative_path = "test/"
         with tempfile.TemporaryDirectory() as temporary_folder, \
-                WorkingDirectoryChanged(temporary_folder):
+                testing_tools.WorkingDirectoryChanged(temporary_folder):
             config_relative_path = config._get_folder_path(relative_path)
             expected_path = "{0}/{1}".format(temporary_folder, relative_path)
             self.assertEqual(config_relative_path, expected_path)
@@ -84,7 +85,7 @@ class TestConfiguration(unittest.TestCase):
                       "parameter")
 
     def test_load_configuration_create_default_config_file(self):
-        with WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
                 _remove_config()
                 config._create_default_config_file()
@@ -95,7 +96,7 @@ class TestConfiguration(unittest.TestCase):
                                      "configuration.")
 
     def test_load_configuration_config_not_found(self):
-        with WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
                 _remove_config()
                 default_configuration = config.Configuration()
@@ -104,7 +105,7 @@ class TestConfiguration(unittest.TestCase):
                                  msg="Default configuration not regenerated.")
 
     def test_read_config_file_config_not_found(self):
-        with WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
                 _remove_config()
                 with self.assertRaises(config.ConfigNotFound,
@@ -114,7 +115,7 @@ class TestConfiguration(unittest.TestCase):
                     config._read_config_file()
 
     def test_save_configuration(self):
-        with WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
                 _remove_config()
                 configuration_to_save = config.Configuration(user_id="user1984")
@@ -173,7 +174,7 @@ class TestConfiguration(unittest.TestCase):
     def test_config_OpenConfigurationToUpdate(self):
         correct_configuration = config.Configuration(user_id="test",
                                                      license_key="key")
-        with WorkingDirectoryChanged(WORKING_DIR):
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             with test_geowrapper.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
                 with config.OpenConfigurationToUpdate() as f:
                     new_configuration = correct_configuration
@@ -184,27 +185,3 @@ class TestConfiguration(unittest.TestCase):
 
 def _remove_config():
     os.remove(GEOLOCATE_CONFIG_FILE)
-
-
-class WorkingDirectoryChanged(object):
-    """ Sometimes unit test executes at a different path level than usual
-    execution code. This context manager restores normal working directory
-    after context manager exit.
-    """
-    def __init__(self, new_working_dir):
-        """
-        :param new_working_dir: New working path.
-        :return: str
-        """
-        self._old_working_dir = os.getcwd()
-        self._new_working_dir = new_working_dir
-
-    def __enter__(self):
-        os.chdir(self._new_working_dir)
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        os.chdir(self._old_working_dir)
-        if exc_type is None:
-            return True
-        else:
-            return False
