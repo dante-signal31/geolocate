@@ -98,12 +98,12 @@ class TestGeoLocate(unittest.TestCase):
         correct_string = "Enabled locators:\n" \
                          "geoip2_webservice\n" \
                          "geoip2_local\n"
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                geolocate.reset_locators_preference()
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_enabled_locators()
-                    self._assertConsoleOutputEqual(correct_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.reset_locators_preference()
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_enabled_locators()
+                self._assertConsoleOutputEqual(correct_string, console)
 
     def test_show_disabled_locators(self):
         correct_string = "Disabled locators:\n" \
@@ -111,12 +111,12 @@ class TestGeoLocate(unittest.TestCase):
         enabled_locators = ["geoip2_local", ]
         mocked_arguments = Arguments(False, enabled_locators, False, False,
                                      None, None)
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                geolocate.set_locators_preference(mocked_arguments)
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_disabled_locators()
-                    self._assertConsoleOutputEqual(correct_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.set_locators_preference(mocked_arguments)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_disabled_locators()
+                self._assertConsoleOutputEqual(correct_string, console)
 
     def test_set_locators_preference(self):
         correct_string = "Enabled locators:\n" \
@@ -125,12 +125,12 @@ class TestGeoLocate(unittest.TestCase):
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         mocked_arguments = Arguments(False, new_locators_preference, False,
                                      False, None, None)
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                geolocate.set_locators_preference(mocked_arguments)
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_enabled_locators()
-                    self._assertConsoleOutputEqual(correct_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.set_locators_preference(mocked_arguments)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_enabled_locators()
+                self._assertConsoleOutputEqual(correct_string, console)
 
     def test_reset_locators_preference(self):
         changed_string = "Enabled locators:\n" \
@@ -142,17 +142,17 @@ class TestGeoLocate(unittest.TestCase):
         new_locators_preference = ["geoip2_local", "geoip2_webservice"]
         mocked_arguments = Arguments(False, new_locators_preference, False,
                                      False, None, None)
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                geolocate.set_locators_preference(mocked_arguments)
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_enabled_locators()
-                    returned_output = console.output()
-                    self.assertEqual(returned_output, changed_string)
-                    console.reset()
-                    geolocate.reset_locators_preference()
-                    geolocate.show_enabled_locators()
-                    self._assertConsoleOutputEqual(correct_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.set_locators_preference(mocked_arguments)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_enabled_locators()
+                returned_output = console.output()
+                self.assertEqual(returned_output, changed_string)
+                console.reset()
+                geolocate.reset_locators_preference()
+                geolocate.show_enabled_locators()
+                self._assertConsoleOutputEqual(correct_string, console)
 
     def test_set_user(self):
         user = "user_2015"
@@ -160,12 +160,12 @@ class TestGeoLocate(unittest.TestCase):
                           "{0}\n".format(user)
         mocked_arguments = Arguments(False, None, False,
                                      False, user, None)
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                geolocate.set_user(mocked_arguments)
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_user()
-                    self._assertConsoleOutputEqual(returned_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.set_user(mocked_arguments)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_user()
+                self._assertConsoleOutputEqual(returned_string, console)
 
     def test_set_password(self):
         password = "mocked_password"
@@ -173,38 +173,38 @@ class TestGeoLocate(unittest.TestCase):
                           "{0}\n".format(password)
         mocked_arguments = Arguments(False, None, False, False, None,
                                      password)
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                geolocate.set_password(mocked_arguments)
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_password()
-                    self._assertConsoleOutputEqual(returned_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            geolocate.set_password(mocked_arguments)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_password()
+                self._assertConsoleOutputEqual(returned_string, console)
 
     def test_show_user(self):
         user = "user_2015"
         returned_string = "User:\n" \
                           "{0}\n".format(user)
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                new_configuration = config.Configuration()
-                new_configuration.user_id = user
-                config.save_configuration(new_configuration)
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_user()
-                    self._assertConsoleOutputEqual(returned_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            new_configuration = config.Configuration()
+            new_configuration.user_id = user
+            config.save_configuration(new_configuration)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_user()
+                self._assertConsoleOutputEqual(returned_string, console)
 
     def test_show_password(self):
         password = "mocked_password"
         returned_string = "Password:\n" \
                           "{0}\n".format(password)
-        with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
-            with test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
-                new_configuration = config.Configuration()
-                new_configuration.license_key = password
-                config.save_configuration(new_configuration)
-                with console_mocks.MockedConsoleOutput() as console:
-                    geolocate.show_password()
-                    self._assertConsoleOutputEqual(returned_string, console)
+        with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
+                test_geowrappers.OriginalFileSaved(CONFIGURATION_PATH):
+            new_configuration = config.Configuration()
+            new_configuration.license_key = password
+            config.save_configuration(new_configuration)
+            with console_mocks.MockedConsoleOutput() as console:
+                geolocate.show_password()
+                self._assertConsoleOutputEqual(returned_string, console)
 
     def _assertConsoleOutputEqual(self, string_to_match, console):
         returned_output = console.output()
