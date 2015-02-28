@@ -10,7 +10,7 @@ from collections import namedtuple
 from unittest.mock import patch
 import unittest
 
-import geolocate.geolocate as geolocate
+import geolocate.classes.arguments as args
 import geolocate.classes.config as config
 import tests.console_mocks as console_mocks
 import tests.testing_tools as testing_tools
@@ -80,8 +80,8 @@ class TestGeoLocate(unittest.TestCase):
 
     def tests_process_optional_parameters_erroneos_argument(self):
         arguments = ErroneousArguments(False, None, False, False, True)
-        with self.assertRaises(geolocate.NoFunctionAssignedToArgument) as e:
-            geolocate._execute_function(ERRONEOUS_ARGUMENT, arguments)
+        with self.assertRaises(args.NoFunctionAssignedToArgument) as e:
+            args._execute_function(ERRONEOUS_ARGUMENT, arguments)
         self.assertEqual(e.exception.argument, ERRONEOUS_ARGUMENT)
 
     def test_get_user_attributes(self):
@@ -90,7 +90,7 @@ class TestGeoLocate(unittest.TestCase):
                                  "show_disabled_locators",
                                  "reset_locators_preference"}
         test_arguments_object = MockedArguments(True, True, True, True)
-        valid_arguments = geolocate._get_user_arguments(test_arguments_object)
+        valid_arguments = args._get_user_arguments(test_arguments_object)
         self.assertEqual(valid_arguments, correct_arguments_set)
 
     def test_show_enabled_locators(self):
@@ -99,9 +99,9 @@ class TestGeoLocate(unittest.TestCase):
                          "geoip2_local\n"
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.reset_locators_preference()
+            args.reset_locators_preference()
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_enabled_locators()
+                args.show_enabled_locators()
                 self._assertConsoleOutputEqual(correct_string, console)
 
     def test_show_disabled_locators(self):
@@ -112,9 +112,9 @@ class TestGeoLocate(unittest.TestCase):
                                      None, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_locators_preference(mocked_arguments)
+            args.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_disabled_locators()
+                args.show_disabled_locators()
                 self._assertConsoleOutputEqual(correct_string, console)
 
     def test_set_locators_preference(self):
@@ -126,9 +126,9 @@ class TestGeoLocate(unittest.TestCase):
                                      False, None, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_locators_preference(mocked_arguments)
+            args.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_enabled_locators()
+                args.show_enabled_locators()
                 self._assertConsoleOutputEqual(correct_string, console)
 
     def test_reset_locators_preference(self):
@@ -143,14 +143,14 @@ class TestGeoLocate(unittest.TestCase):
                                      False, None, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_locators_preference(mocked_arguments)
+            args.set_locators_preference(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_enabled_locators()
+                args.show_enabled_locators()
                 returned_output = console.output()
                 self.assertEqual(returned_output, changed_string)
                 console.reset()
-                geolocate.reset_locators_preference()
-                geolocate.show_enabled_locators()
+                args.reset_locators_preference()
+                args.show_enabled_locators()
                 self._assertConsoleOutputEqual(correct_string, console)
 
     def test_set_user(self):
@@ -161,9 +161,9 @@ class TestGeoLocate(unittest.TestCase):
                                      False, user, None)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_user(mocked_arguments)
+            args.set_user(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_user()
+                args.show_user()
                 self._assertConsoleOutputEqual(returned_string, console)
 
     def test_set_password(self):
@@ -174,9 +174,9 @@ class TestGeoLocate(unittest.TestCase):
                                      password)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
-            geolocate.set_password(mocked_arguments)
+            args.set_password(mocked_arguments)
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_password()
+                args.show_password()
                 self._assertConsoleOutputEqual(returned_string, console)
 
     def test_show_user(self):
@@ -189,7 +189,7 @@ class TestGeoLocate(unittest.TestCase):
             new_configuration.user_id = user
             config.save_configuration(new_configuration)
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_user()
+                args.show_user()
                 self._assertConsoleOutputEqual(returned_string, console)
 
     def test_show_password(self):
@@ -202,7 +202,7 @@ class TestGeoLocate(unittest.TestCase):
             new_configuration.license_key = password
             config.save_configuration(new_configuration)
             with console_mocks.MockedConsoleOutput() as console:
-                geolocate.show_password()
+                args.show_password()
                 self._assertConsoleOutputEqual(returned_string, console)
 
     def _assertConsoleOutputEqual(self, string_to_match, console):
@@ -211,8 +211,8 @@ class TestGeoLocate(unittest.TestCase):
 
 
 def _assert_geolocate_function_called(function_name, arguments):
-    target_to_patch = ".".join(["geolocate.geolocate", function_name])
+    target_to_patch = ".".join(["geolocate.classes.arguments", function_name])
     with patch(target_to_patch) as mocked_function:
-        geolocate.process_optional_parameters(arguments)
+        args.process_optional_parameters(arguments)
     return mocked_function.called
 
