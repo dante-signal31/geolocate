@@ -12,7 +12,6 @@ import pickle
 import urllib.parse as urlparse
 
 CONFIG_FILE = "etc/geolocate.conf"
-CONFIG_FILE_NAME = os.path.abspath(CONFIG_FILE)
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
 # TODO: For production I have to uncomment real url.
@@ -284,7 +283,7 @@ def _read_config_file():
     :raise: config.ConfigNotFound
     """
     try:
-        with open(CONFIG_FILE_NAME, "rb") as config_file:
+        with open(CONFIG_FILE, "rb") as config_file:
             configuration = pickle.load(config_file)
     except FileNotFoundError:
         raise ConfigNotFound()
@@ -307,7 +306,7 @@ def save_configuration(configuration):
     :type configuration: config.Configuration
     :return: None
     """
-    with open(CONFIG_FILE_NAME, "wb") as config_file:
+    with open(CONFIG_FILE, "wb") as config_file:
         pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
 
 

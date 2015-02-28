@@ -12,12 +12,13 @@ import unittest
 import unittest.mock
 from collections import namedtuple
 
-import tests.test_geowrapper as test_geowrapper
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 import geolocate.classes.parser as parser
+import tests.test_geowrapper as test_geowrapper
+import tests.test_config as test_config
 
-
+WORKING_DIR = "./geolocate"
 
 TEST_STRING = """TRACEROUTE OUTPUT
 traceroute to www.google.com (173.194.45.51), 30 hops max, 60 byte packets
@@ -155,16 +156,18 @@ class TestParser(unittest.TestCase):
         """Check class is able to analyze input line by line and return
         lines with geodata strings included.
         """
-        TestInputReader._inject_to_stdin(TEST_STRING)
-        geoip_database = test_geowrapper._create_default_geoip_database()
-        self._geolocate_input_parsing(0, geoip_database)
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            TestInputReader._inject_to_stdin(TEST_STRING)
+            geoip_database = test_geowrapper._create_default_geoip_database()
+            self._geolocate_input_parsing(0, geoip_database)
 
     def test_GeolocateInputParser_next_text(self):
         """Check class is able to analyze a text and return it with geodata
         strings included.
         """
-        geoip_database = test_geowrapper._create_default_geoip_database()
-        self._geolocate_input_parsing(0, geoip_database, TEST_STRING, "\n")
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            geoip_database = test_geowrapper._create_default_geoip_database()
+            self._geolocate_input_parsing(0, geoip_database, TEST_STRING, "\n")
 
     def _geolocate_input_parsing(self, verbosity, geoip_database,
                                  text=None, join_char=""):
@@ -196,18 +199,19 @@ class TestParser(unittest.TestCase):
         """Check locate() returns an string correctly formatted for every
         verbosity level.
         """
-        verbosity_levels = parser.GeolocateInputParser.VERBOSITY_LEVELS
-        ip_to_find = TEST_IP
-        test_configuration = config.Configuration()
-        geoip_database = geoip.load_geoip_database(test_configuration)
-        for verbosity in verbosity_levels:
-            input_parser = parser.GeolocateInputParser(verbosity, geoip_database)
-            # ## TODO: Remove Mock when _geoip_database.locate is implemented.
-            # input_parser._geoip_database.locate = unittest.mock.MagicMock(
-            #                                         return_value=MOCKED_LOCATE_RESPONSE)
-            location_string = input_parser._locate(ip_to_find)
-            self.assertEqual(location_string,
-                             TEST_IP_LOCATION_STRINGS[TEST_IP][verbosity])
+        with test_config.WorkingDirectoryChanged(WORKING_DIR):
+            verbosity_levels = parser.GeolocateInputParser.VERBOSITY_LEVELS
+            ip_to_find = TEST_IP
+            test_configuration = config.Configuration()
+            geoip_database = geoip.load_geoip_database(test_configuration)
+            for verbosity in verbosity_levels:
+                input_parser = parser.GeolocateInputParser(verbosity, geoip_database)
+                # ## TODO: Remove Mock when _geoip_database.locate is implemented.
+                # input_parser._geoip_database.locate = unittest.mock.MagicMock(
+                #                                         return_value=MOCKED_LOCATE_RESPONSE)
+                location_string = input_parser._locate(ip_to_find)
+                self.assertEqual(location_string,
+                                 TEST_IP_LOCATION_STRINGS[TEST_IP][verbosity])
 
     def test_GeolocateInputParser_format_location_string(self):
         """Check format_location_string() returns an string correctly formatted
