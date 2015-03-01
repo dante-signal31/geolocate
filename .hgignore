@@ -5,4 +5,8 @@ htmlcov/**
 geolocate/local_database/GeoLite2-City.mmdb
 geolocate/local_database/.*
 *.pyc
+*.pyo
 .coverage
+build/**
+dist/**
+geolocate.egg-info/**
