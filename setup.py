@@ -11,7 +11,7 @@ setup(name="geolocate",
       version="1.0.0",
       description="This script scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
-                  "is going to have its geolocation appended.",
+                  "is going to have its geolocation data appended.",
       long_description=long_description,
       author="Dante Signal31",
       author_email="dante.signal31@gmail.com",
