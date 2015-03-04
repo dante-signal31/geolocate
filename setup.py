@@ -33,7 +33,10 @@ setup(name="geolocate",
                    'Programming Language :: Python :: 3.4'],
       keywords="geolocation ip addresses",
       install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.5.0"],
-      packages=find_packages(exclude=["tests*"]),
+      #TODO: This exclude is not working, tests package is still included in
+      # packages.
+      packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
+                                      "tests", "*tests*"]),
       entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
                     },
       data_files=[("etc", ["geolocate/etc/geolocate.conf", ]),
