@@ -10,14 +10,16 @@ import shutil
 import tempfile
 import unittest
 import datetime
+import subprocess
+
 import geoip2.database as database
 import geoip2.webservice as webservice
-import subprocess
 
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
-import tests.console_mocks as console_mocks
-import tests.testing_tools as testing_tools
+import geolocate.tests.console_mocks as console_mocks
+import geolocate.tests.testing_tools as testing_tools
+
 
 TEST_IP = "128.101.101.101"
 TEST_IP_CITY = "Minneapolis"

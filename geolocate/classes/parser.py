@@ -10,7 +10,7 @@ import re
 import sys
 import collections
 
-import classes.exceptions as exceptions
+import geolocate.classes.exceptions as exceptions
 
 
 class GeolocateInputParser(object):

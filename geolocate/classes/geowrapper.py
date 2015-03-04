@@ -15,8 +15,9 @@ import geoip2.database as database
 import geoip2.webservice as webservice
 import maxminddb
 
-import classes.config as config
-import classes.exceptions as exceptions
+
+import geolocate.classes.config as config
+import geolocate.classes.exceptions as exceptions
 
 DEFAULT_DATABASE_FILE_EXTENSION = "mmdb"
 GEOIP2_WEBSERVICE_TAG = "geoip2_webservice"

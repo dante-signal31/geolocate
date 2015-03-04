@@ -26,7 +26,7 @@
 import sys
 import unittest
 
-DEFAULT_TEST_DIR = "tests"
+DEFAULT_TEST_DIR = "geolocate/tests"
 
 def load_all_tests():
     tests = unittest.defaultTestLoader.discover(DEFAULT_TEST_DIR)
