@@ -8,8 +8,9 @@
 import argparse
 import sys
 
-import classes.config as config
-import classes.parser as parser
+import geolocate.classes.config as config
+import geolocate.classes.parser as parser
+
 
 # These arguments activate functions with their same name. True or False depends
 # on passing in user arguments to called function or not.

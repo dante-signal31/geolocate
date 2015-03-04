@@ -13,17 +13,11 @@ appended.
 Geolocate is possible thanks to `Maxmind GeoIP database <http://www.maxmind.com>`_
 and their API.
 """
-import sys
 
-# TODO: Convert imports to absolute ones, compliant with PEP-8.
-# I know PEP-8 advises absolute imports. I actually tried them but haven't got
-# them to work. Error message says that geolocate is not a package althought it
-# has a __init__.py file. A good contribution might be to fix this.
-from classes import arguments
-from classes import geowrapper
-from classes import parser
-from classes import config
-
+import geolocate.classes.arguments as arguments
+import geolocate.classes.geowrapper as geowrapper
+import geolocate.classes.parser as parser
+import geolocate.classes.config as config
 
 def print_lines_parsed(parser):
     for line in parser:

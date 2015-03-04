@@ -34,9 +34,15 @@ setup(name="geolocate",
       keywords="geolocation ip addresses",
       install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.5.0"],
       packages=find_packages(exclude=["tests*"]),
-      entry_points={'console_scripts': ['geolocate=geolocate.geolocate:main', ],
+      entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
                     },
       data_files=[("etc", ["geolocate/etc/geolocate.conf", ]),
-                  ("local_database", ["geolocate/local_database/empty.txt", ])
+                  ("local_database", ["geolocate/local_database/empty.txt", ]),
+                  ("wiki", ["wiki/Contributions.rst",
+                            "wiki/Home.rst",
+                            "wiki/Installation.rst",
+                            "wiki/Recommendations.rst",
+                            "wiki/Usage.rst"]),
+                  ("wiki/images", ["wiki/images/btn_donateCC_LG.gif", ])
                   ]
       )

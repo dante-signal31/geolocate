@@ -12,8 +12,8 @@ import unittest
 
 import geolocate.classes.arguments as args
 import geolocate.classes.config as config
-import tests.console_mocks as console_mocks
-import tests.testing_tools as testing_tools
+import geolocate.tests.console_mocks as console_mocks
+import geolocate.tests.testing_tools as testing_tools
 
 
 ERRONEOUS_ARGUMENT = "erroneous_argument"

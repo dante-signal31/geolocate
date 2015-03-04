@@ -15,8 +15,9 @@ from collections import namedtuple
 import geolocate.classes.config as config
 import geolocate.classes.geowrapper as geoip
 import geolocate.classes.parser as parser
-import tests.test_geowrapper as test_geowrapper
-import tests.testing_tools as testing_tools
+import geolocate.tests.test_geowrapper as test_geowrapper
+import geolocate.tests.testing_tools as testing_tools
+
 
 WORKING_DIR = "./geolocate"
 

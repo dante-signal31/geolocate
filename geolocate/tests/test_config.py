@@ -12,7 +12,8 @@ import unittest
 import unittest.mock
 
 import geolocate.classes.config as config
-import tests.testing_tools as testing_tools
+import geolocate.tests.testing_tools as testing_tools
+
 
 WORKING_DIR = "./geolocate/"
 _config_file = os.path.join(WORKING_DIR, config.CONFIG_FILE)
