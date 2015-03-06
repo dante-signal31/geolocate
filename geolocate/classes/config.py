@@ -11,7 +11,16 @@ import os
 import pickle
 import urllib.parse as urlparse
 
+
+def get_real_path(CONFIG_FILE):
+    this_module_path = os.path.realpath(__file__)
+    this_module_folder = os.path.dirname(this_module_path)
+    parent_folder, _ = os.path.split(this_module_folder)
+    config_file_path = os.path.join(parent_folder, CONFIG_FILE)
+    return config_file_path
+
 CONFIG_FILE = "etc/geolocate.conf"
+CONFIG_FILE_PATH = get_real_path(CONFIG_FILE)
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
 # TODO: For production I have to uncomment real url.
@@ -24,7 +33,7 @@ DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
-DEFAULT_LOCAL_DATABASE_FOLDER = "local_database/"
+DEFAULT_LOCAL_DATABASE_FOLDER = get_real_path("local_database/")
 DEFAULT_LOCAL_DATABASE_NAME = "GeoLite2-City.mmdb"
 # Remember add new locators here or locate won't use them.
 DEFAULT_LOCATORS_PREFERENCE = ["geoip2_webservice", "geoip2_local"]
@@ -283,7 +292,7 @@ def _read_config_file():
     :raise: config.ConfigNotFound
     """
     try:
-        with open(CONFIG_FILE, "rb") as config_file:
+        with open(CONFIG_FILE_PATH, "rb") as config_file:
             configuration = pickle.load(config_file)
     except FileNotFoundError:
         raise ConfigNotFound()
@@ -306,7 +315,7 @@ def save_configuration(configuration):
     :type configuration: config.Configuration
     :return: None
     """
-    with open(CONFIG_FILE, "wb") as config_file:
+    with open(CONFIG_FILE_PATH, "wb") as config_file:
         pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
 
 
@@ -364,7 +373,7 @@ class ConfigNotFound(Exception):
     """ Launched when config file is not where is supposed to be."""
     def __init__(self):
         message = "Configuration file is not at it's default " \
-                  "location: {0}".format(CONFIG_FILE)
+                  "location: {0}".format(CONFIG_FILE_PATH)
         Exception.__init__(self, message)
 
 
