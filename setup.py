@@ -39,13 +39,12 @@ setup(name="geolocate",
                                       "tests", "*tests*"]),
       entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
                     },
-      data_files=[("etc", ["geolocate/etc/geolocate.conf", ]),
-                  ("local_database", ["geolocate/local_database/empty.txt", ]),
-                  ("wiki", ["wiki/Contributions.rst",
-                            "wiki/Home.rst",
-                            "wiki/Installation.rst",
-                            "wiki/Recommendations.rst",
-                            "wiki/Usage.rst"]),
-                  ("wiki/images", ["wiki/images/btn_donateCC_LG.gif", ])
-                  ]
+      package_data={"geolocate": ["etc/geolocate.conf",
+                                  "local_database/empty.txt",
+                                  "wiki/Contributions.rst",
+                                  "wiki/Home.rst",
+                                  "wiki/Installation.rst",
+                                  "wiki/Recommendations.rst",
+                                  "wiki/Usage.rst",
+                                  "wiki/images/btn_donateCC_LG.gif", ], }
       )
