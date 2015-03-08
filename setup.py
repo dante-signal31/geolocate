@@ -33,6 +33,7 @@ setup(name="geolocate",
                    'Programming Language :: Python :: 3.4'],
       keywords="geolocation ip addresses",
       install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.5.0"],
+      zip_safe=False,
       #TODO: This exclude is not working, tests package is still included in
       # packages.
       packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
