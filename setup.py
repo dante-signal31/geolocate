@@ -1,11 +1,14 @@
 from setuptools import setup, find_packages  # Always prefer setuptools over distutils
-from codecs import open  # To use a consistent encoding
-from os import path
 
-here = path.abspath(path.dirname(__file__))
-# Get the long description from the relevant file
-with open(path.join(here, 'wiki/Home.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+long_description = """This program accepts any text and searchs inside every IP address. With
+each of those IP addresses, geolocate queries `Maxmind GeoIP database <http://www.maxmind.com>`_
+to look for the city and country where IP address or URL is located.
+
+Geolocate is designed to be used in console with pipes and redirections along
+with applications like traceroute, etc. Geolocate's output is the same text
+than input but IP addresses are going to have appended its country and city and long-lat
+coordinates (depending on verbosity level).
+"""
 
 setup(name="geolocate",
       version="1.0.0",
@@ -36,16 +39,9 @@ setup(name="geolocate",
       zip_safe=False,
       #TODO: This exclude is not working, tests package is still included in
       # packages.
-      packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
-                                      "tests", "*tests*"]),
+      packages=find_packages(exclude=["geolocate/tests/*.*", ]),
       entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
                     },
       package_data={"geolocate": ["etc/geolocate.conf",
-                                  "local_database/empty.txt",
-                                  "wiki/Contributions.rst",
-                                  "wiki/Home.rst",
-                                  "wiki/Installation.rst",
-                                  "wiki/Recommendations.rst",
-                                  "wiki/Usage.rst",
-                                  "wiki/images/btn_donateCC_LG.gif", ], }
+                                  "local_database/empty.txt"], }
       )
