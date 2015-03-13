@@ -37,9 +37,14 @@ setup(name="geolocate",
       keywords="geolocation ip addresses",
       install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.5.0"],
       zip_safe=False,
-      #TODO: This exclude is not working, tests package is still included in
-      # packages.
-      packages=find_packages(exclude=["geolocate/tests/*.*", ]),
+      # TODO: This exclude is not working, tests package is still included in
+      # packages. It's a bug in pip:
+      #     https://bitbucket.org/pypa/wheel/issue/99/cannot-exclude-directory
+      # Until it is fixed, the workaround is to compile package in two steps:
+      #     python setup.py sdist
+      #     pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
+      packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
+                                      "tests", "*tests*"]),
       entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
                     },
       package_data={"geolocate": ["etc/geolocate.conf",
