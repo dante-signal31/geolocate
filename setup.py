@@ -12,9 +12,9 @@ coordinates (depending on verbosity level).
 More info in: https://bitbucket.org/dante_signal31/geolocate
 """
 
-setup(name="geolocate",
+setup(name="glocate",
       version="1.0.0",
-      description="This script scans given text to find urls and IP addresses. "
+      description="This program scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation data appended.",
       long_description=long_description,
