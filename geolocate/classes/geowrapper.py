@@ -199,8 +199,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
             except CompressedFileNotFound as e:
                 _print_compressed_file_not_found_error(e)
             else:
-                self._remove_old_database()
-                self._copy_new_database(temporary_directory)
+                self._write_new_database(temporary_directory)
 
     def _download_file(self, temporal_directory):
         """
@@ -220,6 +219,19 @@ class LocalDatabaseGeoLocator(GeoLocator):
         """
         database_path = self._configuration.local_database_path
         os.remove(database_path)
+
+    def _write_new_database(self, temporary_directory):
+        """
+        :param temporary_directory: Folder path to place downloaded file in.
+        :type temporal_directory: str
+        :return: None
+        """
+        try:
+            self._remove_old_database()
+        except FileNotFoundError:
+            print("Old local database not found. May be this is the "
+                  "first time you run geolocate?.")
+        self._copy_new_database(temporary_directory)
 
     def _copy_new_database(self, decompressed_file_path):
         """

@@ -50,6 +50,6 @@ setup(name="geolocate",
                                       "tests", "*tests*"]),
       entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
                     },
-      package_data={"geolocate": ["etc/geolocate.conf",
+      package_data={"geolocate": ["etc/empty.txt",
                                   "local_database/empty.txt"], }
       )
