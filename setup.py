@@ -40,11 +40,11 @@ setup(name="glocate",
       install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.5.0",
                         "wget>=2.2"],
       zip_safe=False,
-      # TODO: This exclude is not working, tests package is still included in
-      # packages. It's a bug in pip:
+      # TODO: This exclude is not working when building wheels, tests package
+      # is still included in packages. It's a bug in pip:
       #     https://bitbucket.org/pypa/wheel/issue/99/cannot-exclude-directory
-      # Until it is fixed, the workaround is to create a MANIFEST.in file where
-      # you prune your undesired files and compile package in two steps:
+      # Until it is fixed, the workaround is to compile wheel package in two
+      # steps:
       #     python setup.py sdist
       #     pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
       packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
