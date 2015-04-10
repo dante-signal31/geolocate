@@ -21,4 +21,5 @@ See `wiki <https://github.com/dante-signal31/geolocate/wiki>`_ for more detailed
 News
 ----
 
+* **2015-04-10:** Geolocate version 1.1.0 released.
 * **2015-03-14:** Geolocate version 1.0.0 released.
