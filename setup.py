@@ -13,15 +13,15 @@ More info in: https://bitbucket.org/dante_signal31/geolocate
 """
 
 setup(name="glocate",
-      version="1.0.0",
+      version="1.1.0",
       description="This program scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation data appended.",
       long_description=long_description,
       author="Dante Signal31",
       author_email="dante.signal31@gmail.com",
-      license="GPLv3",
-      url="https://bitbucket.org/dante_signal31/geolocate",
+      license="BSD-3",
+      url="https://github.com/dante-signal31/geolocate",
       download_url="https://bitbucket.org/dante_signal31/geolocate/downloads",
       classifiers=['Development Status :: 4 - Beta',
                    'Intended Audience :: Developers',
