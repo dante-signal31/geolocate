@@ -194,6 +194,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :return: None
         """
         with tempfile.TemporaryDirectory() as temporary_directory:
+            print("Downloading fresh geolocation database...")
             self._download_file(temporary_directory)
             try:
                 _decompress_file(temporary_directory)
@@ -227,7 +228,7 @@ class LocalDatabaseGeoLocator(GeoLocator):
         try:
             self._remove_old_database()
         except FileNotFoundError:
-            print("Old local database not found. May be this is the "
+            print("\nOld local database not found. May be this is the "
                   "first time you run geolocate?.")
         self._copy_new_database(temporary_directory)
 
