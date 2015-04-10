@@ -14,6 +14,7 @@ import tempfile
 import geoip2.database as database
 import geoip2.webservice as webservice
 import maxminddb
+import wget
 
 
 import geolocate.classes.config as config
@@ -207,11 +208,8 @@ class LocalDatabaseGeoLocator(GeoLocator):
         :type temporal_directory: str
         :return: None
         """
-        # TODO: I don't like using an external downloader. I must implement
-        # my own one.
-        downloads_folder_parameter = "--directory-prefix={0}".format(temporal_directory)
-        subprocess.call(["wget", self._configuration.download_url,
-                         downloads_folder_parameter])
+        wget.download(url=self._configuration.download_url,
+                      out=temporal_directory)
 
     def _remove_old_database(self):
         """
