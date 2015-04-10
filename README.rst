@@ -22,5 +22,5 @@ News
 ----
 
 * **2015-04-10:** Geolocate version 1.1.0 released. Now geolocate includes its
-own downloader, so its not longer needed as an external dependency.
+  own downloader, so its not longer needed as an external dependency.
 * **2015-03-14:** Geolocate version 1.0.0 released.
