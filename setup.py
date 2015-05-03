@@ -9,11 +9,11 @@ with applications like traceroute, etc. Geolocate's output is the same text
 than input but IP addresses are going to have appended its country and city and long-lat
 coordinates (depending on verbosity level).
 
-More info in: https://bitbucket.org/dante_signal31/geolocate
+More info in: https://github.com/dante-signal31/geolocate
 """
 
 setup(name="glocate",
-      version="1.2.0",
+      version="1.2.1",
       description="This program scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation data appended.",
