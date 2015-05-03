@@ -22,7 +22,7 @@ News
 ----
 
 * **2015-05-03:** Geolocate version 1.2.0 released. Now geolocate includes its
-own gzip decompressor, so its no longer needed as an external dependency.
+  own gzip decompressor, so its no longer needed as an external dependency.
 * **2015-04-10:** Geolocate version 1.1.0 released. Now geolocate includes its
   own downloader, so its no longer needed as an external dependency.
 * **2015-03-14:** Geolocate version 1.0.0 released.
