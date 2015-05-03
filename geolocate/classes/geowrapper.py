@@ -7,9 +7,10 @@
 """
 import abc
 import datetime
+import gzip
 import os
 import shutil
-import subprocess
+# import subprocess
 import tempfile
 import geoip2.database as database
 import geoip2.webservice as webservice
@@ -251,13 +252,16 @@ def _decompress_file(temporary_directory):
     :return: Path to decompressed folder.
     :rtype: str
     """
-    # TODO: Implement my own decompressor using built in python libs.
     try:
         compressed_file_name_path = _find_compressed_file(temporary_directory)
+        uncompressed_file_name_path = _get_uncompressed_file_name_path(compressed_file_name_path)
     except CompressedFileNotFound as e:
         _print_compressed_file_not_found_error(e)
     else:
-        subprocess.call(["gunzip", compressed_file_name_path])
+        with gzip.open(compressed_file_name_path, "rb") as input_file, \
+                open(uncompressed_file_name_path, "wb") as output_file:
+            uncompressed_content = input_file.read()
+            output_file.write(uncompressed_content)
         return compressed_file_name_path
 
 
@@ -277,6 +281,16 @@ def _find_compressed_file(temporary_directory):
     else:
         raise CompressedFileNotFound(temporary_directory)
 
+def _get_uncompressed_file_name_path(compressed_file_name_path):
+    """ Get file name compressed in .gz file.
+
+    :param compressed_file_name_path: Compressed file name absolute path.
+    :type compressed_file_name_path: str
+    :return: File name compressed into .gz file.
+    :rtype: str
+    """
+    uncompressed_file_name_path = os.path.splitext(compressed_file_name_path)[0]
+    return uncompressed_file_name_path
 
 def _open_local_database(local_database_path):
     try:

@@ -60,11 +60,12 @@ class TestGeoWrapper(unittest.TestCase):
     def test_local_database_update(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             configuration = config.Configuration()
-            with testing_tools.OriginalFileSaved(configuration.local_database_path):
+            with testing_tools.OriginalFileSaved(
+                    configuration.local_database_path):
                 local_database = _create_too_old_database_locator(configuration)
                 local_database._update_db()
                 self.assertFalse(local_database._local_database_too_old(),
-                                 msg="Database not updated.")
+                    msg="Database not updated.")
 
     def test_local_database_too_old(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
@@ -116,7 +117,7 @@ class TestGeoWrapper(unittest.TestCase):
 
     def test_local_database_geo_locator_download_file(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
-                tempfile.TemporaryDirectory() as temporary_directory:
+             tempfile.TemporaryDirectory() as temporary_directory:
             configuration = config.Configuration()
             self._assert_folder_empty(temporary_directory)
             geoip_local_database = geoip.LocalDatabaseGeoLocator(configuration)
@@ -183,7 +184,7 @@ class TestGeoWrapper(unittest.TestCase):
     # def test_decompress_file_failed(self):
     # with tempfile.TemporaryDirectory() as temporary_directory:
     # mocked_function = create_autospec(geoip._print_compressed_file_not_found_error)
-    #         geoip._decompress_file(temporary_directory)
+    # geoip._decompress_file(temporary_directory)
     #         self.assertTrue(mocked_function.called)
 
     def test_find_compressed_file(self):
@@ -200,17 +201,24 @@ class TestGeoWrapper(unittest.TestCase):
 
     def test_print_compressed_file_not_found_error(self):
         error_message = "Problem decompressing updated database."
-        with tempfile.TemporaryDirectory() as temporary_directory,\
+        with tempfile.TemporaryDirectory() as temporary_directory, \
                 console_mocks.MockedConsoleOutput() as console:
             geoip._decompress_file(temporary_directory)
             console_output = console.output()
             self.assertTrue(error_message in console_output)
 
+    def test_get_uncompressed_file_name_path(self):
+        compressed_filename_path = "/home/dante/downloads/GeoLite2-City.mmdb.gz"
+        uncompressed_filename_path = "/home/dante/downloads/GeoLite2-City.mmdb"
+        returned_filename_path = geoip._get_uncompressed_file_name_path(compressed_filename_path)
+        self.assertEqual(returned_filename_path, uncompressed_filename_path)
+
     def test_local_database_too_old_local_database_not_found(self):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR):
             geoip_database = _create_default_geoip_database()
             configuration = geoip_database._configuration
-            with testing_tools.OriginalFileSaved(configuration.local_database_path):
+            with testing_tools.OriginalFileSaved(
+                    configuration.local_database_path):
                 _remove_file(configuration.local_database_path)
                 is_too_old = geoip_database.geoip2_local._local_database_too_old()
                 self.assertTrue(is_too_old)
@@ -218,12 +226,12 @@ class TestGeoWrapper(unittest.TestCase):
     def _assert_folder_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertEqual([], files_list,
-                           msg="Temporary folder initially not empty.")
+            msg="Temporary folder initially not empty.")
 
     def _assert_folder_not_empty(self, folder_path):
         files_list = os.listdir(folder_path)
         self.assertNotEqual([], files_list,
-                              msg="Nothing downloaded.")
+            msg="Nothing downloaded.")
 
 
 def _create_default_geoip_database():

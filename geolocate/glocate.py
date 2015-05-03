@@ -19,6 +19,8 @@ import geolocate.classes.geowrapper as geowrapper
 import geolocate.classes.parser as parser
 import geolocate.classes.config as config
 
+import sys
+
 def print_lines_parsed(parser):
     for line in parser:
         print(line, end="")

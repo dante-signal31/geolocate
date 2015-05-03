@@ -13,7 +13,7 @@ More info in: https://bitbucket.org/dante_signal31/geolocate
 """
 
 setup(name="glocate",
-      version="1.1.0",
+      version="1.2.0",
       description="This program scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation data appended.",
