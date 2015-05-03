@@ -21,6 +21,8 @@ See `wiki <https://github.com/dante-signal31/geolocate/wiki>`_ for more detailed
 News
 ----
 
+* **2015-05-03:** Geolocate version 1.2.1 released. Setup.py description had an
+  incorrect homepage url, now it is fixed.
 * **2015-05-03:** Geolocate version 1.2.0 released. Now geolocate includes its
   own gzip decompressor, so its no longer needed as an external dependency.
 * **2015-04-10:** Geolocate version 1.1.0 released. Now geolocate includes its
