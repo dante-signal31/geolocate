@@ -22,7 +22,7 @@ News
 ----
 
 * **2015-06-26:** Geolocate version 1.2.2 released. Geolocate now warns user and
-exits gracefully if it detects it is being run on a Python 2.x interpreter.
+  exits gracefully if it detects it is being run on a Python 2.x interpreter.
 * **2015-05-03:** Geolocate version 1.2.1 released. Setup.py description had an
   incorrect homepage url, now it is fixed.
 * **2015-05-03:** Geolocate version 1.2.0 released. Now geolocate includes its
