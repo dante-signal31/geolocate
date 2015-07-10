@@ -13,6 +13,8 @@ to have its geolocation appended.
 Geolocate is possible thanks to `Maxmind GeoIP database <http://www.maxmind.com>`_
 and their API.
 """
+# TODO: Improve sphinxdoc structure.
+
 import geolocate.classes.system as system
 
 system.verify_python_version(3, 0)

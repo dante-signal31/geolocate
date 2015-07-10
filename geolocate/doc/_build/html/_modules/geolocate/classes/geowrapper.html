@@ -175,7 +175,7 @@
     <span class="sd">&quot;&quot;&quot; Location engines may have multiple query methods. This class</span>
 <span class="sd">    encapsulates them all in _locators list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+<div class="viewcode-block" id="GeoIPDatabase.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoIPDatabase.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param configuration: Geolocate configuration.</span>
 <span class="sd">        :type configuration: config.Configuration</span>
@@ -184,7 +184,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_locators</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_locators</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">locators_preference</span>
-
+</div>
     <span class="k">def</span> <span class="nf">_add_locators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Add query methods for this location engine.</span>
 
@@ -262,10 +262,10 @@
 </div></div>
 <div class="viewcode-block" id="GeoLocator"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoLocator">[docs]</a><span class="k">class</span> <span class="nc">GeoLocator</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="nd">@abc.abstractmethod</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+<div class="viewcode-block" id="GeoLocator.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoLocator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span> <span class="o">=</span> <span class="n">configuration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_db_connection</span> <span class="o">=</span> <span class="bp">None</span>
-
+</div>
 <div class="viewcode-block" id="GeoLocator.locate"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoLocator.locate">[docs]</a>    <span class="k">def</span> <span class="nf">locate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Get geolocation data from database.</span>
 
@@ -280,7 +280,7 @@
 
 </div></div>
 <div class="viewcode-block" id="WebServiceGeoLocator"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.WebServiceGeoLocator">[docs]</a><span class="k">class</span> <span class="nc">WebServiceGeoLocator</span><span class="p">(</span><span class="n">GeoLocator</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+<div class="viewcode-block" id="WebServiceGeoLocator.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.WebServiceGeoLocator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param configuration: Geolocate configuration.</span>
 <span class="sd">        :type configuration: config.Configuration</span>
@@ -290,9 +290,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_db_connection</span> <span class="o">=</span> <span class="n">webservice</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">configuration</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
                                                 <span class="n">configuration</span><span class="o">.</span><span class="n">license_key</span><span class="p">)</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="LocalDatabaseGeoLocator"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.LocalDatabaseGeoLocator">[docs]</a><span class="k">class</span> <span class="nc">LocalDatabaseGeoLocator</span><span class="p">(</span><span class="n">GeoLocator</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+<div class="viewcode-block" id="LocalDatabaseGeoLocator.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.LocalDatabaseGeoLocator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param configuration: Geolocate configuration.</span>
 <span class="sd">        :type configuration: config.Configuration</span>
@@ -304,7 +304,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_db</span><span class="p">()</span>
         <span class="n">db_path</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">local_database_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_db_connection</span> <span class="o">=</span> <span class="n">_open_local_database</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
-
+</div>
     <span class="k">def</span> <span class="nf">_update_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Download a fresh geolocation database if current is too old.</span>
 
@@ -508,50 +508,50 @@
 <div class="viewcode-block" id="GeoIP2WebServiceNotConfigured"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured">[docs]</a><span class="k">class</span> <span class="nc">GeoIP2WebServiceNotConfigured</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; GeoIP2 WebService access is still not configured.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GeoIP2WebServiceNotConfigured.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You tried a query to GeoIP2 webservice, but no valid &quot;</span> \
                   <span class="s">&quot;credentials were found in configuration.&quot;</span>
         <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="LocalDatabaseNotFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.LocalDatabaseNotFound">[docs]</a><span class="k">class</span> <span class="nc">LocalDatabaseNotFound</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Local database file is missing.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_database_path</span><span class="p">):</span>
+<div class="viewcode-block" id="LocalDatabaseNotFound.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.LocalDatabaseNotFound.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_database_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">local_database_path</span> <span class="o">=</span> <span class="n">local_database_path</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Local database file is missing&quot;</span>
         <span class="ne">OSError</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="InvalidLocalDatabase"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.InvalidLocalDatabase">[docs]</a><span class="k">class</span> <span class="nc">InvalidLocalDatabase</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Local database exists but is corrupted. &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_database_path</span><span class="p">):</span>
+<div class="viewcode-block" id="InvalidLocalDatabase.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.InvalidLocalDatabase.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_database_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">local_database_path</span> <span class="o">=</span> <span class="n">local_database_path</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Local database is invalid.&quot;</span>
         <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="NotValidDatabaseFileFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.NotValidDatabaseFileFound">[docs]</a><span class="k">class</span> <span class="nc">NotValidDatabaseFileFound</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Raised when a new database pack is downloaded on local, but after</span>
 <span class="sd">    decompression no valid database file is found in decompressed folder.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompressed_database_path</span><span class="p">):</span>
+<div class="viewcode-block" id="NotValidDatabaseFileFound.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.NotValidDatabaseFileFound.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompressed_database_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">decompressed_database_path</span> <span class="o">=</span> <span class="n">decompressed_database_path</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;No valid database found in downloaded file.&quot;</span>
         <span class="ne">OSError</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="CompressedFileNotFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.CompressedFileNotFound">[docs]</a><span class="k">class</span> <span class="nc">CompressedFileNotFound</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Raised when no .gz compressed file is found in temporary folder where</span>
 <span class="sd">    downloaded data is placed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compressed_database_path</span><span class="p">):</span>
+<div class="viewcode-block" id="CompressedFileNotFound.__init__"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.CompressedFileNotFound.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compressed_database_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compressed_database_path</span> <span class="o">=</span> <span class="n">compressed_database_path</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;No compressed file found in downloaded data.&quot;</span>
-        <span class="ne">OSError</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+        <span class="ne">OSError</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>

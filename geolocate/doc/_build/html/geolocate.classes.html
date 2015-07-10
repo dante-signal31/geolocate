@@ -101,7 +101,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="geolocate.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geolocate.html#module-geolocate">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -488,6 +487,11 @@ config.Configuration instance.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">OSError</span></code></p>
 <p>Raised when no .gz compressed file is found in temporary folder where
 downloaded data is placed.</p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.CompressedFileNotFound.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>compressed_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#CompressedFileNotFound.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.CompressedFileNotFound.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
@@ -495,6 +499,11 @@ downloaded data is placed.</p>
 <em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">GeoIP2WebServiceNotConfigured</code><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoIP2WebServiceNotConfigured"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
 <p>GeoIP2 WebService access is still not configured.</p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoIP2WebServiceNotConfigured.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -503,6 +512,19 @@ downloaded data is placed.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Location engines may have multiple query methods. This class
 encapsulates them all in _locators list.</p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.GeoIPDatabase.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoIPDatabase.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIPDatabase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>configuration</strong> (<a class="reference internal" href="#geolocate.classes.config.Configuration" title="geolocate.classes.config.Configuration"><em>config.Configuration</em></a>) &#8211; Geolocate configuration.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="geolocate.classes.geowrapper.GeoIPDatabase.geoip2_local">
 <code class="descname">geoip2_local</code><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIPDatabase.geoip2_local" title="Permalink to this definition">¶</a></dt>
@@ -551,6 +573,11 @@ geodata.</p>
 <em class="property">class </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">GeoLocator</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoLocator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoLocator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
+<dt id="geolocate.classes.geowrapper.GeoLocator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoLocator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoLocator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="geolocate.classes.geowrapper.GeoLocator.locate">
 <code class="descname">locate</code><span class="sig-paren">(</span><em>ip</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoLocator.locate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoLocator.locate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get geolocation data from database.</p>
@@ -577,12 +604,36 @@ geodata.</p>
 <em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">InvalidLocalDatabase</code><span class="sig-paren">(</span><em>local_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#InvalidLocalDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.InvalidLocalDatabase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
 <p>Local database exists but is corrupted.</p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.InvalidLocalDatabase.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>local_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#InvalidLocalDatabase.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.InvalidLocalDatabase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="geolocate.classes.geowrapper.LocalDatabaseGeoLocator">
 <em class="property">class </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">LocalDatabaseGeoLocator</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#LocalDatabaseGeoLocator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.LocalDatabaseGeoLocator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#geolocate.classes.geowrapper.GeoLocator" title="geolocate.classes.geowrapper.GeoLocator"><code class="xref py py-class docutils literal"><span class="pre">geolocate.classes.geowrapper.GeoLocator</span></code></a></p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.LocalDatabaseGeoLocator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#LocalDatabaseGeoLocator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.LocalDatabaseGeoLocator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>configuration</strong> (<a class="reference internal" href="#geolocate.classes.config.Configuration" title="geolocate.classes.config.Configuration"><em>config.Configuration</em></a>) &#8211; Geolocate configuration.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">none</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body">LocalDatabaseNotFound</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raise:</th><td class="field-body">InvalidLocalDatabase</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
@@ -590,6 +641,11 @@ geodata.</p>
 <em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">LocalDatabaseNotFound</code><span class="sig-paren">(</span><em>local_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#LocalDatabaseNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.LocalDatabaseNotFound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">OSError</span></code></p>
 <p>Local database file is missing.</p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.LocalDatabaseNotFound.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>local_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#LocalDatabaseNotFound.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.LocalDatabaseNotFound.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
@@ -598,12 +654,32 @@ geodata.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">OSError</span></code></p>
 <p>Raised when a new database pack is downloaded on local, but after
 decompression no valid database file is found in decompressed folder.</p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.NotValidDatabaseFileFound.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>decompressed_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#NotValidDatabaseFileFound.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.NotValidDatabaseFileFound.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="geolocate.classes.geowrapper.WebServiceGeoLocator">
 <em class="property">class </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">WebServiceGeoLocator</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#WebServiceGeoLocator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.WebServiceGeoLocator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#geolocate.classes.geowrapper.GeoLocator" title="geolocate.classes.geowrapper.GeoLocator"><code class="xref py py-class docutils literal"><span class="pre">geolocate.classes.geowrapper.GeoLocator</span></code></a></p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.WebServiceGeoLocator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#WebServiceGeoLocator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.WebServiceGeoLocator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>configuration</strong> (<a class="reference internal" href="#geolocate.classes.config.Configuration" title="geolocate.classes.config.Configuration"><em>config.Configuration</em></a>) &#8211; Geolocate configuration.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
