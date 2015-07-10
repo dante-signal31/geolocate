@@ -18,7 +18,7 @@ def verify_python_version(major_version, minor_revision):
     :param major_version: Needed major version for Python interpreter.
     :type major_version: int
     :param minor_revision: Needed minor version for Python interpreter.
-    :type minor_version: int
+    :type minor_revision: int
     :return: None
     """
     if (major_version, minor_revision) > sys.version_info:

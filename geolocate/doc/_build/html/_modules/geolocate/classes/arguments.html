@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geolocate.classes.arguments &mdash; Geolocate 1.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Geolocate 1.3.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> Geolocate
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.html">geolocate package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.tests.html">geolocate.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Geolocate</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>geolocate.classes.arguments</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for geolocate.classes.arguments</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> Geolocate argument parser module.</span>
+
+<span class="sd"> Programmed by: Dante Signal31</span>
+
+<span class="sd"> email: dante.signal31@gmail.com</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">geolocate.classes.config</span> <span class="kn">as</span> <span class="nn">config</span>
+<span class="kn">import</span> <span class="nn">geolocate.classes.parser</span> <span class="kn">as</span> <span class="nn">parser</span>
+
+
+<span class="c"># These arguments activate functions with their same name. True or False depends</span>
+<span class="c"># on passing in user arguments to called function or not.</span>
+<span class="n">MUST_PASS_IN_USER_ARGUMENTS</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;show_enabled_locators&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                                <span class="s">&quot;set_locators_preference&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+                                <span class="s">&quot;show_disabled_locators&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                                <span class="s">&quot;reset_locators_preference&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                                <span class="s">&quot;set_user&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+                                <span class="s">&quot;set_password&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+                                <span class="s">&quot;show_user&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                                <span class="s">&quot;show_password&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
+<span class="c"># This arguments don&#39;t activate a function with their same name.</span>
+<span class="n">NOT_CALLABLE_ARGUMENTS</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;verbosity&quot;</span><span class="p">,</span> <span class="s">&quot;text_to_parse&quot;</span><span class="p">,</span> <span class="s">&quot;stream_mode&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="parse_arguments"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.parse_arguments">[docs]</a><span class="k">def</span> <span class="nf">parse_arguments</span><span class="p">():</span>
+    <span class="n">verbosity_choices</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">GeolocateInputParser</span><span class="o">.</span><span class="n">VERBOSITY_LEVELS</span>
+    <span class="n">arg_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&quot;Locate IP adresses &quot;</span>
+                                                     <span class="s">&quot;in given text.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+                                         <span class="n">epilog</span><span class="o">=</span><span class="s">&quot;This program is possible &quot;</span>
+                                                <span class="s">&quot;thanks to Maxmind GeoIP &quot;</span>
+                                                <span class="s">&quot;database &quot;</span>
+                                                <span class="s">&quot;&lt;http://www.maxmind.com&gt; and &quot;</span>
+                                                <span class="s">&quot;their API.&quot;</span><span class="p">)</span>
+    <span class="n">data_input_arguments</span> <span class="o">=</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">()</span>
+    <span class="n">data_input_arguments</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s">&quot;text_to_parse&quot;</span><span class="p">,</span>
+                                      <span class="n">metavar</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">text to parse</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+                                      <span class="n">nargs</span><span class="o">=</span><span class="s">&quot;?&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                                      <span class="n">help</span><span class="o">=</span><span class="s">&quot;Text to analyze surrounded by &quot;</span>
+                                           <span class="s">&quot;double quotes.&quot;</span><span class="p">)</span>
+    <span class="n">data_input_arguments</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-s&quot;</span><span class="p">,</span> <span class="s">&quot;--stream&quot;</span><span class="p">,</span>
+                                      <span class="n">dest</span><span class="o">=</span><span class="s">&quot;stream_mode&quot;</span><span class="p">,</span>
+                                      <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                      <span class="n">help</span><span class="o">=</span><span class="s">&quot;Program will analyze piped output &quot;</span>
+                                           <span class="s">&quot;from another program.&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-v&quot;</span><span class="p">,</span> <span class="s">&quot;--verbosity&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&quot;verbosity&quot;</span><span class="p">,</span>
+                            <span class="n">choices</span><span class="o">=</span><span class="n">verbosity_choices</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s">&quot;0-3 The higher the more geodata.&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-l&quot;</span><span class="p">,</span> <span class="s">&quot;--show_enabled&quot;</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;show_enabled_locators&quot;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s">&quot;Show enabled locators ordered by preference.&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-p&quot;</span><span class="p">,</span> <span class="s">&quot;--set_preference&quot;</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;set_locators_preference&quot;</span><span class="p">,</span>
+                            <span class="n">nargs</span><span class="o">=</span><span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s">&quot;Set preferred locator order.&quot;</span><span class="p">,</span>
+                            <span class="n">metavar</span><span class="o">=</span><span class="s">&quot;locator&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-d&quot;</span><span class="p">,</span> <span class="s">&quot;--show_disabled&quot;</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;show_disabled_locators&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&quot;Show disabled locators.&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-r&quot;</span><span class="p">,</span> <span class="s">&quot;--reset&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&quot;reset_locators_preference&quot;</span><span class="p">,</span>
+                            <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s">&quot;Restore default locator order.&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-u&quot;</span><span class="p">,</span> <span class="s">&quot;--set_user&quot;</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;set_user&quot;</span><span class="p">,</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s">&quot;Set user for webservice database access.&quot;</span><span class="p">,</span>
+                            <span class="n">metavar</span><span class="o">=</span><span class="s">&quot;account_id&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-w&quot;</span><span class="p">,</span> <span class="s">&quot;--set_password&quot;</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;set_password&quot;</span><span class="p">,</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">help</span><span class="o">=</span><span class="s">&quot;Set password for webservice database access.&quot;</span><span class="p">,</span>
+                            <span class="n">metavar</span><span class="o">=</span><span class="s">&quot;account_password&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-i&quot;</span><span class="p">,</span> <span class="s">&quot;--show_user&quot;</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;show_user&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&quot;Show user configured for &quot;</span>
+                                                <span class="s">&quot;webservice access.&quot;</span><span class="p">)</span>
+    <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&quot;-k&quot;</span><span class="p">,</span> <span class="s">&quot;--show_password&quot;</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;show_password&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">&quot;Show password configured for &quot;</span>
+                                                <span class="s">&quot;webservice access.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="show_enabled_locators"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.show_enabled_locators">[docs]</a><span class="k">def</span> <span class="nf">show_enabled_locators</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Print in console enabled locators ordered by preference.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">enabled_locators</span> <span class="o">=</span> <span class="n">_get_enabled_locators_list</span><span class="p">()</span>
+    <span class="n">_print_locators_list</span><span class="p">(</span><span class="s">&quot;Enabled locators:&quot;</span><span class="p">,</span> <span class="n">enabled_locators</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="set_locators_preference"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.set_locators_preference">[docs]</a><span class="k">def</span> <span class="nf">set_locators_preference</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Change locators list with new list given in arguments.</span>
+
+<span class="sd">    :param arguments:  Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">config</span><span class="o">.</span><span class="n">OpenConfigurationToUpdate</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">locators_preference</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">set_locators_preference</span>
+
+</div>
+<div class="viewcode-block" id="show_disabled_locators"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.show_disabled_locators">[docs]</a><span class="k">def</span> <span class="nf">show_disabled_locators</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Print in console enabled locators ordered by preference.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">enabled_locators_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_get_enabled_locators_list</span><span class="p">())</span>
+    <span class="n">complete_locators_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DEFAULT_LOCATORS_PREFERENCE</span><span class="p">)</span>
+    <span class="n">disabled_locators_set</span> <span class="o">=</span> <span class="n">complete_locators_set</span> <span class="o">-</span> <span class="n">enabled_locators_set</span>
+    <span class="n">_print_locators_list</span><span class="p">(</span><span class="s">&quot;Disabled locators:&quot;</span><span class="p">,</span> <span class="n">disabled_locators_set</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="reset_locators_preference"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.reset_locators_preference">[docs]</a><span class="k">def</span> <span class="nf">reset_locators_preference</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Sets back locators list to it&#39;s default value.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">config</span><span class="o">.</span><span class="n">OpenConfigurationToUpdate</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">reset_locators_preference</span><span class="p">()</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_get_enabled_locators_list</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :return: Configuration locators preference.</span>
+<span class="sd">    :rtype: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">()</span>
+    <span class="n">enabled_locators</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">locators_preference</span>
+    <span class="k">return</span> <span class="n">enabled_locators</span>
+
+
+<div class="viewcode-block" id="set_user"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.set_user">[docs]</a><span class="k">def</span> <span class="nf">set_user</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Set user for webservice database access.</span>
+
+<span class="sd">    :param arguments:  Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">config</span><span class="o">.</span><span class="n">OpenConfigurationToUpdate</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">set_user</span>
+
+</div>
+<div class="viewcode-block" id="set_password"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.set_password">[docs]</a><span class="k">def</span> <span class="nf">set_password</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Set password for webservice database access.</span>
+
+<span class="sd">    :param arguments:  Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">config</span><span class="o">.</span><span class="n">OpenConfigurationToUpdate</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">license_key</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">set_password</span>
+
+</div>
+<div class="viewcode-block" id="show_user"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.show_user">[docs]</a><span class="k">def</span> <span class="nf">show_user</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Print on console user configured for webservice database access.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">()</span>
+    <span class="n">output_string</span> <span class="o">=</span> <span class="s">&quot;User:</span><span class="se">\n</span><span class="s">&quot;</span> \
+                    <span class="s">&quot;{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">configuration</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">output_string</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="show_password"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.show_password">[docs]</a><span class="k">def</span> <span class="nf">show_password</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Print on console password configured for webservice database access.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">()</span>
+    <span class="n">output_string</span> <span class="o">=</span> <span class="s">&quot;Password:</span><span class="se">\n</span><span class="s">&quot;</span> \
+                    <span class="s">&quot;{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">configuration</span><span class="o">.</span><span class="n">license_key</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">output_string</span><span class="p">)</span>
+
+
+</div>
+<span class="k">def</span> <span class="nf">_print_locators_list</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">locators_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Print on console a formatted list of locators.</span>
+
+<span class="sd">    :param header: Title of list.</span>
+<span class="sd">    :type header: str</span>
+<span class="sd">    :param locators_list: Locators list.</span>
+<span class="sd">    :type locators_list: list or set</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">components</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">locators_list</span><span class="p">)</span>
+    <span class="n">components</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="process_optional_parameters"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.process_optional_parameters">[docs]</a><span class="k">def</span> <span class="nf">process_optional_parameters</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Take all optional arguments given by user and run one by one all</span>
+<span class="sd">    functions assigned to each of them.</span>
+
+<span class="sd">    :param arguments: Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">functions_to_execute</span> <span class="o">=</span> <span class="n">_get_functions_to_execute</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">functions</span> <span class="ow">in</span> <span class="n">functions_to_execute</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_execute_function</span><span class="p">(</span><span class="n">functions</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">NoFunctionAssignedToArgument</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">UnknownLocators</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&quot;. &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="s">&quot;Exiting&quot;</span><span class="p">]))</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_get_functions_to_execute</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param arguments: Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: Function names set to execute.</span>
+<span class="sd">    :rtype: set</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">valid_arguments</span> <span class="o">=</span> <span class="n">_get_user_arguments</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+    <span class="n">functions_names_set</span> <span class="o">=</span> <span class="p">{</span><span class="n">argument</span> <span class="k">for</span> <span class="n">argument</span> <span class="ow">in</span> <span class="n">valid_arguments</span>
+                           <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">argument</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">functions_names_set</span>
+
+
+<span class="k">def</span> <span class="nf">_get_user_arguments</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get public user attributes of arguments object.</span>
+
+<span class="sd">    Arguments set by user are defined public in object returned by</span>
+<span class="sd">    ArgumentParser.parse_args(). Built-in attributes in that object are defined</span>
+<span class="sd">    &quot;private&quot; with &quot;_&quot; o &quot;__&quot; prefix.</span>
+
+<span class="sd">    :param arguments: Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: Public attribute list of arguments object.</span>
+<span class="sd">    :rtype: set</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">attribute_list</span> <span class="o">=</span> <span class="nb">dir</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+    <span class="n">public_attributes_set</span> <span class="o">=</span> <span class="p">{</span><span class="n">argument</span> <span class="k">for</span> <span class="n">argument</span> <span class="ow">in</span> <span class="n">attribute_list</span>
+                             <span class="k">if</span> <span class="ow">not</span> <span class="n">argument</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;_&quot;</span><span class="p">)}</span>
+    <span class="n">public_attributes_set</span> <span class="o">=</span> <span class="n">_remove_non_user_attributes</span><span class="p">(</span><span class="n">public_attributes_set</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">public_attributes_set</span>
+
+
+<span class="k">def</span> <span class="nf">_remove_non_user_attributes</span><span class="p">(</span><span class="n">attributes_set</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Takes out from attribute set public attributes not defined by user.</span>
+
+<span class="sd">    :param attributes_set: Public attribute list of arguments object.</span>
+<span class="sd">    :type attributes_set: set</span>
+<span class="sd">    :return: Public attribute list of arguments object without non user attributes.</span>
+<span class="sd">    :rtype: set</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Arguments object returned by ArgumentParser.parse_args() include by</span>
+    <span class="c"># default &quot;index&quot; and &quot;count&quot; public attributes. We don&#39;t need them so we</span>
+    <span class="c"># strip them off. Arguments &quot;verbosity&quot;, &quot;text_to_parse&quot; and &quot;stream_mode&quot;</span>
+    <span class="c"># is not an optional parameter and shouldn&#39;t be processed as one.</span>
+    <span class="n">non_user_attributes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;index&quot;</span><span class="p">,</span> <span class="s">&quot;count&quot;</span><span class="p">}</span> <span class="o">|</span> <span class="n">NOT_CALLABLE_ARGUMENTS</span>
+    <span class="n">user_attributes</span> <span class="o">=</span> <span class="n">attributes_set</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">non_user_attributes</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">user_attributes</span>
+
+
+<span class="k">def</span> <span class="nf">_execute_function</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Execute function assigned to given argument.</span>
+
+<span class="sd">    :param argument: Argument to search a function assigned for.</span>
+<span class="sd">    :param arguments: Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :raise: NoFunctionAssignedToArgument</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">MUST_PASS_IN_USER_ARGUMENTS</span><span class="p">[</span><span class="n">argument</span><span class="p">]:</span>
+            <span class="c"># Arguments names are equal to names of functions to call.</span>
+            <span class="n">_call_function</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_call_function</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">NoFunctionAssignedToArgument</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_call_function</span><span class="p">(</span><span class="n">function_name</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Call given function and pass it in arguments if they are given.</span>
+
+<span class="sd">    :param function_name: Function to call.</span>
+<span class="sd">    :type function_name: str</span>
+<span class="sd">    :param arguments:  Arguments object returned by ArgumentParser.parse_args()</span>
+<span class="sd">    :type arguments: Namespace</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">function</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">function_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">arguments</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">function</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">function</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="NoFunctionAssignedToArgument"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.arguments.NoFunctionAssignedToArgument">[docs]</a><span class="k">class</span> <span class="nc">NoFunctionAssignedToArgument</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; User has given and argument that has no function assigned yet.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument</span> <span class="o">=</span> <span class="n">argument</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Sorry, I don&#39;t know what to do &quot;</span> \
+                       <span class="s">&quot;with argument: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument</span><span class="p">)</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dante Signal31.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geolocate.tests.test_parser &mdash; Geolocate 1.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Geolocate 1.3.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> Geolocate
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.html">geolocate package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.tests.html">geolocate.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Geolocate</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>geolocate.tests.test_parser</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for geolocate.tests.test_parser</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> test_logparser.py</span>
+
+<span class="sd"> Programmed by: Dante Signal31</span>
+
+<span class="sd"> email: dante.signal31@gmail.com</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">unittest.mock</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="kn">import</span> <span class="nn">geolocate.classes.config</span> <span class="kn">as</span> <span class="nn">config</span>
+<span class="kn">import</span> <span class="nn">geolocate.classes.geowrapper</span> <span class="kn">as</span> <span class="nn">geoip</span>
+<span class="kn">import</span> <span class="nn">geolocate.classes.parser</span> <span class="kn">as</span> <span class="nn">parser</span>
+<span class="kn">import</span> <span class="nn">geolocate.tests.test_geowrapper</span> <span class="kn">as</span> <span class="nn">test_geowrapper</span>
+<span class="kn">import</span> <span class="nn">geolocate.tests.testing_tools</span> <span class="kn">as</span> <span class="nn">testing_tools</span>
+
+
+<span class="n">WORKING_DIR</span> <span class="o">=</span> <span class="s">&quot;./geolocate&quot;</span>
+
+<span class="n">TEST_STRING</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;TRACEROUTE OUTPUT</span>
+<span class="s">traceroute to www.google.com (173.194.45.51), 30 hops max, 60 byte packets</span>
+<span class="s"> 1  192.168.1.1 (192.168.1.1)  2.923 ms  4.180 ms  4.092 ms</span>
+<span class="s"> 2  90.Red-80-58-67.staticIP.rima-tde.net (80.58.67.90)  7.713 ms  7.657 ms  7.601 ms</span>
+<span class="s"> 3  57.Red-80-58-76.staticIP.rima-tde.net (80.58.76.57)  11.990 ms  11.948 ms  13.062 ms</span>
+<span class="s"> 4  145.Red-80-58-86.staticIP.rima-tde.net (80.58.86.145)  9.630 ms  14.929 ms  14.872 ms</span>
+<span class="s"> 5  AE3-GRCMADJV1.red.telefonica-wholesale.net (5.53.1.77)  9.431 ms  9.337 ms  11.313 ms</span>
+<span class="s"> 6  5.53.1.82 (5.53.1.82)  12.499 ms  13.972 ms  15.852 ms</span>
+<span class="s"> 7  209.85.252.150 (209.85.252.150)  15.817 ms  15.798 ms 209.85.251.242 (209.85.251.242)  15.779 ms</span>
+<span class="s"> 8  209.85.240.189 (209.85.240.189)  55.590 ms  55.581 ms  55.550 ms</span>
+<span class="s"> 9  209.85.245.82 (209.85.245.82)  37.949 ms  37.937 ms 209.85.245.71 (209.85.245.71)  50.830 ms</span>
+<span class="s">10  66.249.94.79 (66.249.94.79)  40.635 ms  37.871 ms  40.588 ms</span>
+<span class="s">11  par03s12-in-f19.1e100.net (173.194.45.51)  37.817 ms  40.528 ms  37.954 ms</span>
+<span class="s">&quot;&quot;&quot;</span>
+<span class="n">TEST_STRING_IP_ADDRESSES</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;173.194.45.51&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;192.168.1.1&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;80.58.67.90&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;80.58.76.57&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;80.58.86.145&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;5.53.1.77&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;5.53.1.82&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;209.85.252.150&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;209.85.251.242&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;209.85.240.189&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;209.85.245.82&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;209.85.245.71&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;66.249.94.79&quot;</span><span class="p">,</span>
+                            <span class="s">&quot;173.194.45.51&quot;</span><span class="p">)</span>
+
+<span class="n">TEST_IP</span> <span class="o">=</span> <span class="s">&quot;173.194.45.51&quot;</span>
+
+<span class="n">TEST_IP_FIELDS</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">TEST_IP</span> <span class="p">:</span> <span class="p">{</span><span class="s">&quot;continent_name&quot;</span><span class="p">:</span> <span class="s">&quot;North America&quot;</span><span class="p">,</span>
+                       <span class="s">&quot;country_name&quot;</span><span class="p">:</span> <span class="s">&quot;United States&quot;</span><span class="p">,</span>
+                       <span class="s">&quot;city_name&quot;</span><span class="p">:</span> <span class="s">&quot;Mountain View&quot;</span><span class="p">,</span>
+                       <span class="s">&quot;lat-long&quot;</span><span class="p">:</span> <span class="s">&quot;37.419200000000004, -122.0574&quot;</span><span class="p">}</span>
+            <span class="p">}</span>
+
+<span class="n">TEST_IP_LOCATION_STRINGS</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">TEST_IP</span> <span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s">&quot;173.194.45.51 [North America]&quot;</span><span class="p">,</span>
+                       <span class="mi">1</span><span class="p">:</span> <span class="s">&quot;173.194.45.51 [North America | United States]&quot;</span><span class="p">,</span>
+                       <span class="mi">2</span><span class="p">:</span> <span class="s">&quot;173.194.45.51 [North America | United States | &quot;</span>
+                          <span class="s">&quot;Mountain View]&quot;</span><span class="p">,</span>
+                       <span class="mi">3</span><span class="p">:</span> <span class="s">&quot;173.194.45.51 [North America | United States | &quot;</span>
+                          <span class="s">&quot;Mountain View | 37.419200000000004, -122.0574]&quot;</span><span class="p">}</span>
+            <span class="p">}</span>
+
+<span class="n">TEST_IP_GEOLOCATION_STRINGS</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">TEST_IP</span> <span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s">&quot;[North America]&quot;</span><span class="p">,</span>
+                       <span class="mi">1</span><span class="p">:</span> <span class="s">&quot;[North America | United States]&quot;</span><span class="p">,</span>
+                       <span class="mi">2</span><span class="p">:</span> <span class="s">&quot;[North America | United States | &quot;</span>
+                          <span class="s">&quot;Mountain View]&quot;</span><span class="p">,</span>
+                       <span class="mi">3</span><span class="p">:</span> <span class="s">&quot;[North America | United States | &quot;</span>
+                          <span class="s">&quot;Mountain View | 37.419200000000004, -122.0574]&quot;</span><span class="p">}</span>
+            <span class="p">}</span>
+
+
+<span class="n">locate_response</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&quot;locate_response&quot;</span><span class="p">,</span> <span class="s">&quot;continent country&quot;</span>
+                                                <span class="s">&quot; city location&quot;</span><span class="p">)</span>
+<span class="n">city_response</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="n">country_response</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&quot;country&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="n">continent_response</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&quot;continent&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="n">location_response</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&quot;location&quot;</span><span class="p">,</span> <span class="s">&quot;latitude longitude&quot;</span><span class="p">)</span>
+<span class="n">MOCKED_LOCATE_RESPONSE</span> <span class="o">=</span> <span class="n">locate_response</span><span class="p">(</span><span class="n">continent_response</span><span class="p">(</span><span class="s">&quot;North America&quot;</span><span class="p">),</span>
+                                         <span class="n">country_response</span><span class="p">(</span><span class="s">&quot;United States&quot;</span><span class="p">),</span>
+                                         <span class="n">city_response</span><span class="p">(</span><span class="s">&quot;Mountain View&quot;</span><span class="p">),</span>
+                                         <span class="n">location_response</span><span class="p">(</span><span class="s">&quot;37.419200000000004&quot;</span><span class="p">,</span>
+                                                           <span class="s">&quot;-122.0574&quot;</span><span class="p">))</span>
+<span class="n">MOCKED_LOCATE_RESPONSE_CONTINENT_UNKNOWN</span> <span class="o">=</span> <span class="n">locate_response</span><span class="p">(</span><span class="n">continent_response</span><span class="p">(</span><span class="bp">None</span><span class="p">),</span>
+                                                    <span class="n">country_response</span><span class="p">(</span><span class="s">&quot;Spain&quot;</span><span class="p">),</span>
+                                                    <span class="n">city_response</span><span class="p">(</span><span class="s">&quot;Madrid&quot;</span><span class="p">),</span>
+                                                    <span class="n">location_response</span><span class="p">(</span><span class="s">&quot;40&quot;</span><span class="p">,</span>
+                                                                      <span class="s">&quot;-4&quot;</span><span class="p">))</span>
+<span class="n">MOCKED_LOCATE_RESPONSE_COUNTRY_UNKNOWN</span> <span class="o">=</span> <span class="n">locate_response</span><span class="p">(</span><span class="n">continent_response</span><span class="p">(</span><span class="s">&quot;Europe&quot;</span><span class="p">),</span>
+                                                    <span class="n">country_response</span><span class="p">(</span><span class="bp">None</span><span class="p">),</span>
+                                                    <span class="n">city_response</span><span class="p">(</span><span class="s">&quot;Madrid&quot;</span><span class="p">),</span>
+                                                    <span class="n">location_response</span><span class="p">(</span><span class="s">&quot;40&quot;</span><span class="p">,</span>
+                                                                      <span class="s">&quot;-4&quot;</span><span class="p">))</span>
+<span class="n">MOCKED_LOCATE_RESPONSE_CITY_UNKNOWN</span> <span class="o">=</span> <span class="n">locate_response</span><span class="p">(</span><span class="n">continent_response</span><span class="p">(</span><span class="s">&quot;Europe&quot;</span><span class="p">),</span>
+                                                    <span class="n">country_response</span><span class="p">(</span><span class="s">&quot;Spain&quot;</span><span class="p">),</span>
+                                                    <span class="n">city_response</span><span class="p">(</span><span class="bp">None</span><span class="p">),</span>
+                                                    <span class="n">location_response</span><span class="p">(</span><span class="s">&quot;40&quot;</span><span class="p">,</span>
+                                                                      <span class="s">&quot;-4&quot;</span><span class="p">))</span>
+<span class="n">MOCKED_LOCATE_RESPONSE_LATLONG_UNKNOWN</span> <span class="o">=</span> <span class="n">locate_response</span><span class="p">(</span><span class="n">continent_response</span><span class="p">(</span><span class="s">&quot;Europe&quot;</span><span class="p">),</span>
+                                                    <span class="n">country_response</span><span class="p">(</span><span class="s">&quot;Spain&quot;</span><span class="p">),</span>
+                                                    <span class="n">city_response</span><span class="p">(</span><span class="s">&quot;None&quot;</span><span class="p">),</span>
+                                                    <span class="n">location_response</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span>
+                                                                      <span class="bp">None</span><span class="p">))</span>
+
+
+<span class="n">IP_NOT_FOUND_MESSAGE</span> <span class="o">=</span> <span class="s">&quot;IP not found&quot;</span>
+
+<span class="n">MOCKED_RESULTS_VERBOSITY_0</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;173.194.45.51&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;192.168.1.1&quot;</span><span class="p">:</span> <span class="n">IP_NOT_FOUND_MESSAGE</span><span class="p">,</span>
+                              <span class="s">&quot;80.58.67.90&quot;</span><span class="p">:</span> <span class="s">&#39;Europe&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;80.58.76.57&quot;</span><span class="p">:</span> <span class="s">&#39;Europe&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;80.58.86.145&quot;</span><span class="p">:</span> <span class="s">&#39;Europe&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;5.53.1.77&quot;</span><span class="p">:</span> <span class="s">&#39;Europe&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;5.53.1.82&quot;</span><span class="p">:</span> <span class="s">&#39;Europe&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;209.85.252.150&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;209.85.251.242&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;209.85.240.189&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;209.85.245.82&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;209.85.245.71&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;66.249.94.79&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">,</span>
+                              <span class="s">&quot;173.194.45.51&quot;</span><span class="p">:</span> <span class="s">&#39;North America&#39;</span><span class="p">}</span>
+
+<span class="n">CORRECT_RESULT_TEXT</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;TRACEROUTE OUTPUT</span>
+<span class="s">traceroute to www.google.com (173.194.45.51 [North America]), 30 hops max, 60 byte packets</span>
+<span class="s"> 1  192.168.1.1 [IP not found] (192.168.1.1 [IP not found])  2.923 ms  4.180 ms  4.092 ms</span>
+<span class="s"> 2  90.Red-80-58-67.staticIP.rima-tde.net (80.58.67.90 [Europe])  7.713 ms  7.657 ms  7.601 ms</span>
+<span class="s"> 3  57.Red-80-58-76.staticIP.rima-tde.net (80.58.76.57 [Europe])  11.990 ms  11.948 ms  13.062 ms</span>
+<span class="s"> 4  145.Red-80-58-86.staticIP.rima-tde.net (80.58.86.145 [Europe])  9.630 ms  14.929 ms  14.872 ms</span>
+<span class="s"> 5  AE3-GRCMADJV1.red.telefonica-wholesale.net (5.53.1.77 [Europe])  9.431 ms  9.337 ms  11.313 ms</span>
+<span class="s"> 6  5.53.1.82 [Europe] (5.53.1.82 [Europe])  12.499 ms  13.972 ms  15.852 ms</span>
+<span class="s"> 7  209.85.252.150 [North America] (209.85.252.150 [North America])  15.817 ms  15.798 ms 209.85.251.242 [North America] (209.85.251.242 [North America])  15.779 ms</span>
+<span class="s"> 8  209.85.240.189 [North America] (209.85.240.189 [North America])  55.590 ms  55.581 ms  55.550 ms</span>
+<span class="s"> 9  209.85.245.82 [North America] (209.85.245.82 [North America])  37.949 ms  37.937 ms 209.85.245.71 [North America] (209.85.245.71 [North America])  50.830 ms</span>
+<span class="s">10  66.249.94.79 [North America] (66.249.94.79 [North America])  40.635 ms  37.871 ms  40.588 ms</span>
+<span class="s">11  par03s12-in-f19.1e100.net (173.194.45.51 [North America])  37.817 ms  40.528 ms  37.954 ms</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestParser"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser">[docs]</a><span class="k">class</span> <span class="nc">TestParser</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="TestParser.setUpClass"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.setUpClass">[docs]</a>    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">():</span>
+        <span class="n">TestInputReader</span><span class="o">.</span><span class="n">_inject_to_stdin</span> <span class="o">=</span> <span class="n">TestInputReader</span><span class="o">.</span><span class="n">_replace_stdin</span><span class="p">()</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="TestParser.tearDownClass"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.tearDownClass">[docs]</a>    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">():</span>
+        <span class="n">TestInputReader</span><span class="o">.</span><span class="n">_restore_stdin</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TestParser.test_GeolocateInputParser_next_stdin"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_next_stdin">[docs]</a>    <span class="k">def</span> <span class="nf">test_GeolocateInputParser_next_stdin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check class is able to analyze input line by line and return</span>
+<span class="sd">        lines with geodata strings included.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">testing_tools</span><span class="o">.</span><span class="n">WorkingDirectoryChanged</span><span class="p">(</span><span class="n">WORKING_DIR</span><span class="p">):</span>
+            <span class="n">TestInputReader</span><span class="o">.</span><span class="n">_inject_to_stdin</span><span class="p">(</span><span class="n">TEST_STRING</span><span class="p">)</span>
+            <span class="n">geoip_database</span> <span class="o">=</span> <span class="n">test_geowrapper</span><span class="o">.</span><span class="n">_create_default_geoip_database</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_geolocate_input_parsing</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TestParser.test_GeolocateInputParser_next_text"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_next_text">[docs]</a>    <span class="k">def</span> <span class="nf">test_GeolocateInputParser_next_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check class is able to analyze a text and return it with geodata</span>
+<span class="sd">        strings included.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">testing_tools</span><span class="o">.</span><span class="n">WorkingDirectoryChanged</span><span class="p">(</span><span class="n">WORKING_DIR</span><span class="p">):</span>
+            <span class="n">geoip_database</span> <span class="o">=</span> <span class="n">test_geowrapper</span><span class="o">.</span><span class="n">_create_default_geoip_database</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_geolocate_input_parsing</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">,</span> <span class="n">TEST_STRING</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_geolocate_input_parsing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">,</span>
+                                 <span class="n">text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">join_char</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">input_parser</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">GeolocateInputParser</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">input_parser</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">GeolocateInputParser</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">input_parser</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">result_text</span> <span class="o">=</span> <span class="n">_rejoin_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">join_char</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result_text</span><span class="p">,</span>
+                         <span class="n">CORRECT_RESULT_TEXT</span><span class="p">,</span>
+                         <span class="n">msg</span><span class="o">=</span><span class="s">&quot;Rebuilt text and test string doesn&#39;t match.</span><span class="se">\n</span><span class="s">&quot;</span>
+                             <span class="s">&quot;Rebuilt text:</span><span class="se">\n</span><span class="s"> {0}</span><span class="se">\n</span><span class="s">&quot;</span>
+                             <span class="s">&quot;Test string:</span><span class="se">\n</span><span class="s"> {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result_text</span><span class="p">,</span>
+                                                         <span class="n">CORRECT_RESULT_TEXT</span><span class="p">))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_mocked_locate_results</span><span class="p">(</span><span class="n">ip_address</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">MOCKED_RESULTS_VERBOSITY_0</span><span class="p">[</span><span class="n">ip_address</span><span class="p">]</span> <span class="o">==</span> <span class="n">IP_NOT_FOUND_MESSAGE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">geoip</span><span class="o">.</span><span class="n">IPNotFound</span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mocked_location</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;continent_name&quot;</span><span class="p">:</span>
+                                   <span class="n">MOCKED_RESULTS_VERBOSITY_0</span><span class="p">[</span><span class="n">ip_address</span><span class="p">]}</span>
+            <span class="k">return</span> <span class="n">mocked_location</span>
+
+<div class="viewcode-block" id="TestParser.test_GeolocateInputParser_locate"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_locate">[docs]</a>    <span class="k">def</span> <span class="nf">test_GeolocateInputParser_locate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check locate() returns an string correctly formatted for every</span>
+<span class="sd">        verbosity level.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">testing_tools</span><span class="o">.</span><span class="n">WorkingDirectoryChanged</span><span class="p">(</span><span class="n">WORKING_DIR</span><span class="p">):</span>
+            <span class="n">verbosity_levels</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">GeolocateInputParser</span><span class="o">.</span><span class="n">VERBOSITY_LEVELS</span>
+            <span class="n">ip_to_find</span> <span class="o">=</span> <span class="n">TEST_IP</span>
+            <span class="n">test_configuration</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()</span>
+            <span class="n">geoip_database</span> <span class="o">=</span> <span class="n">geoip</span><span class="o">.</span><span class="n">load_geoip_database</span><span class="p">(</span><span class="n">test_configuration</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">verbosity</span> <span class="ow">in</span> <span class="n">verbosity_levels</span><span class="p">:</span>
+                <span class="n">input_parser</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">GeolocateInputParser</span><span class="p">(</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">)</span>
+                <span class="c"># ## TODO: Remove Mock when _geoip_database.locate is implemented.</span>
+                <span class="c"># input_parser._geoip_database.locate = unittest.mock.MagicMock(</span>
+                <span class="c">#                                         return_value=MOCKED_LOCATE_RESPONSE)</span>
+                <span class="n">location_string</span> <span class="o">=</span> <span class="n">input_parser</span><span class="o">.</span><span class="n">_locate</span><span class="p">(</span><span class="n">ip_to_find</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_string</span><span class="p">,</span>
+                                 <span class="n">TEST_IP_LOCATION_STRINGS</span><span class="p">[</span><span class="n">TEST_IP</span><span class="p">][</span><span class="n">verbosity</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="TestParser.test_GeolocateInputParser_format_location_string"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_format_location_string">[docs]</a>    <span class="k">def</span> <span class="nf">test_GeolocateInputParser_format_location_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check format_location_string() returns an string correctly formatted</span>
+<span class="sd">        for every verbosity level.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">verbosity_levels</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">GeolocateInputParser</span><span class="o">.</span><span class="n">VERBOSITY_LEVELS</span>
+        <span class="k">for</span> <span class="n">verbosity</span> <span class="ow">in</span> <span class="n">verbosity_levels</span><span class="p">:</span>
+            <span class="n">input_parser</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">GeolocateInputParser</span><span class="p">(</span><span class="n">verbosity</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">location_string</span> <span class="o">=</span> <span class="n">input_parser</span><span class="o">.</span><span class="n">_format_location_string</span><span class="p">(</span>
+                                                        <span class="n">MOCKED_LOCATE_RESPONSE</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_string</span><span class="p">,</span>
+                             <span class="n">TEST_IP_GEOLOCATION_STRINGS</span><span class="p">[</span><span class="n">TEST_IP</span><span class="p">][</span><span class="n">verbosity</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="TestParser.test_find_ips_in_text"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_find_ips_in_text">[docs]</a>    <span class="k">def</span> <span class="nf">test_find_ips_in_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check all embedded IP addresses are found.&quot;&quot;&quot;</span>
+        <span class="n">returned_IP_addresses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">test_text_lines</span> <span class="o">=</span> <span class="n">TEST_STRING</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="n">test_ip_addresses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">TEST_STRING_IP_ADDRESSES</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">test_text_lines</span><span class="p">:</span>
+            <span class="n">line_IP_addresses</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">_find_ips_in_text</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="n">returned_IP_addresses</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">line_IP_addresses</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">returned_IP_addresses</span><span class="p">,</span> <span class="n">test_ip_addresses</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TestParser.test_include_location_in_line"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_include_location_in_line">[docs]</a>    <span class="k">def</span> <span class="nf">test_include_location_in_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check IP addresses are properly replaced with geodata string.&quot;&quot;&quot;</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;traceroute to www.google.com (173.194.45.51), 30 hops max, &quot;</span>
+                <span class="s">&quot;60 byte packets&quot;</span><span class="p">)</span>
+        <span class="n">ip</span> <span class="o">=</span> <span class="s">&quot;173.194.45.51&quot;</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="s">&quot;173.194.45.51 [North America | United States]&quot;</span>
+        <span class="n">correct_line</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;traceroute to www.google.com (173.194.45.51 &quot;</span>
+                        <span class="s">&quot;[North America | United States]), 30 hops max, &quot;</span>
+                        <span class="s">&quot;60 byte packets&quot;</span><span class="p">)</span>
+        <span class="n">returned_line</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">_include_location_in_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">returned_line</span><span class="p">,</span>
+                         <span class="n">correct_line</span><span class="p">,</span>
+                         <span class="n">msg</span><span class="o">=</span><span class="s">&quot;Rebuilt text and test string doesn&#39;t match.</span><span class="se">\n</span><span class="s">&quot;</span>
+                             <span class="s">&quot;Rebuilt text:</span><span class="se">\n</span><span class="s"> {0}</span><span class="se">\n</span><span class="s">&quot;</span>
+                             <span class="s">&quot;Test string:</span><span class="se">\n</span><span class="s"> {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">returned_line</span><span class="p">,</span>
+                                                         <span class="n">correct_line</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="TestParser.test_get_lines"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_get_lines">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check text lines are correctly retrieved.&quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Locate this: 128.101.101.101 </span><span class="se">\n</span><span class="s"> and this too: 195.113.3.45&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Locate this: 128.101.101.101 &quot;</span><span class="p">,</span> <span class="s">&quot; and this too: 195.113.3.45&quot;</span><span class="p">]</span>
+        <span class="n">line_generator</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">_get_lines</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">obtained_line_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">line_generator</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">obtained_line_list</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TestParser.test_find_unknowns"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestParser.test_find_unknowns">[docs]</a>    <span class="k">def</span> <span class="nf">test_find_unknowns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Check unknowns attributes are correctly translated to informational</span>
+<span class="sd">        strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">location_strings</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">_find_unknowns</span><span class="p">(</span><span class="n">MOCKED_LOCATE_RESPONSE_CONTINENT_UNKNOWN</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;continent_name&quot;</span><span class="p">],</span> <span class="s">&quot;Unknown continent&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;country_name&quot;</span><span class="p">],</span> <span class="s">&quot;Spain&quot;</span><span class="p">)</span>
+        <span class="n">location_strings</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">_find_unknowns</span><span class="p">(</span><span class="n">MOCKED_LOCATE_RESPONSE_COUNTRY_UNKNOWN</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;country_name&quot;</span><span class="p">],</span> <span class="s">&quot;Unknown country&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;continent_name&quot;</span><span class="p">],</span> <span class="s">&quot;Europe&quot;</span><span class="p">)</span>
+        <span class="n">location_strings</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">_find_unknowns</span><span class="p">(</span><span class="n">MOCKED_LOCATE_RESPONSE_CITY_UNKNOWN</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;city_name&quot;</span><span class="p">],</span> <span class="s">&quot;Unknown city&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;lat-long&quot;</span><span class="p">][</span><span class="s">&quot;latitude&quot;</span><span class="p">],</span> <span class="s">&quot;40&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;lat-long&quot;</span><span class="p">][</span><span class="s">&quot;longitude&quot;</span><span class="p">],</span> <span class="s">&quot;-4&quot;</span><span class="p">)</span>
+        <span class="n">location_strings</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">_find_unknowns</span><span class="p">(</span><span class="n">MOCKED_LOCATE_RESPONSE_LATLONG_UNKNOWN</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;lat-long&quot;</span><span class="p">][</span><span class="s">&quot;latitude&quot;</span><span class="p">],</span> <span class="s">&quot;Unknown latitude&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">location_strings</span><span class="p">[</span><span class="s">&quot;lat-long&quot;</span><span class="p">][</span><span class="s">&quot;longitude&quot;</span><span class="p">],</span> <span class="s">&quot;Unknown longitude&quot;</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="TestInputReader"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestInputReader">[docs]</a><span class="k">class</span> <span class="nc">TestInputReader</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="n">_inject_to_stdin</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">_old_stdin</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TestInputReader.setUpClass"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestInputReader.setUpClass">[docs]</a>    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_inject_to_stdin</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_replace_stdin</span><span class="p">()</span>
+</div>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_replace_stdin</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_old_stdin</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span>
+        <span class="k">def</span> <span class="nf">_inject_string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_inject_string</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TestInputReader.tearDownClass"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestInputReader.tearDownClass">[docs]</a>    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_restore_stdin</span><span class="p">()</span>
+</div>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_restore_stdin</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_old_stdin</span>
+
+<div class="viewcode-block" id="TestInputReader.test_InputReader"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.test_parser.TestInputReader.test_InputReader">[docs]</a>    <span class="k">def</span> <span class="nf">test_InputReader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inject text in stdin and compare what is read from there to check</span>
+<span class="sd">        it is the same.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">_inject_to_stdin</span><span class="p">(</span><span class="n">TEST_STRING</span><span class="p">)</span>
+        <span class="n">input_reader</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">InputReader</span><span class="p">()</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">_read_stdin</span><span class="p">(</span><span class="n">input_reader</span><span class="p">)</span>
+        <span class="n">rebuilt_text</span> <span class="o">=</span> <span class="n">_rejoin_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rebuilt_text</span><span class="p">,</span>
+                         <span class="n">TEST_STRING</span><span class="p">,</span>
+                         <span class="n">msg</span><span class="o">=</span><span class="s">&quot;Rebuilt text and test string doesn&#39;t match.</span><span class="se">\n</span><span class="s">&quot;</span>
+                             <span class="s">&quot;Rebuilt text:</span><span class="se">\n</span><span class="s"> {0}</span><span class="se">\n</span><span class="s">&quot;</span>
+                             <span class="s">&quot;Test string:</span><span class="se">\n</span><span class="s"> {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rebuilt_text</span><span class="p">,</span>
+                                                         <span class="n">TEST_STRING</span><span class="p">))</span>
+
+</div></div>
+<span class="k">def</span> <span class="nf">_read_stdin</span><span class="p">(</span><span class="n">input_reader</span><span class="p">):</span>
+    <span class="n">lines_read</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">input_reader</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines_read</span>
+
+
+<span class="k">def</span> <span class="nf">_rejoin_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">join_char</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">rebuilt_text</span> <span class="o">=</span> <span class="n">join_char</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rebuilt_text</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dante Signal31.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

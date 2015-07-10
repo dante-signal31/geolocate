@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geolocate.tests package &mdash; Geolocate 1.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Geolocate 1.3.0 documentation" href="index.html"/>
+        <link rel="up" title="geolocate package" href="geolocate.html"/>
+        <link rel="prev" title="geolocate.classes package" href="geolocate.classes.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Geolocate
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="geolocate.html">geolocate package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="geolocate.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">geolocate.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geolocate.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geolocate.html#module-geolocate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Geolocate</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="geolocate.html">geolocate package</a> &raquo;</li>
+      
+    <li>geolocate.tests package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/geolocate.tests.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="geolocate-tests-package">
+<h1>geolocate.tests package<a class="headerlink" href="#geolocate-tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-geolocate.tests.console_mocks">
+<span id="geolocate-tests-console-mocks-module"></span><h2>geolocate.tests.console_mocks module<a class="headerlink" href="#module-geolocate.tests.console_mocks" title="Permalink to this headline">¶</a></h2>
+<p>console_mocks.py</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="class">
+<dt id="geolocate.tests.console_mocks.MockedConsoleOutput">
+<em class="property">class </em><code class="descclassname">geolocate.tests.console_mocks.</code><code class="descname">MockedConsoleOutput</code><a class="reference internal" href="_modules/geolocate/tests/console_mocks.html#MockedConsoleOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.console_mocks.MockedConsoleOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Context manager to catch console output.</p>
+<dl class="method">
+<dt id="geolocate.tests.console_mocks.MockedConsoleOutput.output">
+<code class="descname">output</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/console_mocks.html#MockedConsoleOutput.output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.console_mocks.MockedConsoleOutput.output" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Console output.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="geolocate.tests.console_mocks.MockedConsoleOutput.reset">
+<em class="property">static </em><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/console_mocks.html#MockedConsoleOutput.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.console_mocks.MockedConsoleOutput.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reinit output buffer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.tests.test_config">
+<span id="geolocate-tests-test-config-module"></span><h2>geolocate.tests.test_config module<a class="headerlink" href="#module-geolocate.tests.test_config" title="Permalink to this headline">¶</a></h2>
+<p>test_config.py</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="class">
+<dt id="geolocate.tests.test_config.TestConfiguration">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_config.</code><code class="descname">TestConfiguration</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_config_OpenConfigurationToUpdate">
+<code class="descname">test_config_OpenConfigurationToUpdate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_config_OpenConfigurationToUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_config_OpenConfigurationToUpdate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_config_get_disabled_locators_preference">
+<code class="descname">test_config_get_disabled_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_config_get_disabled_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_config_get_disabled_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_config_reset_locators_preference">
+<code class="descname">test_config_reset_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_config_reset_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_config_reset_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_config_set_locators_preference">
+<code class="descname">test_config_set_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_config_set_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_config_set_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_config_set_locators_preference_error">
+<code class="descname">test_config_set_locators_preference_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_config_set_locators_preference_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_config_set_locators_preference_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_configuration_equality">
+<code class="descname">test_configuration_equality</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_configuration_equality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_configuration_equality" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_database_folder_validation">
+<code class="descname">test_database_folder_validation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_database_folder_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_database_folder_validation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_download_url_validation">
+<code class="descname">test_download_url_validation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_download_url_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_download_url_validation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_get_config_path">
+<code class="descname">test_get_config_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_get_config_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_get_config_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_get_properties">
+<code class="descname">test_get_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_get_properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_get_properties" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_license_key_validation">
+<code class="descname">test_license_key_validation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_license_key_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_license_key_validation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_load_configuration_config_not_found">
+<code class="descname">test_load_configuration_config_not_found</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_load_configuration_config_not_found"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_load_configuration_config_not_found" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_load_configuration_create_default_config_file">
+<code class="descname">test_load_configuration_create_default_config_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_load_configuration_create_default_config_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_load_configuration_create_default_config_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_read_config_file_config_not_found">
+<code class="descname">test_read_config_file_config_not_found</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_read_config_file_config_not_found"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_read_config_file_config_not_found" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_save_configuration">
+<code class="descname">test_save_configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_save_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_save_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_update_interval_validation">
+<code class="descname">test_update_interval_validation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_update_interval_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_update_interval_validation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_config.TestConfiguration.test_user_id_validation">
+<code class="descname">test_user_id_validation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_config.html#TestConfiguration.test_user_id_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_config.TestConfiguration.test_user_id_validation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.tests.test_geolocate">
+<span id="geolocate-tests-test-geolocate-module"></span><h2>geolocate.tests.test_geolocate module<a class="headerlink" href="#module-geolocate.tests.test_geolocate" title="Permalink to this headline">¶</a></h2>
+<p>test_geolocate.py</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="class">
+<dt id="geolocate.tests.test_geolocate.Arguments">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_geolocate.</code><code class="descname">Arguments</code><span class="sig-paren">(</span><em>show_enabled_locators</em>, <em>set_locators_preference</em>, <em>show_disabled_locators</em>, <em>reset_locators_preference</em>, <em>set_user</em>, <em>set_password</em><span class="sig-paren">)</span><a class="headerlink" href="#geolocate.tests.test_geolocate.Arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.Arguments.reset_locators_preference">
+<code class="descname">reset_locators_preference</code><a class="headerlink" href="#geolocate.tests.test_geolocate.Arguments.reset_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.Arguments.set_locators_preference">
+<code class="descname">set_locators_preference</code><a class="headerlink" href="#geolocate.tests.test_geolocate.Arguments.set_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.Arguments.set_password">
+<code class="descname">set_password</code><a class="headerlink" href="#geolocate.tests.test_geolocate.Arguments.set_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.Arguments.set_user">
+<code class="descname">set_user</code><a class="headerlink" href="#geolocate.tests.test_geolocate.Arguments.set_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.Arguments.show_disabled_locators">
+<code class="descname">show_disabled_locators</code><a class="headerlink" href="#geolocate.tests.test_geolocate.Arguments.show_disabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.Arguments.show_enabled_locators">
+<code class="descname">show_enabled_locators</code><a class="headerlink" href="#geolocate.tests.test_geolocate.Arguments.show_enabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.tests.test_geolocate.ErroneousArguments">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_geolocate.</code><code class="descname">ErroneousArguments</code><span class="sig-paren">(</span><em>show_enabled_locators</em>, <em>set_locators_preference</em>, <em>show_disabled_locators</em>, <em>reset_locators_preference</em>, <em>erroneous_argument</em><span class="sig-paren">)</span><a class="headerlink" href="#geolocate.tests.test_geolocate.ErroneousArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.ErroneousArguments.erroneous_argument">
+<code class="descname">erroneous_argument</code><a class="headerlink" href="#geolocate.tests.test_geolocate.ErroneousArguments.erroneous_argument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.ErroneousArguments.reset_locators_preference">
+<code class="descname">reset_locators_preference</code><a class="headerlink" href="#geolocate.tests.test_geolocate.ErroneousArguments.reset_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.ErroneousArguments.set_locators_preference">
+<code class="descname">set_locators_preference</code><a class="headerlink" href="#geolocate.tests.test_geolocate.ErroneousArguments.set_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.ErroneousArguments.show_disabled_locators">
+<code class="descname">show_disabled_locators</code><a class="headerlink" href="#geolocate.tests.test_geolocate.ErroneousArguments.show_disabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_geolocate.ErroneousArguments.show_enabled_locators">
+<code class="descname">show_enabled_locators</code><a class="headerlink" href="#geolocate.tests.test_geolocate.ErroneousArguments.show_enabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.tests.test_geolocate.MockedArguments">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_geolocate.</code><code class="descname">MockedArguments</code><span class="sig-paren">(</span><em>arg1</em>, <em>arg2</em>, <em>arg3</em>, <em>arg4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#MockedArguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.MockedArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Used to detect private attributes.</p>
+<p>I couldn&#8217;t use namedtuple because it doesn&#8217;t admit attributes prefixed
+by &#8220;_&#8221;.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_geolocate.</code><code class="descname">TestGeoLocate</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_get_user_attributes">
+<code class="descname">test_get_user_attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_get_user_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_get_user_attributes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_reset_locators_preference">
+<code class="descname">test_process_optional_parameters_reset_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_process_optional_parameters_reset_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_reset_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_set_locators_preference">
+<code class="descname">test_process_optional_parameters_set_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_process_optional_parameters_set_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_set_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_show_disabled_locators">
+<code class="descname">test_process_optional_parameters_show_disabled_locators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_process_optional_parameters_show_disabled_locators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_show_disabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_show_enabled_locators">
+<code class="descname">test_process_optional_parameters_show_enabled_locators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_process_optional_parameters_show_enabled_locators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_process_optional_parameters_show_enabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_reset_locators_preference">
+<code class="descname">test_reset_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_reset_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_reset_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_set_locators_preference">
+<code class="descname">test_set_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_set_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_set_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_set_password">
+<code class="descname">test_set_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_set_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_set_password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_set_user">
+<code class="descname">test_set_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_set_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_set_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_show_disabled_locators">
+<code class="descname">test_show_disabled_locators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_show_disabled_locators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_show_disabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_show_enabled_locators">
+<code class="descname">test_show_enabled_locators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_show_enabled_locators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_show_enabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_show_password">
+<code class="descname">test_show_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_show_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_show_password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.test_show_user">
+<code class="descname">test_show_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.test_show_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.test_show_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geolocate.TestGeoLocate.tests_process_optional_parameters_erroneos_argument">
+<code class="descname">tests_process_optional_parameters_erroneos_argument</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geolocate.html#TestGeoLocate.tests_process_optional_parameters_erroneos_argument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geolocate.TestGeoLocate.tests_process_optional_parameters_erroneos_argument" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.tests.test_geowrapper">
+<span id="geolocate-tests-test-geowrapper-module"></span><h2>geolocate.tests.test_geowrapper module<a class="headerlink" href="#module-geolocate.tests.test_geowrapper" title="Permalink to this headline">¶</a></h2>
+<p>test_geowrapper.py</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="class">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_geowrapper.</code><code class="descname">TestGeoWrapper</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_decompress_file">
+<code class="descname">test_decompress_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_decompress_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_decompress_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_find_compressed_file">
+<code class="descname">test_find_compressed_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_find_compressed_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_find_compressed_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_geoip_database_add_locators_default_configuration">
+<code class="descname">test_geoip_database_add_locators_default_configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_geoip_database_add_locators_default_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_geoip_database_add_locators_default_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_geoip_database_add_locators_non_default_configuration">
+<code class="descname">test_geoip_database_add_locators_non_default_configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_geoip_database_add_locators_non_default_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_geoip_database_add_locators_non_default_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_geoip_database_locate">
+<code class="descname">test_geoip_database_locate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_geoip_database_locate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_geoip_database_locate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_get_new_database_path_name_find_file">
+<code class="descname">test_get_new_database_path_name_find_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_get_new_database_path_name_find_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_get_new_database_path_name_find_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_get_uncompressed_file_name_path">
+<code class="descname">test_get_uncompressed_file_name_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_get_uncompressed_file_name_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_get_uncompressed_file_name_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_geo_locator_creation">
+<code class="descname">test_local_database_geo_locator_creation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_geo_locator_creation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_geo_locator_creation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_geo_locator_download_file">
+<code class="descname">test_local_database_geo_locator_download_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_geo_locator_download_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_geo_locator_download_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_get_modification_time_failed">
+<code class="descname">test_local_database_get_modification_time_failed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_get_modification_time_failed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_get_modification_time_failed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_invalid">
+<code class="descname">test_local_database_invalid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_invalid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_invalid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_locate">
+<code class="descname">test_local_database_locate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_locate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_locate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_not_found">
+<code class="descname">test_local_database_not_found</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_not_found"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_not_found" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_too_old">
+<code class="descname">test_local_database_too_old</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_too_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_too_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_too_old_local_database_not_found">
+<code class="descname">test_local_database_too_old_local_database_not_found</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_too_old_local_database_not_found"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_too_old_local_database_not_found" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_update">
+<code class="descname">test_local_database_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_local_database_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_local_database_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_print_compressed_file_not_found_error">
+<code class="descname">test_print_compressed_file_not_found_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_print_compressed_file_not_found_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_print_compressed_file_not_found_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_web_service_geo_locator_creation">
+<code class="descname">test_web_service_geo_locator_creation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_web_service_geo_locator_creation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_web_service_geo_locator_creation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_geowrapper.TestGeoWrapper.test_web_service_geo_locator_failed_creation">
+<code class="descname">test_web_service_geo_locator_failed_creation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_geowrapper.html#TestGeoWrapper.test_web_service_geo_locator_failed_creation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_geowrapper.TestGeoWrapper.test_web_service_geo_locator_failed_creation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.tests.test_parser">
+<span id="geolocate-tests-test-parser-module"></span><h2>geolocate.tests.test_parser module<a class="headerlink" href="#module-geolocate.tests.test_parser" title="Permalink to this headline">¶</a></h2>
+<p>test_logparser.py</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="class">
+<dt id="geolocate.tests.test_parser.TestInputReader">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_parser.</code><code class="descname">TestInputReader</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestInputReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestInputReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="classmethod">
+<dt id="geolocate.tests.test_parser.TestInputReader.setUpClass">
+<em class="property">classmethod </em><code class="descname">setUpClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestInputReader.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestInputReader.setUpClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="geolocate.tests.test_parser.TestInputReader.tearDownClass">
+<em class="property">classmethod </em><code class="descname">tearDownClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestInputReader.tearDownClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestInputReader.tearDownClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestInputReader.test_InputReader">
+<code class="descname">test_InputReader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestInputReader.test_InputReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestInputReader.test_InputReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inject text in stdin and compare what is read from there to check
+it is the same.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.tests.test_parser.TestParser">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_parser.</code><code class="descname">TestParser</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="staticmethod">
+<dt id="geolocate.tests.test_parser.TestParser.setUpClass">
+<em class="property">static </em><code class="descname">setUpClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.setUpClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="geolocate.tests.test_parser.TestParser.tearDownClass">
+<em class="property">static </em><code class="descname">tearDownClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.tearDownClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.tearDownClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_format_location_string">
+<code class="descname">test_GeolocateInputParser_format_location_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_GeolocateInputParser_format_location_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_format_location_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check format_location_string() returns an string correctly formatted
+for every verbosity level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_locate">
+<code class="descname">test_GeolocateInputParser_locate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_GeolocateInputParser_locate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_locate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check locate() returns an string correctly formatted for every
+verbosity level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_next_stdin">
+<code class="descname">test_GeolocateInputParser_next_stdin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_GeolocateInputParser_next_stdin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_next_stdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check class is able to analyze input line by line and return
+lines with geodata strings included.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_next_text">
+<code class="descname">test_GeolocateInputParser_next_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_GeolocateInputParser_next_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_GeolocateInputParser_next_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check class is able to analyze a text and return it with geodata
+strings included.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_find_ips_in_text">
+<code class="descname">test_find_ips_in_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_find_ips_in_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_find_ips_in_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check all embedded IP addresses are found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_find_unknowns">
+<code class="descname">test_find_unknowns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_find_unknowns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_find_unknowns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check unknowns attributes are correctly translated to informational
+strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_get_lines">
+<code class="descname">test_get_lines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_get_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_get_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check text lines are correctly retrieved.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.tests.test_parser.TestParser.test_include_location_in_line">
+<code class="descname">test_include_location_in_line</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/test_parser.html#TestParser.test_include_location_in_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.test_parser.TestParser.test_include_location_in_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check IP addresses are properly replaced with geodata string.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.city_response">
+<code class="descclassname">geolocate.tests.test_parser.</code><code class="descname">city_response</code><a class="headerlink" href="#geolocate.tests.test_parser.city_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">city</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.continent_response">
+<code class="descclassname">geolocate.tests.test_parser.</code><code class="descname">continent_response</code><a class="headerlink" href="#geolocate.tests.test_parser.continent_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">continent</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.country_response">
+<code class="descclassname">geolocate.tests.test_parser.</code><code class="descname">country_response</code><a class="headerlink" href="#geolocate.tests.test_parser.country_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">country</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.tests.test_parser.locate_response">
+<em class="property">class </em><code class="descclassname">geolocate.tests.test_parser.</code><code class="descname">locate_response</code><span class="sig-paren">(</span><em>continent</em>, <em>country</em>, <em>city</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#geolocate.tests.test_parser.locate_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.locate_response.city">
+<code class="descname">city</code><a class="headerlink" href="#geolocate.tests.test_parser.locate_response.city" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.locate_response.continent">
+<code class="descname">continent</code><a class="headerlink" href="#geolocate.tests.test_parser.locate_response.continent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.locate_response.country">
+<code class="descname">country</code><a class="headerlink" href="#geolocate.tests.test_parser.locate_response.country" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.locate_response.location">
+<code class="descname">location</code><a class="headerlink" href="#geolocate.tests.test_parser.locate_response.location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.tests.test_parser.location_response">
+<code class="descclassname">geolocate.tests.test_parser.</code><code class="descname">location_response</code><a class="headerlink" href="#geolocate.tests.test_parser.location_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">location</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.tests.testing_tools">
+<span id="geolocate-tests-testing-tools-module"></span><h2>geolocate.tests.testing_tools module<a class="headerlink" href="#module-geolocate.tests.testing_tools" title="Permalink to this headline">¶</a></h2>
+<p>testing_tools.py</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="class">
+<dt id="geolocate.tests.testing_tools.OriginalFileSaved">
+<em class="property">class </em><code class="descclassname">geolocate.tests.testing_tools.</code><code class="descname">OriginalFileSaved</code><span class="sig-paren">(</span><em>original_file_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/testing_tools.html#OriginalFileSaved"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.testing_tools.OriginalFileSaved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Context manager to store original files in a safe place for
+tests and restore it after them.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.tests.testing_tools.WorkingDirectoryChanged">
+<em class="property">class </em><code class="descclassname">geolocate.tests.testing_tools.</code><code class="descname">WorkingDirectoryChanged</code><span class="sig-paren">(</span><em>new_working_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/tests/testing_tools.html#WorkingDirectoryChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.tests.testing_tools.WorkingDirectoryChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Sometimes unit test executes at a different path level than usual
+execution code. This context manager restores normal working directory
+after context manager exit.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-geolocate.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="geolocate.classes.html" class="btn btn-neutral" title="geolocate.classes package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dante Signal31.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

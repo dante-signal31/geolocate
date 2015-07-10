@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geolocate.tests.testing_tools &mdash; Geolocate 1.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Geolocate 1.3.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> Geolocate
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.html">geolocate package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.tests.html">geolocate.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Geolocate</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>geolocate.tests.testing_tools</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for geolocate.tests.testing_tools</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> testing_tools.py</span>
+
+<span class="sd"> Programmed by: Dante Signal31</span>
+
+<span class="sd"> email: dante.signal31@gmail.com</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">ntpath</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+
+<div class="viewcode-block" id="OriginalFileSaved"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.testing_tools.OriginalFileSaved">[docs]</a><span class="k">class</span> <span class="nc">OriginalFileSaved</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Context manager to store original files in a safe place for</span>
+<span class="sd">    tests and restore it after them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">original_file_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param original_file_path: File name including path.</span>
+<span class="sd">        :type original_file_path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original_file_path</span> <span class="o">=</span> <span class="n">original_file_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original_file_name</span> <span class="o">=</span> <span class="n">_get_file_name</span><span class="p">(</span><span class="n">original_file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_directory</span> <span class="o">=</span> <span class="n">_create_temporary_directory</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backup_directory</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">_original_file_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_file</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_backup_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_original_file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backup_file_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_restore_file</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_backup_directory</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">exc_type</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">_restore_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backup_file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_original_file_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_remove_backup_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backup_directory</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_get_file_name</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param file_path: File name including path.</span>
+<span class="sd">    :type file_path: str</span>
+<span class="sd">    :return: File name.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">ntpath</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">file_name</span>
+
+
+<span class="k">def</span> <span class="nf">_create_temporary_directory</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :return: Temporary directory just created.</span>
+<span class="sd">    :rtype: TemporaryDirectory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temporary_directory</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">temporary_directory</span>
+
+
+<div class="viewcode-block" id="WorkingDirectoryChanged"><a class="viewcode-back" href="../../../geolocate.tests.html#geolocate.tests.testing_tools.WorkingDirectoryChanged">[docs]</a><span class="k">class</span> <span class="nc">WorkingDirectoryChanged</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Sometimes unit test executes at a different path level than usual</span>
+<span class="sd">    execution code. This context manager restores normal working directory</span>
+<span class="sd">    after context manager exit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_working_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param new_working_dir: New working path.</span>
+<span class="sd">        :return: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_old_working_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_new_working_dir</span> <span class="o">=</span> <span class="n">new_working_dir</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_working_dir</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_old_working_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exc_type</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dante Signal31.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

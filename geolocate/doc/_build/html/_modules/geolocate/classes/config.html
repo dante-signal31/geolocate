@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geolocate.classes.config &mdash; Geolocate 1.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Geolocate 1.3.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> Geolocate
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.html">geolocate package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.tests.html">geolocate.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Geolocate</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>geolocate.classes.config</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for geolocate.classes.config</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> Configuration parser module.</span>
+
+<span class="sd"> Programmed by: Dante Signal31</span>
+
+<span class="sd"> email: dante.signal31@gmail.com</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">http.client</span> <span class="kn">as</span> <span class="nn">http</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span> <span class="kn">as</span> <span class="nn">urlparse</span>
+
+
+<div class="viewcode-block" id="get_real_path"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.get_real_path">[docs]</a><span class="k">def</span> <span class="nf">get_real_path</span><span class="p">(</span><span class="n">CONFIG_FILE</span><span class="p">):</span>
+    <span class="n">this_module_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+    <span class="n">this_module_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">this_module_path</span><span class="p">)</span>
+    <span class="n">parent_folder</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">this_module_folder</span><span class="p">)</span>
+    <span class="n">config_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parent_folder</span><span class="p">,</span> <span class="n">CONFIG_FILE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">config_file_path</span>
+</div>
+<span class="n">CONFIG_FILE</span> <span class="o">=</span> <span class="s">&quot;etc/geolocate.conf&quot;</span>
+<span class="n">CONFIG_FILE_PATH</span> <span class="o">=</span> <span class="n">get_real_path</span><span class="p">(</span><span class="n">CONFIG_FILE</span><span class="p">)</span>
+<span class="n">DEFAULT_USER_ID</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">DEFAULT_LICENSE_KEY</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="c"># TODO: For production I have to uncomment real url.</span>
+<span class="c"># Only for tests I have to comment real download url. MaxMind has a rate limit</span>
+<span class="c"># per day. If you exceed that limit you are forbidden for 24 hours to download</span>
+<span class="c"># their database.</span>
+<span class="n">DEFAULT_DATABASE_DOWNLOAD_URL</span> <span class="o">=</span> <span class="s">&quot;http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz&quot;</span>
+<span class="c"># TODO: For production remove next fake url, it&#39;s only for tests.</span>
+<span class="c"># DEFAULT_DATABASE_DOWNLOAD_URL = &quot;http://localhost:2014/GeoLite2-City.mmdb.gz&quot;</span>
+<span class="c"># GeoLite2 databases are updated on the first Tuesday of each month, so 35 days</span>
+<span class="c"># of update interval should be fine.</span>
+<span class="n">DEFAULT_UPDATE_INTERVAL</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">DEFAULT_LOCAL_DATABASE_FOLDER</span> <span class="o">=</span> <span class="n">get_real_path</span><span class="p">(</span><span class="s">&quot;local_database/&quot;</span><span class="p">)</span>
+<span class="n">DEFAULT_LOCAL_DATABASE_NAME</span> <span class="o">=</span> <span class="s">&quot;GeoLite2-City.mmdb&quot;</span>
+<span class="c"># Remember add new locators here or locate won&#39;t use them.</span>
+<span class="n">DEFAULT_LOCATORS_PREFERENCE</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;geoip2_webservice&quot;</span><span class="p">,</span> <span class="s">&quot;geoip2_local&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Configuration"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.Configuration">[docs]</a><span class="k">class</span> <span class="nc">Configuration</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c"># I&#39;ve discovered Maxmind website blocks clients who exceeds a connection</span>
+    <span class="c"># threshold. If we make a connection each time we run geolocate, in order</span>
+    <span class="c"># to check that configured URL is OK, we can end in Maxmind blacklist. So,</span>
+    <span class="c"># we have to minimize connections. Check only when configuration is updated</span>
+    <span class="c"># is a way, but then we have to control how users update config. Best way</span>
+    <span class="c"># is limit users to change configuration only through executable&#39;s</span>
+    <span class="c"># parameters. If we let them change manually configuration file we should</span>
+    <span class="c"># check it each time we run the program. We&#39;d better close configuration</span>
+    <span class="c"># file through serialization and check URL only when user makes program</span>
+    <span class="c"># change configuration.</span>
+    <span class="sd">&quot;&quot;&quot; Class to encapsulate configuration needed to connect to Geolite2</span>
+<span class="sd">    webservices or downloaded local database. This class also validates</span>
+<span class="sd">    parameters read from config files to overcome user typos.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">DEFAULT_USER_ID</span><span class="p">,</span>
+                 <span class="n">license_key</span><span class="o">=</span><span class="n">DEFAULT_LICENSE_KEY</span><span class="p">,</span>
+                 <span class="n">download_url</span><span class="o">=</span><span class="n">DEFAULT_DATABASE_DOWNLOAD_URL</span><span class="p">,</span>
+                 <span class="n">update_interval</span><span class="o">=</span><span class="n">DEFAULT_UPDATE_INTERVAL</span><span class="p">,</span>
+                 <span class="n">local_database_folder</span><span class="o">=</span><span class="n">DEFAULT_LOCAL_DATABASE_FOLDER</span><span class="p">,</span>
+                 <span class="n">local_database_name</span><span class="o">=</span><span class="n">DEFAULT_LOCAL_DATABASE_NAME</span><span class="p">,</span>
+                 <span class="n">locators_preference</span><span class="o">=</span><span class="n">DEFAULT_LOCATORS_PREFERENCE</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_webservice</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;user_id&quot;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">,</span>
+                            <span class="s">&quot;license_key&quot;</span><span class="p">:</span> <span class="n">license_key</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;download_url&quot;</span><span class="p">:</span> <span class="n">download_url</span><span class="p">,</span>
+                                <span class="s">&quot;update_interval&quot;</span><span class="p">:</span> <span class="n">update_interval</span><span class="p">,</span>
+                                <span class="s">&quot;local_database_folder&quot;</span><span class="p">:</span> <span class="n">local_database_folder</span><span class="p">,</span>
+                                <span class="s">&quot;local_database_name&quot;</span><span class="p">:</span> <span class="n">local_database_name</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span> <span class="o">=</span> <span class="n">locators_preference</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_webservice</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">]</span>
+
+    <span class="nd">@user_id.setter</span>
+    <span class="k">def</span> <span class="nf">user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="n">_validate_value</span><span class="p">(</span><span class="s">&quot;user_id&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_webservice</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">license_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_webservice</span><span class="p">[</span><span class="s">&quot;license_key&quot;</span><span class="p">]</span>
+
+    <span class="nd">@license_key.setter</span>
+    <span class="k">def</span> <span class="nf">license_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">license_key</span><span class="p">):</span>
+        <span class="n">_validate_value</span><span class="p">(</span><span class="s">&quot;license_key&quot;</span><span class="p">,</span> <span class="n">license_key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_webservice</span><span class="p">[</span><span class="s">&quot;license_key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">license_key</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">download_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;download_url&quot;</span><span class="p">]</span>
+
+    <span class="nd">@download_url.setter</span>
+    <span class="k">def</span> <span class="nf">download_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="n">_validate_url</span><span class="p">(</span><span class="s">&quot;download_url&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;download_url&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">update_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;update_interval&quot;</span><span class="p">]</span>
+
+    <span class="nd">@update_interval.setter</span>
+    <span class="k">def</span> <span class="nf">update_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_interval_in_days</span><span class="p">):</span>
+        <span class="n">interval_integer</span> <span class="o">=</span> <span class="n">_validate_integer</span><span class="p">(</span><span class="s">&quot;update_interval&quot;</span><span class="p">,</span>
+                                             <span class="n">update_interval_in_days</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;update_interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">interval_integer</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">local_database_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;local_database_folder&quot;</span><span class="p">]</span>
+
+    <span class="nd">@local_database_folder.setter</span>
+    <span class="k">def</span> <span class="nf">local_database_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">):</span>
+        <span class="n">database_folder_path</span> <span class="o">=</span> <span class="n">_get_folder_path</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
+        <span class="n">_validate_folder</span><span class="p">(</span><span class="s">&quot;local_database_folder&quot;</span><span class="p">,</span> <span class="n">database_folder_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;local_database_folder&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">database_folder_path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">local_database_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;local_database_name&quot;</span><span class="p">]</span>
+
+    <span class="nd">@local_database_name.setter</span>
+    <span class="k">def</span> <span class="nf">local_database_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_name</span><span class="p">):</span>
+        <span class="c"># At first sight every database name should be OK, but I&#39;ll leave this</span>
+        <span class="c"># as a property in case I have an idea about a possible check.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_database</span><span class="p">[</span><span class="s">&quot;local_database_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">database_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">local_database_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_database_folder</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">local_database_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">locators_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: Enabled locators for this GeoIPDatabase ordered by preference.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span>
+
+    <span class="nd">@locators_preference.setter</span>
+    <span class="k">def</span> <span class="nf">locators_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_locator_list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_unknown_locators</span><span class="p">(</span><span class="n">new_locator_list</span><span class="p">):</span>
+            <span class="n">unknown_locators</span> <span class="o">=</span> <span class="n">_get_unknown_locators</span><span class="p">(</span><span class="n">new_locator_list</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">UnknownLocators</span><span class="p">(</span><span class="n">unknown_locators</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span> <span class="o">=</span> <span class="n">new_locator_list</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_property</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">_property</span><span class="p">)</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+<div class="viewcode-block" id="Configuration.reset_locators_preference"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.Configuration.reset_locators_preference">[docs]</a>    <span class="k">def</span> <span class="nf">reset_locators_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Reset locators preference to default order.</span>
+
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span> <span class="o">=</span> <span class="n">DEFAULT_LOCATORS_PREFERENCE</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">disabled_locators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Locators registered as default one but not enabled in this</span>
+<span class="sd">        GeoIPDatabase.</span>
+
+<span class="sd">        :return: Disabled locators in this GeoIPDatabase.</span>
+<span class="sd">        :rtype: set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">default_locators_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">DEFAULT_LOCATORS_PREFERENCE</span><span class="p">)</span>
+        <span class="n">enabled_locators_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">locators_preference</span><span class="p">)</span>
+        <span class="n">disabled_locators_set</span> <span class="o">=</span> <span class="n">default_locators_set</span> <span class="o">-</span> <span class="n">enabled_locators_set</span>
+        <span class="k">return</span> <span class="n">disabled_locators_set</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_validate_value</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="c"># TODO: Add more checks to detect invalid values when you know MaxMind&#39;s</span>
+    <span class="c"># conditions for user ids.</span>
+    <span class="k">if</span> <span class="n">_text_has_spaces</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParameterNotValid</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span>
+                                <span class="s">&quot; &quot;</span><span class="o">.</span> <span class="n">join</span><span class="p">([</span><span class="n">parameter</span><span class="p">,</span> <span class="s">&quot;cannot have spaces.&quot;</span><span class="p">]))</span>
+
+
+<span class="k">def</span> <span class="nf">_validate_url</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if a URL exists without downloading the whole file.</span>
+<span class="sd">    We only check the URL header.</span>
+
+<span class="sd">    :param parameter: Attribute that is being validated.</span>
+<span class="sd">    :type parameter: str</span>
+<span class="sd">    :param url: HTTP url to check its existence.</span>
+<span class="sd">    :type url: str</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :raise: ParameterNotValid</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># see also http://stackoverflow.com/questions/2924422</span>
+    <span class="n">good_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">http</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">http</span><span class="o">.</span><span class="n">FOUND</span><span class="p">,</span> <span class="n">http</span><span class="o">.</span><span class="n">MOVED_PERMANENTLY</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">_get_server_status_code</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="ow">in</span> <span class="n">good_codes</span><span class="p">:</span>
+            <span class="k">return</span>  <span class="c"># Validation succeeded.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>  <span class="c"># Let outer except raise one only exception.</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParameterNotValid</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s">&quot;Cannot connect to given &quot;</span>
+                                                <span class="s">&quot;URL.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_validate_folder</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param parameter: Attribute that is being validated.</span>
+<span class="sd">    :type parameter: str</span>
+<span class="sd">    :param path: Path to folder being checked.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :raise: ParameterNotValid</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ParameterNotValid</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s">&quot;Folder does not exists.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_get_server_status_code</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Download just the header of a URL and return the server&#39;s status code.</span>
+
+<span class="sd">    :param url: HTTP url to check its existence.</span>
+<span class="sd">    :type url: str</span>
+<span class="sd">    :return: One of the connection status from http.client.</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    :raise: Any of the exceptions from http.client built-in module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># http://stackoverflow.com/questions/1140661</span>
+    <span class="n">host</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>    <span class="c"># elems [1] and [2]</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&#39;HEAD&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span><span class="o">.</span><span class="n">status</span>
+
+
+<span class="k">def</span> <span class="nf">_validate_integer</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param parameter: Attribute that is being validated.</span>
+<span class="sd">    :type parameter: str</span>
+<span class="sd">    :param value: Value integer o string.</span>
+<span class="sd">    :type value: int or str</span>
+<span class="sd">    :return: Value converted to an integer.</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">integer_value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">integer_value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParameterNotValid</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s">&quot;Cannot convert to int.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">integer_value</span>
+
+
+<span class="k">def</span> <span class="nf">_text_has_spaces</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param text:</span>
+<span class="sd">    :type text: str</span>
+<span class="sd">    :return: True if text has any space or false otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+
+<div class="viewcode-block" id="load_configuration"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.load_configuration">[docs]</a><span class="k">def</span> <span class="nf">load_configuration</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Read configuration file and populate with its data a</span>
+<span class="sd">    config.Configuration instance.</span>
+
+<span class="sd">    :return: Configuration instance populated with configuration file data.</span>
+<span class="sd">    :rtype: config.Configuration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">configuration</span> <span class="o">=</span> <span class="n">_read_config_file</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">ConfigNotFound</span><span class="p">:</span>
+        <span class="n">_create_default_config_file</span><span class="p">()</span>
+        <span class="n">configuration</span> <span class="o">=</span> <span class="n">load_configuration</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">configuration</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_read_config_file</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Load all configuration parameters set in config file.</span>
+
+<span class="sd">    :return: Configuration instance populated with configuration file data.</span>
+<span class="sd">    :rtype: config.Configuration</span>
+<span class="sd">    :raise: config.ConfigNotFound</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">CONFIG_FILE_PATH</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+            <span class="n">configuration</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ConfigNotFound</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">configuration</span>
+
+
+<span class="k">def</span> <span class="nf">_create_default_config_file</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Create a default configuration file.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">default_configuration</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">()</span>
+    <span class="n">save_configuration</span><span class="p">(</span><span class="n">default_configuration</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="save_configuration"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.save_configuration">[docs]</a><span class="k">def</span> <span class="nf">save_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Write Configuration object in config file.</span>
+
+<span class="sd">    :param configuration: Configuration to be saved.</span>
+<span class="sd">    :type configuration: config.Configuration</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">CONFIG_FILE_PATH</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">config_file</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_get_folder_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; If path is relative, get absolute path of current working directory</span>
+<span class="sd">    suffixed by path. If path is absolute, just return it.</span>
+
+<span class="sd">    :param path: Path to get absolute form.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    :return: Absolute path.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">absolute_directory</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">):</span>
+        <span class="n">absolute_directory</span> <span class="o">=</span> <span class="n">path</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="n">absolute_directory</span> <span class="o">=</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_working_directory</span><span class="p">,</span>
+                                              <span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">absolute_directory</span>
+
+
+<span class="k">def</span> <span class="nf">_unknown_locators</span><span class="p">(</span><span class="n">locator_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Detects if any locator in provided list is not registered as a valid one.</span>
+
+<span class="sd">    Enabled locators are registered in DEFAULT_LOCATORS_PREFERENCE constant.</span>
+<span class="sd">    Locators have to be one of them to be declared valid.</span>
+
+<span class="sd">    :param locator_list: String list with locator names.</span>
+<span class="sd">    :type locator_list: list</span>
+<span class="sd">    :return: True if any locator in list is not within default locator list, else False.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">locator_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">locator_list</span><span class="p">)</span>
+    <span class="n">default_locator_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">DEFAULT_LOCATORS_PREFERENCE</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">locator_set</span> <span class="o">&lt;=</span> <span class="n">default_locator_set</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+
+<span class="k">def</span> <span class="nf">_get_unknown_locators</span><span class="p">(</span><span class="n">locator_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param locator_list: String list with locator names.</span>
+<span class="sd">    :type locator_list: list</span>
+<span class="sd">    :return: Set with unknown locators detected.</span>
+<span class="sd">    :rtype: set</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">locator_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">locator_list</span><span class="p">)</span>
+    <span class="n">default_locator_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">DEFAULT_LOCATORS_PREFERENCE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">locator_set</span> <span class="o">-</span> <span class="n">default_locator_set</span>
+
+
+<div class="viewcode-block" id="ConfigNotFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.ConfigNotFound">[docs]</a><span class="k">class</span> <span class="nc">ConfigNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Launched when config file is not where is supposed to be.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Configuration file is not at it&#39;s default &quot;</span> \
+                  <span class="s">&quot;location: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CONFIG_FILE_PATH</span><span class="p">)</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ParameterNotValid"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.ParameterNotValid">[docs]</a><span class="k">class</span> <span class="nc">ParameterNotValid</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Launched when user_id validation fails.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provided_value</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provided_value</span> <span class="o">=</span> <span class="n">provided_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="o">=</span> <span class="n">parameter</span>
+        <span class="n">parameter_message</span> <span class="o">=</span> <span class="s">&quot;There is a problem with parameter {0}, you &quot;</span> \
+                            <span class="s">&quot;gave {1} as value.</span><span class="se">\n</span><span class="s"> &quot;</span> \
+                            <span class="s">&quot;Problem is: </span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">provided_value</span><span class="p">)</span>
+        <span class="n">final_message</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">parameter_message</span><span class="p">,</span> <span class="n">message</span><span class="p">])</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">final_message</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="UnknownLocators"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.UnknownLocators">[docs]</a><span class="k">class</span> <span class="nc">UnknownLocators</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Raised when an still not implemented location is referenced in any</span>
+<span class="sd">    operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unknown_locators</span><span class="p">):</span>
+        <span class="n">unknown_locators_text</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unknown_locators</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;You tried to use not implemented locators:&quot;</span><span class="p">,</span>
+                                 <span class="n">unknown_locators_text</span><span class="p">])</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="OpenConfigurationToUpdate"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.OpenConfigurationToUpdate">[docs]</a><span class="k">class</span> <span class="nc">OpenConfigurationToUpdate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Context manager to get a configuration file and save it automatically.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">load_configuration</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="n">save_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exc_type</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dante Signal31.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

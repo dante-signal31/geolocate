@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geolocate.classes package &mdash; Geolocate 1.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Geolocate 1.3.0 documentation" href="index.html"/>
+        <link rel="up" title="geolocate package" href="geolocate.html"/>
+        <link rel="next" title="geolocate.tests package" href="geolocate.tests.html"/>
+        <link rel="prev" title="geolocate package" href="geolocate.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Geolocate
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="geolocate.html">geolocate package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="geolocate.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">geolocate.classes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.classes.config">geolocate.classes.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.classes.system">geolocate.classes.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-geolocate.classes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="geolocate.tests.html">geolocate.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geolocate.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geolocate.html#module-geolocate">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Geolocate</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="geolocate.html">geolocate package</a> &raquo;</li>
+      
+    <li>geolocate.classes package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/geolocate.classes.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="geolocate-classes-package">
+<h1>geolocate.classes package<a class="headerlink" href="#geolocate-classes-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-geolocate.classes.arguments">
+<span id="geolocate-classes-arguments-module"></span><h2>geolocate.classes.arguments module<a class="headerlink" href="#module-geolocate.classes.arguments" title="Permalink to this headline">¶</a></h2>
+<p>Geolocate argument parser module.</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="exception">
+<dt id="geolocate.classes.arguments.NoFunctionAssignedToArgument">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.arguments.</code><code class="descname">NoFunctionAssignedToArgument</code><span class="sig-paren">(</span><em>argument</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#NoFunctionAssignedToArgument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.NoFunctionAssignedToArgument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>User has given and argument that has no function assigned yet.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.parse_arguments">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">parse_arguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#parse_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.parse_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.process_optional_parameters">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">process_optional_parameters</code><span class="sig-paren">(</span><em>arguments</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#process_optional_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.process_optional_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take all optional arguments given by user and run one by one all
+functions assigned to each of them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arguments</strong> (<em>Namespace</em>) &#8211; Arguments object returned by ArgumentParser.parse_args()</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.reset_locators_preference">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">reset_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#reset_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.reset_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets back locators list to it&#8217;s default value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.set_locators_preference">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">set_locators_preference</code><span class="sig-paren">(</span><em>arguments</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#set_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.set_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change locators list with new list given in arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arguments</strong> (<em>Namespace</em>) &#8211; Arguments object returned by ArgumentParser.parse_args()</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.set_password">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">set_password</code><span class="sig-paren">(</span><em>arguments</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#set_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.set_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set password for webservice database access.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arguments</strong> (<em>Namespace</em>) &#8211; Arguments object returned by ArgumentParser.parse_args()</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.set_user">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">set_user</code><span class="sig-paren">(</span><em>arguments</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#set_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.set_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set user for webservice database access.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arguments</strong> (<em>Namespace</em>) &#8211; Arguments object returned by ArgumentParser.parse_args()</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.show_disabled_locators">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">show_disabled_locators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#show_disabled_locators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.show_disabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print in console enabled locators ordered by preference.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.show_enabled_locators">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">show_enabled_locators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#show_enabled_locators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.show_enabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print in console enabled locators ordered by preference.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.show_password">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">show_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#show_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.show_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print on console password configured for webservice database access.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.arguments.show_user">
+<code class="descclassname">geolocate.classes.arguments.</code><code class="descname">show_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/arguments.html#show_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.arguments.show_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print on console user configured for webservice database access.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.classes.config">
+<span id="geolocate-classes-config-module"></span><h2>geolocate.classes.config module<a class="headerlink" href="#module-geolocate.classes.config" title="Permalink to this headline">¶</a></h2>
+<p>Configuration parser module.</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="exception">
+<dt id="geolocate.classes.config.ConfigNotFound">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.config.</code><code class="descname">ConfigNotFound</code><a class="reference internal" href="_modules/geolocate/classes/config.html#ConfigNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.ConfigNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Launched when config file is not where is supposed to be.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.classes.config.Configuration">
+<em class="property">class </em><code class="descclassname">geolocate.classes.config.</code><code class="descname">Configuration</code><span class="sig-paren">(</span><em>user_id='', license_key='', download_url='http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz', update_interval=35, local_database_folder='/home/dante/Developments/geolocate/geolocate/local_database/', local_database_name='GeoLite2-City.mmdb', locators_preference=['geoip2_webservice', 'geoip2_local']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/config.html#Configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.Configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class to encapsulate configuration needed to connect to Geolite2
+webservices or downloaded local database. This class also validates
+parameters read from config files to overcome user typos.</p>
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.disabled_locators">
+<code class="descname">disabled_locators</code><a class="headerlink" href="#geolocate.classes.config.Configuration.disabled_locators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locators registered as default one but not enabled in this
+GeoIPDatabase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Disabled locators in this GeoIPDatabase.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.download_url">
+<code class="descname">download_url</code><a class="headerlink" href="#geolocate.classes.config.Configuration.download_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.license_key">
+<code class="descname">license_key</code><a class="headerlink" href="#geolocate.classes.config.Configuration.license_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.local_database_folder">
+<code class="descname">local_database_folder</code><a class="headerlink" href="#geolocate.classes.config.Configuration.local_database_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.local_database_name">
+<code class="descname">local_database_name</code><a class="headerlink" href="#geolocate.classes.config.Configuration.local_database_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.local_database_path">
+<code class="descname">local_database_path</code><a class="headerlink" href="#geolocate.classes.config.Configuration.local_database_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.locators_preference">
+<code class="descname">locators_preference</code><a class="headerlink" href="#geolocate.classes.config.Configuration.locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Enabled locators for this GeoIPDatabase ordered by preference.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.classes.config.Configuration.reset_locators_preference">
+<code class="descname">reset_locators_preference</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/config.html#Configuration.reset_locators_preference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.Configuration.reset_locators_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset locators preference to default order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.update_interval">
+<code class="descname">update_interval</code><a class="headerlink" href="#geolocate.classes.config.Configuration.update_interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.config.Configuration.user_id">
+<code class="descname">user_id</code><a class="headerlink" href="#geolocate.classes.config.Configuration.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.classes.config.OpenConfigurationToUpdate">
+<em class="property">class </em><code class="descclassname">geolocate.classes.config.</code><code class="descname">OpenConfigurationToUpdate</code><a class="reference internal" href="_modules/geolocate/classes/config.html#OpenConfigurationToUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.OpenConfigurationToUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Context manager to get a configuration file and save it automatically.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geolocate.classes.config.ParameterNotValid">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.config.</code><code class="descname">ParameterNotValid</code><span class="sig-paren">(</span><em>provided_value</em>, <em>parameter</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/config.html#ParameterNotValid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.ParameterNotValid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Launched when user_id validation fails.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geolocate.classes.config.UnknownLocators">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.config.</code><code class="descname">UnknownLocators</code><span class="sig-paren">(</span><em>unknown_locators</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/config.html#UnknownLocators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.UnknownLocators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Raised when an still not implemented location is referenced in any
+operation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.config.get_real_path">
+<code class="descclassname">geolocate.classes.config.</code><code class="descname">get_real_path</code><span class="sig-paren">(</span><em>CONFIG_FILE</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/config.html#get_real_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.get_real_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.config.load_configuration">
+<code class="descclassname">geolocate.classes.config.</code><code class="descname">load_configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/config.html#load_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.load_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read configuration file and populate with its data a
+config.Configuration instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Configuration instance populated with configuration file data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#geolocate.classes.config.Configuration" title="geolocate.classes.config.Configuration">config.Configuration</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.config.save_configuration">
+<code class="descclassname">geolocate.classes.config.</code><code class="descname">save_configuration</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/config.html#save_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.config.save_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write Configuration object in config file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>configuration</strong> (<a class="reference internal" href="#geolocate.classes.config.Configuration" title="geolocate.classes.config.Configuration"><em>config.Configuration</em></a>) &#8211; Configuration to be saved.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.classes.exceptions">
+<span id="geolocate-classes-exceptions-module"></span><h2>geolocate.classes.exceptions module<a class="headerlink" href="#module-geolocate.classes.exceptions" title="Permalink to this headline">¶</a></h2>
+<p>Custom exceptions for geolocate.</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="exception">
+<dt id="geolocate.classes.exceptions.IPNotFound">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.exceptions.</code><code class="descname">IPNotFound</code><span class="sig-paren">(</span><em>ip_address</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/exceptions.html#IPNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.exceptions.IPNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Searched IP is not in geolocation database.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.classes.geowrapper">
+<span id="geolocate-classes-geowrapper-module"></span><h2>geolocate.classes.geowrapper module<a class="headerlink" href="#module-geolocate.classes.geowrapper" title="Permalink to this headline">¶</a></h2>
+<p>geolocate wrapper to Geolite2 API.</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="exception">
+<dt id="geolocate.classes.geowrapper.CompressedFileNotFound">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">CompressedFileNotFound</code><span class="sig-paren">(</span><em>compressed_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#CompressedFileNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.CompressedFileNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">OSError</span></code></p>
+<p>Raised when no .gz compressed file is found in temporary folder where
+downloaded data is placed.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">GeoIP2WebServiceNotConfigured</code><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoIP2WebServiceNotConfigured"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>GeoIP2 WebService access is still not configured.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.classes.geowrapper.GeoIPDatabase">
+<em class="property">class </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">GeoIPDatabase</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoIPDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIPDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Location engines may have multiple query methods. This class
+encapsulates them all in _locators list.</p>
+<dl class="attribute">
+<dt id="geolocate.classes.geowrapper.GeoIPDatabase.geoip2_local">
+<code class="descname">geoip2_local</code><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIPDatabase.geoip2_local" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geolocate.classes.geowrapper.GeoIPDatabase.geoip2_webservice">
+<code class="descname">geoip2_webservice</code><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIPDatabase.geoip2_webservice" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">GeoIPLocateor to query GeoIP webservice.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#geolocate.classes.geowrapper.WebServiceGeoLocator" title="geolocate.classes.geowrapper.WebServiceGeoLocator">WebServiceGeoLocator</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">GeoIP2WebServiceNotConfigured</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.GeoIPDatabase.locate">
+<code class="descname">locate</code><span class="sig-paren">(</span><em>ip</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoIPDatabase.locate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoIPDatabase.locate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query enabled locators in preference order until getting any
+geodata.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ip</strong> (<em>IP address string.</em>) &#8211; IP address to look for.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Location data for that address.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">geoip2.models.City</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.classes.geowrapper.GeoLocator">
+<em class="property">class </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">GeoLocator</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoLocator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="geolocate.classes.geowrapper.GeoLocator.locate">
+<code class="descname">locate</code><span class="sig-paren">(</span><em>ip</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#GeoLocator.locate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.GeoLocator.locate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get geolocation data from database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ip</strong> (<em>str</em>) &#8211; IP address we are asking about.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">geoip2.errors.AddressNotFoundError</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Geolocation data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">geoip2.models.City</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="geolocate.classes.geowrapper.InvalidLocalDatabase">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">InvalidLocalDatabase</code><span class="sig-paren">(</span><em>local_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#InvalidLocalDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.InvalidLocalDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Local database exists but is corrupted.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.classes.geowrapper.LocalDatabaseGeoLocator">
+<em class="property">class </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">LocalDatabaseGeoLocator</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#LocalDatabaseGeoLocator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.LocalDatabaseGeoLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#geolocate.classes.geowrapper.GeoLocator" title="geolocate.classes.geowrapper.GeoLocator"><code class="xref py py-class docutils literal"><span class="pre">geolocate.classes.geowrapper.GeoLocator</span></code></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geolocate.classes.geowrapper.LocalDatabaseNotFound">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">LocalDatabaseNotFound</code><span class="sig-paren">(</span><em>local_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#LocalDatabaseNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.LocalDatabaseNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">OSError</span></code></p>
+<p>Local database file is missing.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geolocate.classes.geowrapper.NotValidDatabaseFileFound">
+<em class="property">exception </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">NotValidDatabaseFileFound</code><span class="sig-paren">(</span><em>decompressed_database_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#NotValidDatabaseFileFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.NotValidDatabaseFileFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">OSError</span></code></p>
+<p>Raised when a new database pack is downloaded on local, but after
+decompression no valid database file is found in decompressed folder.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.classes.geowrapper.WebServiceGeoLocator">
+<em class="property">class </em><code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">WebServiceGeoLocator</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#WebServiceGeoLocator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.WebServiceGeoLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#geolocate.classes.geowrapper.GeoLocator" title="geolocate.classes.geowrapper.GeoLocator"><code class="xref py py-class docutils literal"><span class="pre">geolocate.classes.geowrapper.GeoLocator</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="geolocate.classes.geowrapper.load_geoip_database">
+<code class="descclassname">geolocate.classes.geowrapper.</code><code class="descname">load_geoip_database</code><span class="sig-paren">(</span><em>configuration=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/geowrapper.html#load_geoip_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.geowrapper.load_geoip_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.classes.parser">
+<span id="geolocate-classes-parser-module"></span><h2>geolocate.classes.parser module<a class="headerlink" href="#module-geolocate.classes.parser" title="Permalink to this headline">¶</a></h2>
+<p>geolocate parser</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="class">
+<dt id="geolocate.classes.parser.GeolocateInputParser">
+<em class="property">class </em><code class="descclassname">geolocate.classes.parser.</code><code class="descname">GeolocateInputParser</code><span class="sig-paren">(</span><em>verbosity</em>, <em>geoip_database</em>, <em>text=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/parser.html#GeolocateInputParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.parser.GeolocateInputParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="geolocate.classes.parser.GeolocateInputParser.VERBOSITY_LEVELS">
+<code class="descname">VERBOSITY_LEVELS</code><em class="property"> = range(0, 4)</em><a class="headerlink" href="#geolocate.classes.parser.GeolocateInputParser.VERBOSITY_LEVELS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="geolocate.classes.parser.InputReader">
+<em class="property">class </em><code class="descclassname">geolocate.classes.parser.</code><code class="descname">InputReader</code><a class="reference internal" href="_modules/geolocate/classes/parser.html#InputReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.parser.InputReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Iterator to read piped input from other programs.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.classes.system">
+<span id="geolocate-classes-system-module"></span><h2>geolocate.classes.system module<a class="headerlink" href="#module-geolocate.classes.system" title="Permalink to this headline">¶</a></h2>
+<p>Module to deal with base operating system.</p>
+<p>Programmed by: Dante Signal31</p>
+<p>email: <a class="reference external" href="mailto:dante&#46;signal31&#37;&#52;&#48;gmail&#46;com">dante<span>&#46;</span>signal31<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<dl class="function">
+<dt id="geolocate.classes.system.verify_python_version">
+<code class="descclassname">geolocate.classes.system.</code><code class="descname">verify_python_version</code><span class="sig-paren">(</span><em>major_version</em>, <em>minor_revision</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geolocate/classes/system.html#verify_python_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geolocate.classes.system.verify_python_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if current python interpreter version is what we need.</p>
+<p>Compare current interpreter version with the one is provided as needed one.
+If not over needed one version abort execution gracefully warning user
+she is trying to use an unsupported python interpreter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>major_version</strong> (<em>int</em>) &#8211; Needed major version for Python interpreter.</li>
+<li><strong>minor_revision</strong> (<em>int</em>) &#8211; Needed minor version for Python interpreter.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geolocate.classes">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-geolocate.classes" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="geolocate.tests.html" class="btn btn-neutral float-right" title="geolocate.tests package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="geolocate.html" class="btn btn-neutral" title="geolocate package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dante Signal31.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

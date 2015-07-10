@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geolocate.classes.geowrapper &mdash; Geolocate 1.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Geolocate 1.3.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> Geolocate
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.html">geolocate package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.tests.html">geolocate.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Geolocate</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>geolocate.classes.geowrapper</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for geolocate.classes.geowrapper</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> geolocate wrapper to Geolite2 API.</span>
+
+<span class="sd"> Programmed by: Dante Signal31</span>
+
+<span class="sd"> email: dante.signal31@gmail.com</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="c"># import subprocess</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">geoip2.database</span> <span class="kn">as</span> <span class="nn">database</span>
+<span class="kn">import</span> <span class="nn">geoip2.webservice</span> <span class="kn">as</span> <span class="nn">webservice</span>
+<span class="kn">import</span> <span class="nn">maxminddb</span>
+<span class="kn">import</span> <span class="nn">wget</span>
+
+
+<span class="kn">import</span> <span class="nn">geolocate.classes.config</span> <span class="kn">as</span> <span class="nn">config</span>
+<span class="kn">import</span> <span class="nn">geolocate.classes.exceptions</span> <span class="kn">as</span> <span class="nn">exceptions</span>
+
+<span class="n">DEFAULT_DATABASE_FILE_EXTENSION</span> <span class="o">=</span> <span class="s">&quot;mmdb&quot;</span>
+<span class="n">GEOIP2_WEBSERVICE_TAG</span> <span class="o">=</span> <span class="s">&quot;geoip2_webservice&quot;</span>
+<span class="n">GEOIP2_LOCAL_TAG</span> <span class="o">=</span> <span class="s">&quot;geoip2_local&quot;</span>
+
+
+<div class="viewcode-block" id="load_geoip_database"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.load_geoip_database">[docs]</a><span class="k">def</span> <span class="nf">load_geoip_database</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">GeoIPDatabase</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="GeoIPDatabase"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoIPDatabase">[docs]</a><span class="k">class</span> <span class="nc">GeoIPDatabase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Location engines may have multiple query methods. This class</span>
+<span class="sd">    encapsulates them all in _locators list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param configuration: Geolocate configuration.</span>
+<span class="sd">        :type configuration: config.Configuration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span> <span class="o">=</span> <span class="n">configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locators</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_locators</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">locators_preference</span>
+
+    <span class="k">def</span> <span class="nf">_add_locators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Add query methods for this location engine.</span>
+
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_webservice_locator</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_local_database_locator</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_web_service_access_configured</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: True if access credential to web service are configured, False if not.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">default_user_id</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">DEFAULT_USER_ID</span>
+        <span class="n">default_license_key</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">DEFAULT_LICENSE_KEY</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="o">.</span><span class="n">user_id</span> <span class="o">!=</span> <span class="n">default_user_id</span> <span class="ow">and</span> \
+           <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="o">.</span><span class="n">license_key</span> <span class="o">!=</span> <span class="n">default_license_key</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">_add_webservice_locator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_web_service_access_configured</span><span class="p">():</span>
+            <span class="n">webservice_locator</span> <span class="o">=</span> <span class="n">WebServiceGeoLocator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_locators</span><span class="p">[</span><span class="n">GEOIP2_WEBSERVICE_TAG</span><span class="p">]</span> <span class="o">=</span> <span class="n">webservice_locator</span>
+
+    <span class="k">def</span> <span class="nf">_add_local_database_locator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">local_db_locator</span> <span class="o">=</span> <span class="n">LocalDatabaseGeoLocator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locators</span><span class="p">[</span><span class="n">GEOIP2_LOCAL_TAG</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_db_locator</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">geoip2_webservice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: GeoIPLocateor to query GeoIP webservice.</span>
+<span class="sd">        :rtype: WebServiceGeoLocator</span>
+<span class="sd">        :raises: GeoIP2WebServiceNotConfigured</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locators</span><span class="p">[</span><span class="n">GEOIP2_WEBSERVICE_TAG</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeoIP2WebServiceNotConfigured</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">geoip2_local</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locators</span><span class="p">[</span><span class="n">GEOIP2_LOCAL_TAG</span><span class="p">]</span>
+
+<div class="viewcode-block" id="GeoIPDatabase.locate"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoIPDatabase.locate">[docs]</a>    <span class="k">def</span> <span class="nf">locate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Query enabled locators in preference order until getting any</span>
+<span class="sd">        geodata.</span>
+
+<span class="sd">        :param ip: IP address to look for.</span>
+<span class="sd">        :type ip: IP address string.</span>
+<span class="sd">        :return: Location data for that address.</span>
+<span class="sd">        :rtype: geoip2.models.City</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">locator_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span><span class="p">:</span>
+            <span class="c"># TODO: Try to disable webservice to see if this is really working.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">locator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locators</span><span class="p">[</span><span class="n">locator_id</span><span class="p">]</span>
+                <span class="n">geodata</span> <span class="o">=</span> <span class="n">locator</span><span class="o">.</span><span class="n">locate</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">IPNotFound</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">geodata</span>
+
+</div></div>
+<div class="viewcode-block" id="GeoLocator"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoLocator">[docs]</a><span class="k">class</span> <span class="nc">GeoLocator</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span> <span class="o">=</span> <span class="n">configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_db_connection</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="GeoLocator.locate"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoLocator.locate">[docs]</a>    <span class="k">def</span> <span class="nf">locate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get geolocation data from database.</span>
+
+<span class="sd">        :param ip: IP address we are asking about.</span>
+<span class="sd">        :type ip: str</span>
+<span class="sd">        :raises: geoip2.errors.AddressNotFoundError</span>
+<span class="sd">        :return: Geolocation data.</span>
+<span class="sd">        :rtype: geoip2.models.City</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geolocation_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_db_connection</span><span class="o">.</span><span class="n">city</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">geolocation_data</span>
+
+</div></div>
+<div class="viewcode-block" id="WebServiceGeoLocator"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.WebServiceGeoLocator">[docs]</a><span class="k">class</span> <span class="nc">WebServiceGeoLocator</span><span class="p">(</span><span class="n">GeoLocator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param configuration: Geolocate configuration.</span>
+<span class="sd">        :type configuration: config.Configuration</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_db_connection</span> <span class="o">=</span> <span class="n">webservice</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">configuration</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+                                                <span class="n">configuration</span><span class="o">.</span><span class="n">license_key</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="LocalDatabaseGeoLocator"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.LocalDatabaseGeoLocator">[docs]</a><span class="k">class</span> <span class="nc">LocalDatabaseGeoLocator</span><span class="p">(</span><span class="n">GeoLocator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param configuration: Geolocate configuration.</span>
+<span class="sd">        :type configuration: config.Configuration</span>
+<span class="sd">        :return: none</span>
+<span class="sd">        :raise: LocalDatabaseNotFound</span>
+<span class="sd">        :raise: InvalidLocalDatabase</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_db</span><span class="p">()</span>
+        <span class="n">db_path</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">local_database_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_db_connection</span> <span class="o">=</span> <span class="n">_open_local_database</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Download a fresh geolocation database if current is too old.</span>
+
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_database_too_old</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_download_fresh_database</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_local_database_too_old</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: True if database file has to be refreshed, False if not.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">database_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="o">.</span><span class="n">local_database_path</span>
+        <span class="n">update_interval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="o">.</span><span class="n">update_interval</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">last_modification</span> <span class="o">=</span> <span class="n">_get_database_last_modification</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">LocalDatabaseNotFound</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>  <span class="c"># This should force a database download.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+            <span class="n">allowed_age</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">update_interval</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_must_be_updated</span><span class="p">(</span><span class="n">today_date</span><span class="p">,</span> <span class="n">last_modification</span><span class="p">,</span> <span class="n">allowed_age</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_download_fresh_database</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Download compressed database, decompress it and place it instead</span>
+<span class="sd">        old one.</span>
+
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">temporary_directory</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Downloading fresh geolocation database...&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_download_file</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_decompress_file</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">CompressedFileNotFound</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">_print_compressed_file_not_found_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write_new_database</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_download_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temporal_directory</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param temporal_directory: Folder path to place downloaded file in.</span>
+<span class="sd">        :type temporal_directory: str</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="o">.</span><span class="n">download_url</span><span class="p">,</span>
+                      <span class="n">out</span><span class="o">=</span><span class="n">temporal_directory</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_remove_old_database</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">database_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="o">.</span><span class="n">local_database_path</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_new_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temporary_directory</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param temporary_directory: Folder path to place downloaded file in.</span>
+<span class="sd">        :type temporal_directory: str</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_remove_old_database</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Old local database not found. May be this is the &quot;</span>
+                  <span class="s">&quot;first time you run geolocate?.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_copy_new_database</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_copy_new_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompressed_file_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param decompressed_file_path: Folder where new database is placed.</span>
+<span class="sd">        :type decompressed_file_path: str</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">database_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="o">.</span><span class="n">local_database_path</span>
+        <span class="n">new_database_path</span> <span class="o">=</span> <span class="n">_get_new_database_path_name</span><span class="p">(</span><span class="n">decompressed_file_path</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">new_database_path</span><span class="p">,</span> <span class="n">database_path</span><span class="p">)</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_decompress_file</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Decompress tar.gz file found in temporary_directory.</span>
+
+<span class="sd">    :param temporary_directory: Folder path to compressed file.</span>
+<span class="sd">    :type temporary_directory: str</span>
+<span class="sd">    :return: Path to decompressed folder.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">compressed_file_name_path</span> <span class="o">=</span> <span class="n">_find_compressed_file</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span>
+        <span class="n">uncompressed_file_name_path</span> <span class="o">=</span> <span class="n">_get_uncompressed_file_name_path</span><span class="p">(</span><span class="n">compressed_file_name_path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">CompressedFileNotFound</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">_print_compressed_file_not_found_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">compressed_file_name_path</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_file</span><span class="p">,</span> \
+                <span class="nb">open</span><span class="p">(</span><span class="n">uncompressed_file_name_path</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+            <span class="n">uncompressed_content</span> <span class="o">=</span> <span class="n">input_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">uncompressed_content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">compressed_file_name_path</span>
+
+
+<span class="k">def</span> <span class="nf">_find_compressed_file</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Find .gz file name downloaded to temporary directory.</span>
+
+<span class="sd">    :param temporary_directory: Folder to search compressed file in.</span>
+<span class="sd">    :type temporary_directory: str</span>
+<span class="sd">    :return: Absolute path name of found file.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    :raise: CompressedFileNotFound</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&quot;.gz&quot;</span><span class="p">):</span>
+            <span class="n">file_name_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">file_name_path</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CompressedFileNotFound</span><span class="p">(</span><span class="n">temporary_directory</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_get_uncompressed_file_name_path</span><span class="p">(</span><span class="n">compressed_file_name_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get file name compressed in .gz file.</span>
+
+<span class="sd">    :param compressed_file_name_path: Compressed file name absolute path.</span>
+<span class="sd">    :type compressed_file_name_path: str</span>
+<span class="sd">    :return: File name compressed into .gz file.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">uncompressed_file_name_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">compressed_file_name_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">uncompressed_file_name_path</span>
+
+<span class="k">def</span> <span class="nf">_open_local_database</span><span class="p">(</span><span class="n">local_database_path</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">database_connection</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">local_database_path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">LocalDatabaseNotFound</span><span class="p">(</span><span class="n">local_database_path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">maxminddb</span><span class="o">.</span><span class="n">InvalidDatabaseError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidLocalDatabase</span><span class="p">(</span><span class="n">local_database_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">database_connection</span>
+
+
+<span class="k">def</span> <span class="nf">_get_database_last_modification</span><span class="p">(</span><span class="n">database_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param database_path: Path to database file to be evaluated.</span>
+<span class="sd">    :type database_path: str</span>
+<span class="sd">    :return: Date of file&#39;s last modification.</span>
+<span class="sd">    :rtype: datetime.date</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">last_modification</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span><span class="o">.</span><span class="n">st_mtime</span>
+    <span class="k">except</span> <span class="n">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">LocalDatabaseNotFound</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">date_last_modification</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">last_modification</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">date_last_modification</span>
+
+
+<span class="k">def</span> <span class="nf">_must_be_updated</span><span class="p">(</span><span class="n">today_date</span><span class="p">,</span> <span class="n">last_modification</span><span class="p">,</span> <span class="n">allowed_age</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param today_date: Today&#39;s date.</span>
+<span class="sd">    :type today_date: datetime.date</span>
+<span class="sd">    :param last_modification: Date of file&#39;s last modification.</span>
+<span class="sd">    :type last_modification: datetime.date</span>
+<span class="sd">    :param allowed_age: Maximum age allowed between today and last modification.</span>
+<span class="sd">    :type allowed_age: datetime.timedelta</span>
+<span class="sd">    :return: True if last modification is older than allowed age; else False.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">today_date</span> <span class="o">-</span> <span class="n">last_modification</span> <span class="o">&gt;</span> <span class="n">allowed_age</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+
+<span class="k">def</span> <span class="nf">_get_new_database_path_name</span><span class="p">(</span><span class="n">decompressed_file_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param decompressed_file_path: Temporary folder path where new database is.</span>
+<span class="sd">    :type decompressed_file_path: str</span>
+<span class="sd">    :return: Temporary folder with database filename and extension appended.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">decompressed_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">decompressed_file_path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">decompressed_files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">DEFAULT_DATABASE_FILE_EXTENSION</span><span class="p">):</span>
+            <span class="n">new_database_path_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">decompressed_file_path</span><span class="p">,</span> <span class="nb">file</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">new_database_path_name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">NotValidDatabaseFileFound</span><span class="p">(</span><span class="n">decompressed_file_path</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_print_compressed_file_not_found_error</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param e: Exception caught.</span>
+<span class="sd">    :type e: CompressedFileNotFound</span>
+<span class="sd">    :return: none</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Problem decompressing updated database.&quot;</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">compressed_database_path</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;No .gz file found at {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="GeoIP2WebServiceNotConfigured"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.GeoIP2WebServiceNotConfigured">[docs]</a><span class="k">class</span> <span class="nc">GeoIP2WebServiceNotConfigured</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; GeoIP2 WebService access is still not configured.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You tried a query to GeoIP2 webservice, but no valid &quot;</span> \
+                  <span class="s">&quot;credentials were found in configuration.&quot;</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="LocalDatabaseNotFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.LocalDatabaseNotFound">[docs]</a><span class="k">class</span> <span class="nc">LocalDatabaseNotFound</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Local database file is missing.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_database_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_database_path</span> <span class="o">=</span> <span class="n">local_database_path</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Local database file is missing&quot;</span>
+        <span class="ne">OSError</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="InvalidLocalDatabase"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.InvalidLocalDatabase">[docs]</a><span class="k">class</span> <span class="nc">InvalidLocalDatabase</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Local database exists but is corrupted. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_database_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_database_path</span> <span class="o">=</span> <span class="n">local_database_path</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Local database is invalid.&quot;</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="NotValidDatabaseFileFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.NotValidDatabaseFileFound">[docs]</a><span class="k">class</span> <span class="nc">NotValidDatabaseFileFound</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Raised when a new database pack is downloaded on local, but after</span>
+<span class="sd">    decompression no valid database file is found in decompressed folder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompressed_database_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decompressed_database_path</span> <span class="o">=</span> <span class="n">decompressed_database_path</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;No valid database found in downloaded file.&quot;</span>
+        <span class="ne">OSError</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="CompressedFileNotFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.geowrapper.CompressedFileNotFound">[docs]</a><span class="k">class</span> <span class="nc">CompressedFileNotFound</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Raised when no .gz compressed file is found in temporary folder where</span>
+<span class="sd">    downloaded data is placed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compressed_database_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compressed_database_path</span> <span class="o">=</span> <span class="n">compressed_database_path</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;No compressed file found in downloaded data.&quot;</span>
+        <span class="ne">OSError</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dante Signal31.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

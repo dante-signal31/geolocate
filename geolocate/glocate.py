@@ -6,9 +6,9 @@
 
  email: dante.signal31@gmail.com
 
-This scripts scan given text to find urls and IP addresses. The output is the
-same text but every url and IP address is going to have its geolocation
-appended.
+This script is the launcher for Geolocate and scans given text to find urls and
+IP addresses. The output is the same text but every url and IP address is going
+to have its geolocation appended.
 
 Geolocate is possible thanks to `Maxmind GeoIP database <http://www.maxmind.com>`_
 and their API.
