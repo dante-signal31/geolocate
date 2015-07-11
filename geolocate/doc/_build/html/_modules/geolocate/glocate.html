@@ -71,34 +71,15 @@
           
           
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../geolocate.html">geolocate package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../geolocate.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../geolocate.classes.html">geolocate.classes package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../geolocate.classes.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../geolocate.classes.arguments.html">geolocate.classes.arguments module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../geolocate.classes.config.html">geolocate.classes.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../geolocate.classes.geowrapper.html">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../geolocate.classes.parser.html">geolocate.classes.parser module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../geolocate.classes.system.html">geolocate.classes.system module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../geolocate.tests.html">geolocate.tests package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../geolocate.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
 </ul>
 </li>
 </ul>
@@ -154,6 +135,8 @@
 <span class="sd">Geolocate is possible thanks to `Maxmind GeoIP database &lt;http://www.maxmind.com&gt;`_</span>
 <span class="sd">and their API.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="c"># TODO: Improve sphinxdoc structure.</span>
+
 <span class="kn">import</span> <span class="nn">geolocate.classes.system</span> <span class="kn">as</span> <span class="nn">system</span>
 
 <span class="n">system</span><span class="o">.</span><span class="n">verify_python_version</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -164,12 +147,12 @@
 <span class="kn">import</span> <span class="nn">geolocate.classes.config</span> <span class="kn">as</span> <span class="nn">config</span>
 
 
-<div class="viewcode-block" id="print_lines_parsed"><a class="viewcode-back" href="../../geolocate.html#geolocate.glocate.print_lines_parsed">[docs]</a><span class="k">def</span> <span class="nf">print_lines_parsed</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+<div class="viewcode-block" id="print_lines_parsed"><a class="viewcode-back" href="../../index.html#geolocate.glocate.print_lines_parsed">[docs]</a><span class="k">def</span> <span class="nf">print_lines_parsed</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">parser</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../geolocate.html#geolocate.glocate.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#geolocate.glocate.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">_arguments</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">parse_arguments</span><span class="p">()</span>
     <span class="n">arguments</span><span class="o">.</span><span class="n">process_optional_parameters</span><span class="p">(</span><span class="n">_arguments</span><span class="p">)</span>
     <span class="n">configuration</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">()</span>

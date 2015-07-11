@@ -71,34 +71,15 @@
           
           
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.html">geolocate package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.arguments.html">geolocate.classes.arguments module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.config.html">geolocate.classes.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.geowrapper.html">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.parser.html">geolocate.classes.parser module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.system.html">geolocate.classes.system module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.tests.html">geolocate.tests package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
 </ul>
 </li>
 </ul>
@@ -154,7 +135,7 @@
 <span class="kn">import</span> <span class="nn">geolocate.classes.exceptions</span> <span class="kn">as</span> <span class="nn">exceptions</span>
 
 
-<div class="viewcode-block" id="GeolocateInputParser"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.parser.GeolocateInputParser">[docs]</a><span class="k">class</span> <span class="nc">GeolocateInputParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="GeolocateInputParser"><a class="viewcode-back" href="../../../geolocate.classes.parser.html#geolocate.classes.parser.GeolocateInputParser">[docs]</a><span class="k">class</span> <span class="nc">GeolocateInputParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="n">_VERBOSITY_FIELDS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;continent_name&quot;</span><span class="p">,</span>
                          <span class="s">&quot;country_name&quot;</span><span class="p">,</span>
@@ -163,14 +144,14 @@
     <span class="n">VERBOSITY_LEVELS</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_VERBOSITY_FIELDS</span><span class="p">))</span>
     <span class="n">_IP_NOT_FOUND_MESSAGE</span> <span class="o">=</span> <span class="s">&quot;[IP not found]&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GeolocateInputParser.__init__"><a class="viewcode-back" href="../../../geolocate.classes.parser.html#geolocate.classes.parser.GeolocateInputParser.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="p">,</span> <span class="n">geoip_database</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_verbosity</span> <span class="o">=</span> <span class="n">verbosity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_geoip_database</span> <span class="o">=</span> <span class="n">geoip_database</span>
         <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_entered_text</span> <span class="o">=</span> <span class="n">InputReader</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_entered_text</span> <span class="o">=</span> <span class="n">_get_lines</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-
+</div>
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
 
@@ -360,12 +341,12 @@
     <span class="k">return</span> <span class="n">lines</span>
 
 
-<div class="viewcode-block" id="InputReader"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.parser.InputReader">[docs]</a><span class="k">class</span> <span class="nc">InputReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="InputReader"><a class="viewcode-back" href="../../../geolocate.classes.parser.html#geolocate.classes.parser.InputReader">[docs]</a><span class="k">class</span> <span class="nc">InputReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Iterator to read piped input from other programs.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="InputReader.__init__"><a class="viewcode-back" href="../../../geolocate.classes.parser.html#geolocate.classes.parser.InputReader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
-
+</div>
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
 

@@ -6,12 +6,24 @@
 Welcome to Geolocate's documentation!
 =====================================
 
-Contents:
-
+Packages:
+---------
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   geolocate
+   geolocate.classes
+
+Scripts:
+--------
+
+* **glocate.py**
+
+.. automodule:: geolocate.glocate
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
 
 Indices and tables
 ==================

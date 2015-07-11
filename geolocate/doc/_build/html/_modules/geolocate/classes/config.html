@@ -71,34 +71,15 @@
           
           
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.html">geolocate package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.arguments">geolocate.classes.arguments module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.config">geolocate.classes.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.exceptions">geolocate.classes.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.geowrapper">geolocate.classes.geowrapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.parser">geolocate.classes.parser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes.system">geolocate.classes.system module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.classes.html#module-geolocate.classes">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../geolocate.classes.html">geolocate.classes package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.classes.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.arguments.html">geolocate.classes.arguments module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.config.html">geolocate.classes.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.geowrapper.html">geolocate.classes.geowrapper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.parser.html">geolocate.classes.parser module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.classes.system.html">geolocate.classes.system module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../geolocate.tests.html">geolocate.tests package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.console_mocks">geolocate.tests.console_mocks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_config">geolocate.tests.test_config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geolocate">geolocate.tests.test_geolocate module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_geowrapper">geolocate.tests.test_geowrapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.test_parser">geolocate.tests.test_parser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests.testing_tools">geolocate.tests.testing_tools module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../geolocate.tests.html#module-geolocate.tests">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../geolocate.html#geolocate-glocate-module">geolocate.glocate module</a></li>
 </ul>
 </li>
 </ul>
@@ -153,7 +134,7 @@
 <span class="kn">import</span> <span class="nn">urllib.parse</span> <span class="kn">as</span> <span class="nn">urlparse</span>
 
 
-<div class="viewcode-block" id="get_real_path"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.get_real_path">[docs]</a><span class="k">def</span> <span class="nf">get_real_path</span><span class="p">(</span><span class="n">CONFIG_FILE</span><span class="p">):</span>
+<div class="viewcode-block" id="get_real_path"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.get_real_path">[docs]</a><span class="k">def</span> <span class="nf">get_real_path</span><span class="p">(</span><span class="n">CONFIG_FILE</span><span class="p">):</span>
     <span class="n">this_module_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
     <span class="n">this_module_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">this_module_path</span><span class="p">)</span>
     <span class="n">parent_folder</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">this_module_folder</span><span class="p">)</span>
@@ -180,7 +161,7 @@
 <span class="n">DEFAULT_LOCATORS_PREFERENCE</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;geoip2_webservice&quot;</span><span class="p">,</span> <span class="s">&quot;geoip2_local&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="Configuration"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.Configuration">[docs]</a><span class="k">class</span> <span class="nc">Configuration</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Configuration"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.Configuration">[docs]</a><span class="k">class</span> <span class="nc">Configuration</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c"># I&#39;ve discovered Maxmind website blocks clients who exceeds a connection</span>
     <span class="c"># threshold. If we make a connection each time we run geolocate, in order</span>
     <span class="c"># to check that configured URL is OK, we can end in Maxmind blacklist. So,</span>
@@ -195,7 +176,7 @@
 <span class="sd">    webservices or downloaded local database. This class also validates</span>
 <span class="sd">    parameters read from config files to overcome user typos.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">DEFAULT_USER_ID</span><span class="p">,</span>
+<div class="viewcode-block" id="Configuration.__init__"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.Configuration.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">DEFAULT_USER_ID</span><span class="p">,</span>
                  <span class="n">license_key</span><span class="o">=</span><span class="n">DEFAULT_LICENSE_KEY</span><span class="p">,</span>
                  <span class="n">download_url</span><span class="o">=</span><span class="n">DEFAULT_DATABASE_DOWNLOAD_URL</span><span class="p">,</span>
                  <span class="n">update_interval</span><span class="o">=</span><span class="n">DEFAULT_UPDATE_INTERVAL</span><span class="p">,</span>
@@ -209,7 +190,7 @@
                                 <span class="s">&quot;local_database_folder&quot;</span><span class="p">:</span> <span class="n">local_database_folder</span><span class="p">,</span>
                                 <span class="s">&quot;local_database_name&quot;</span><span class="p">:</span> <span class="n">local_database_name</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_locators_preference</span> <span class="o">=</span> <span class="n">locators_preference</span>
-
+</div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_webservice</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">]</span>
@@ -295,7 +276,7 @@
                 <span class="k">return</span> <span class="bp">False</span>
         <span class="k">return</span> <span class="bp">True</span>
 
-<div class="viewcode-block" id="Configuration.reset_locators_preference"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.Configuration.reset_locators_preference">[docs]</a>    <span class="k">def</span> <span class="nf">reset_locators_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Configuration.reset_locators_preference"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.Configuration.reset_locators_preference">[docs]</a>    <span class="k">def</span> <span class="nf">reset_locators_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Reset locators preference to default order.</span>
 
 <span class="sd">        :return: None</span>
@@ -410,7 +391,7 @@
         <span class="k">return</span> <span class="bp">False</span>
 
 
-<div class="viewcode-block" id="load_configuration"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.load_configuration">[docs]</a><span class="k">def</span> <span class="nf">load_configuration</span><span class="p">():</span>
+<div class="viewcode-block" id="load_configuration"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.load_configuration">[docs]</a><span class="k">def</span> <span class="nf">load_configuration</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Read configuration file and populate with its data a</span>
 <span class="sd">    config.Configuration instance.</span>
 
@@ -449,7 +430,7 @@
     <span class="n">save_configuration</span><span class="p">(</span><span class="n">default_configuration</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="save_configuration"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.save_configuration">[docs]</a><span class="k">def</span> <span class="nf">save_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="p">):</span>
+<div class="viewcode-block" id="save_configuration"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.save_configuration">[docs]</a><span class="k">def</span> <span class="nf">save_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Write Configuration object in config file.</span>
 
 <span class="sd">    :param configuration: Configuration to be saved.</span>
@@ -510,17 +491,17 @@
     <span class="k">return</span> <span class="n">locator_set</span> <span class="o">-</span> <span class="n">default_locator_set</span>
 
 
-<div class="viewcode-block" id="ConfigNotFound"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.ConfigNotFound">[docs]</a><span class="k">class</span> <span class="nc">ConfigNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigNotFound"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.ConfigNotFound">[docs]</a><span class="k">class</span> <span class="nc">ConfigNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Launched when config file is not where is supposed to be.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigNotFound.__init__"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.ConfigNotFound.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Configuration file is not at it&#39;s default &quot;</span> \
                   <span class="s">&quot;location: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CONFIG_FILE_PATH</span><span class="p">)</span>
         <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
-</div>
-<div class="viewcode-block" id="ParameterNotValid"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.ParameterNotValid">[docs]</a><span class="k">class</span> <span class="nc">ParameterNotValid</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</div></div>
+<div class="viewcode-block" id="ParameterNotValid"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.ParameterNotValid">[docs]</a><span class="k">class</span> <span class="nc">ParameterNotValid</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Launched when user_id validation fails.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provided_value</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterNotValid.__init__"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.ParameterNotValid.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provided_value</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provided_value</span> <span class="o">=</span> <span class="n">provided_value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="o">=</span> <span class="n">parameter</span>
         <span class="n">parameter_message</span> <span class="o">=</span> <span class="s">&quot;There is a problem with parameter {0}, you &quot;</span> \
@@ -529,25 +510,25 @@
         <span class="n">final_message</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">parameter_message</span><span class="p">,</span> <span class="n">message</span><span class="p">])</span>
         <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">final_message</span><span class="p">)</span>
 
-</div>
-<div class="viewcode-block" id="UnknownLocators"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.UnknownLocators">[docs]</a><span class="k">class</span> <span class="nc">UnknownLocators</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</div></div>
+<div class="viewcode-block" id="UnknownLocators"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.UnknownLocators">[docs]</a><span class="k">class</span> <span class="nc">UnknownLocators</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Raised when an still not implemented location is referenced in any</span>
 <span class="sd">    operation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unknown_locators</span><span class="p">):</span>
+<div class="viewcode-block" id="UnknownLocators.__init__"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.UnknownLocators.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unknown_locators</span><span class="p">):</span>
         <span class="n">unknown_locators_text</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unknown_locators</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;You tried to use not implemented locators:&quot;</span><span class="p">,</span>
                                  <span class="n">unknown_locators_text</span><span class="p">])</span>
         <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 
-</div>
-<div class="viewcode-block" id="OpenConfigurationToUpdate"><a class="viewcode-back" href="../../../geolocate.classes.html#geolocate.classes.config.OpenConfigurationToUpdate">[docs]</a><span class="k">class</span> <span class="nc">OpenConfigurationToUpdate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</div></div>
+<div class="viewcode-block" id="OpenConfigurationToUpdate"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.OpenConfigurationToUpdate">[docs]</a><span class="k">class</span> <span class="nc">OpenConfigurationToUpdate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Context manager to get a configuration file and save it automatically.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenConfigurationToUpdate.__init__"><a class="viewcode-back" href="../../../geolocate.classes.config.html#geolocate.classes.config.OpenConfigurationToUpdate.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">load_configuration</span><span class="p">()</span>
-
+</div>
     <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
 
