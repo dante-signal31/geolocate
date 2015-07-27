@@ -22,7 +22,7 @@ News
 ----
 
 * **2015-06-28:** Geolocate version 1.2.3 release. Interpreter version check now
-runs when geolocate is run from an installed pypi package.
+  runs when geolocate is run from an installed pypi package.
 * **2015-06-26:** Geolocate version 1.2.2 released. Geolocate now warns user and
   exits gracefully if it detects it is being run on a Python 2.x interpreter.
 * **2015-05-03:** Geolocate version 1.2.1 released. Setup.py description had an
