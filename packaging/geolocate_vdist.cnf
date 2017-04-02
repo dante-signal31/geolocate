@@ -20,9 +20,11 @@ runtime_deps = libssl1.0.0, dummy1.0.0
 compile_python = True
 python_version = 3.6.0
 output_folder = ./geolocate_vdist
+after_install = packaging/postinst.sh
+after_remove = packaging/postuninst.sh
 
 [Ubuntu-package]
 profile = ubuntu-trusty
 
-#[Centos7-package]
-#profile = centos7
+[Centos7-package]
+profile = centos7
