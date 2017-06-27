@@ -35,6 +35,7 @@ ErroneousArguments = namedtuple("ErroneousArguments",
 WORKING_DIR = "./geolocate/"
 CONFIGURATION_PATH = config.CONFIG_FILE
 
+
 class MockedArguments(object):
     """ Used to detect private attributes.
 
@@ -215,4 +216,3 @@ def _assert_geolocate_function_called(function_name, arguments):
     with patch(target_to_patch) as mocked_function:
         args.process_optional_parameters(arguments)
     return mocked_function.called
-
