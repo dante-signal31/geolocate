@@ -13,12 +13,10 @@ fpm_args = --maintainer dante.signal31@gmail.com -a native --url
     used in console with pipes and redirections along with
     applications like traceroute, nslookup, etc."
     --license BSD-3 --category net
-    --after-install packaging/debian/postinst.sh
-    --after-remove packaging/debian/postuninst.sh
-requirements_path = /REQUIREMENTS.txt
+requirements_path = ./REQUIREMENTS.txt
 runtime_deps = libssl1.0.0, dummy1.0.0
 compile_python = True
-python_version = 3.6.0
+python_version = 3.5.3
 output_folder = ./geolocate_vdist
 after_install = packaging/postinst.sh
 after_remove = packaging/postuninst.sh
