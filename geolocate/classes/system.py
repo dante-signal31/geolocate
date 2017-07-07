@@ -8,6 +8,7 @@
 
 import sys
 
+
 def verify_python_version(major_version, minor_revision):
     """ Check if current python interpreter version is what we need.
 
