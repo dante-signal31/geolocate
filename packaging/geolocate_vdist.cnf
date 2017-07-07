@@ -14,7 +14,7 @@ fpm_args = --maintainer dante.signal31@gmail.com -a native --url
     applications like traceroute, nslookup, etc."
     --license BSD-3 --category net
 requirements_path = ./REQUIREMENTS.txt
-runtime_deps = libssl1.0.0, dummy1.0.0
+runtime_deps = libssl1.0.0
 compile_python = True
 python_version = 3.5.3
 output_folder = ./geolocate_vdist
