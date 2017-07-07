@@ -6,6 +6,7 @@
  email: dante.signal31@gmail.com
 """
 
+import keyring
 import os
 import tempfile
 import unittest
@@ -18,6 +19,8 @@ import geolocate.tests.testing_tools as testing_tools
 WORKING_DIR = "./geolocate/"
 _config_file = os.path.join(WORKING_DIR, config.CONFIG_FILE)
 GEOLOCATE_CONFIG_FILE = os.path.abspath(_config_file)
+TEST_CREDENTIALS = {"username": "john_doe",
+                    "password": "superpassword1"}
 
 
 class TestConfiguration(unittest.TestCase):
@@ -181,6 +184,23 @@ class TestConfiguration(unittest.TestCase):
                 f.configuration = new_configuration
             saved_configuration = config.load_configuration()
             self.assertEqual(saved_configuration, correct_configuration)
+
+    def test_save_and_load_password(self):
+        username = TEST_CREDENTIALS["username"]
+        password = TEST_CREDENTIALS["password"]
+        config._save_password(username, password)
+        recovered_password = config._load_password(username)
+        keyring.delete_password(config.GEOLOCATE_VAULT, username)
+        self.assertEqual(password, recovered_password)
+
+    def test_delete_password(self):
+        username = TEST_CREDENTIALS["username"]
+        password = TEST_CREDENTIALS["password"]
+        keyring.set_password(config.GEOLOCATE_VAULT, username, password)
+        config._delete_password(username)
+        recovered_password = keyring.get_password(config.GEOLOCATE_VAULT,
+                                                  username)
+        self.assertIs(recovered_password, None)
 
 
 def _remove_config():

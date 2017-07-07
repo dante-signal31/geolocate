@@ -11,6 +11,8 @@ import os
 import pickle
 import urllib.parse as urlparse
 
+import keyring
+
 
 def get_real_path(CONFIG_FILE):
     this_module_path = os.path.realpath(__file__)
@@ -21,15 +23,16 @@ def get_real_path(CONFIG_FILE):
 
 CONFIG_FILE = "etc/geolocate.conf"
 CONFIG_FILE_PATH = get_real_path(CONFIG_FILE)
+GEOLOCATE_VAULT = "geolocate"
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
 # TODO: For production I have to uncomment real url.
 # Only for tests I have to comment real download url. MaxMind has a rate limit
 # per day. If you exceed that limit you are forbidden for 24 hours to download
 # their database.
-DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
+#DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 # TODO: For production remove next fake url, it's only for tests.
-# DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
+DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
@@ -234,7 +237,9 @@ def _get_server_status_code(url):
     host, path = urlparse.urlparse(url)[1:3]    # elems [1] and [2]
     conn = http.HTTPConnection(host)
     conn.request('HEAD', path)
-    return conn.getresponse().status
+    status = conn.getresponse().status
+    conn.close()
+    return status
 
 
 def _validate_integer(parameter, value):
@@ -318,6 +323,38 @@ def save_configuration(configuration):
     with open(CONFIG_FILE_PATH, "wb") as config_file:
         pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
 
+
+def _save_password(username, password):
+    """ Save password ciphered in system keyring.
+
+    :param username: Username to be used with Maxmind webservice.
+    :type username: str
+    :param password: Password of Maxmind account.
+    :type password: str
+    :return: None
+    """
+    keyring.set_password(GEOLOCATE_VAULT, username, password)
+
+
+def _load_password(username):
+    """ Retrieve password from system keyring.
+
+    :param username: Username used with Maxmind webservice.
+    :type username: str
+    :return: None
+    """
+    recovered_password = keyring.get_password(GEOLOCATE_VAULT, username)
+    return recovered_password
+
+
+def _delete_password(username):
+    """ Delete password assigned to username and stored in system keyring.
+
+    :param username: Username used with Maxmind webservice.
+    :type username: str
+    :return: None
+    """
+    keyring.delete_password(GEOLOCATE_VAULT, username)
 
 def _get_folder_path(path):
     """ If path is relative, get absolute path of current working directory
