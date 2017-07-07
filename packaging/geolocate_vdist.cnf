@@ -16,8 +16,8 @@ fpm_args = --maintainer dante.signal31@gmail.com -a native --url
     --after-install packaging/debian/postinst.sh
     --after-remove packaging/debian/postuninst.sh
 requirements_path = /REQUIREMENTS.txt
-build_deps = python3.5-dev, libssl-dev
-runtime_deps = libssl1.0.0, dummy1.0.0
+build_deps = python3.5-dev, libssl-dev, pkg-config, libdbus-glib-1-dev, gnome-keyring
+runtime_deps = libssl1.0.0, python3-dbus
 compile_python = True
 python_version = 3.5.3
 output_folder = ./geolocate_vdist
