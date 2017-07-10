@@ -1,6 +1,6 @@
 [DEFAULT]
 app = geolocate
-version = 1.3.0
+version = 1.4.0
 source_git = https://github.com/dante-signal31/${app}, master
 fpm_args = --maintainer dante.signal31@gmail.com -a native --url
     https://github.com/dante-signal31/${app} --description
@@ -14,7 +14,8 @@ fpm_args = --maintainer dante.signal31@gmail.com -a native --url
     applications like traceroute, nslookup, etc."
     --license BSD-3 --category net
 requirements_path = ./REQUIREMENTS.txt
-runtime_deps = libssl1.0.0
+build_deps = python3.5-dev, libssl-dev, pkg-config, libdbus-glib-1-dev, gnome-keyring
+runtime_deps = libssl1.0.0, python3-dbus
 compile_python = True
 python_version = 3.5.3
 output_folder = ./geolocate_vdist

@@ -33,7 +33,8 @@ class OriginalFileSaved(object):
         return self
 
     def _backup_file(self):
-        shutil.copyfile(self._original_file_path, self._backup_file_path)
+        if os.path.isfile(self._original_file_path):
+            shutil.copyfile(self._original_file_path, self._backup_file_path)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._restore_file()
@@ -44,7 +45,8 @@ class OriginalFileSaved(object):
             return False
 
     def _restore_file(self):
-        shutil.copyfile(self._backup_file_path, self._original_file_path)
+        if os.path.isfile(self._backup_file_path):
+            shutil.copyfile(self._backup_file_path, self._original_file_path)
 
     def _remove_backup_directory(self):
         self._backup_directory.cleanup()

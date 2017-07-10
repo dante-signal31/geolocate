@@ -6,21 +6,18 @@
  email: dante.signal31@gmail.com
 """
 
+import configparser
 import http.client as http
 import os
-import pickle
 import urllib.parse as urlparse
 
+import keyring
 
-def get_real_path(CONFIG_FILE):
-    this_module_path = os.path.realpath(__file__)
-    this_module_folder = os.path.dirname(this_module_path)
-    parent_folder, _ = os.path.split(this_module_folder)
-    config_file_path = os.path.join(parent_folder, CONFIG_FILE)
-    return config_file_path
 
+CONFIG_ROOT = os.path.expanduser("~/.geolocate")
 CONFIG_FILE = "etc/geolocate.conf"
-CONFIG_FILE_PATH = get_real_path(CONFIG_FILE)
+CONFIG_FILE_PATH = os.path.join(CONFIG_ROOT, CONFIG_FILE)
+GEOLOCATE_VAULT = "geolocate"
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
 # TODO: For production I have to uncomment real url.
@@ -29,11 +26,11 @@ DEFAULT_LICENSE_KEY = ""
 # their database.
 DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 # TODO: For production remove next fake url, it's only for tests.
-# DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
+#DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
-DEFAULT_LOCAL_DATABASE_FOLDER = get_real_path("local_database/")
+DEFAULT_LOCAL_DATABASE_FOLDER = os.path.join(CONFIG_ROOT, "local_database/")
 DEFAULT_LOCAL_DATABASE_NAME = "GeoLite2-City.mmdb"
 # Remember add new locators here or locate won't use them.
 DEFAULT_LOCATORS_PREFERENCE = ["geoip2_webservice", "geoip2_local"]
@@ -148,11 +145,23 @@ class Configuration(object):
         else:
             self._locators_preference = new_locator_list
 
+    # I make comparisons at tests so I need this functionality.
+    # Great reference about custom classes equality at:
+    #   https://stackoverflow.com/questions/390250/elegant-ways-to-support-equivalence-equality-in-python-classes
     def __eq__(self, other):
-        for _property, value in vars(self).items():
-            if getattr(other, _property) != value:
-                return False
-        return True
+        if isinstance(other, self.__class__):
+            return other.__dict__ == self.__dict__
+        else:
+            return NotImplemented
+
+    def __ne__(self, other):
+        if isinstance(other, self.__class__):
+            return not self.__eq__(other)
+        else:
+            return NotImplemented
+
+    def __hash__(self):
+        return hash(tuple(sorted(self.__dict__.items())))
 
     def reset_locators_preference(self):
         """ Reset locators preference to default order.
@@ -174,6 +183,25 @@ class Configuration(object):
         disabled_locators_set = default_locators_set - enabled_locators_set
         return disabled_locators_set
 
+    def get_configuration_dict(self):
+        """ Get a dict with configuration parameters.
+
+        Dict keys will be sections and values are also dict with values for
+        that section. License key won't we included and must be got from
+        license_key property
+
+        :return: Configuration sections dict of dicts.
+        :rtype: dict
+        """
+        parsed_configuration = {
+            "webservice": {"user_id": self._webservice["user_id"]},
+            "local_database": {key: self._local_database[key]
+                               for key in self._local_database.keys()},
+            "locators_preference": {
+                "preference": ",".join(self._locators_preference)
+            }
+        }
+        return parsed_configuration
 
 def _validate_value(parameter, value):
     # TODO: Add more checks to detect invalid values when you know MaxMind's
@@ -234,7 +262,9 @@ def _get_server_status_code(url):
     host, path = urlparse.urlparse(url)[1:3]    # elems [1] and [2]
     conn = http.HTTPConnection(host)
     conn.request('HEAD', path)
-    return conn.getresponse().status
+    status = conn.getresponse().status
+    conn.close()
+    return status
 
 
 def _validate_integer(parameter, value):
@@ -277,7 +307,7 @@ def load_configuration():
     :rtype: config.Configuration
     """
     try:
-        configuration = _read_config_file()
+        configuration, license_key = _read_config_file()
     except ConfigNotFound:
         _create_default_config_file()
         configuration = load_configuration()
@@ -292,11 +322,38 @@ def _read_config_file():
     :raise: config.ConfigNotFound
     """
     try:
-        with open(CONFIG_FILE_PATH, "rb") as config_file:
-            configuration = pickle.load(config_file)
-    except FileNotFoundError:
+        configuration_parser = configparser.ConfigParser()
+        configuration_parser.read(CONFIG_FILE_PATH)
+        license_key = _load_password(configuration_parser["webservice"]["user_id"])
+        locators_preference = _string_to_list(configuration_parser["locators_preference"]["preference"])
+        configuration = Configuration(
+            user_id=configuration_parser["webservice"]["user_id"],
+            license_key=license_key,
+            download_url=configuration_parser["local_database"]["download_url"],
+            update_interval=int(configuration_parser["local_database"]["update_interval"]),
+            local_database_folder=configuration_parser["local_database"]["local_database_folder"],
+            local_database_name=configuration_parser["local_database"]["local_database_name"],
+            locators_preference=locators_preference
+            )
+        return configuration, license_key
+    except (FileNotFoundError, KeyError):
         raise ConfigNotFound()
-    return configuration
+    except Exception as e:
+        print("Something odd happened: ", e)
+
+
+def _string_to_list(string_list):
+    """ Take a string with comma separated elements a return a list of
+    those elements.
+
+    :param string_list: String with comma separated elements.
+    :type string_list: str
+    :return: List with elements.
+    :rtype: list
+    """
+    string_list_no_spaces = string_list.replace(' ', '')
+    element_list = list(string_list_no_spaces.split(','))
+    return element_list
 
 
 def _create_default_config_file():
@@ -315,8 +372,62 @@ def save_configuration(configuration):
     :type configuration: config.Configuration
     :return: None
     """
-    with open(CONFIG_FILE_PATH, "wb") as config_file:
-        pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
+    configuration_parameters = configuration.get_configuration_dict()
+    _save_password(configuration.user_id, configuration.license_key)
+    configuration_parsed = _parse_parameters(configuration_parameters)
+    try:
+        with open(CONFIG_FILE_PATH, "w") as config_file:
+            configuration_parsed.write(config_file)
+    except FileNotFoundError:  # Configuration path probably does not exist yet.
+        path_to_create = os.path.dirname(CONFIG_FILE_PATH)
+        os.makedirs(path_to_create)
+        save_configuration(configuration)
+
+
+def _parse_parameters(configuration_parameters):
+    """ Insert parameter into a configparse file.
+
+    :param configuration_parameters:
+    :type configuration_parameters: dict
+    :return: None
+    """
+    configuration_parsed = configparser.ConfigParser()
+    for section in configuration_parameters.keys():
+        configuration_parsed[section] = configuration_parameters[section]
+    return configuration_parsed
+
+
+def _save_password(username, password):
+    """ Save password ciphered in system keyring.
+
+    :param username: Username to be used with Maxmind webservice.
+    :type username: str
+    :param password: Password of Maxmind account.
+    :type password: str
+    :return: None
+    """
+    keyring.set_password(GEOLOCATE_VAULT, username, password)
+
+
+def _load_password(username):
+    """ Retrieve password from system keyring.
+
+    :param username: Username used with Maxmind webservice.
+    :type username: str
+    :return: None
+    """
+    recovered_password = keyring.get_password(GEOLOCATE_VAULT, username)
+    return recovered_password
+
+
+def _delete_password(username):
+    """ Delete password assigned to username and stored in system keyring.
+
+    :param username: Username used with Maxmind webservice.
+    :type username: str
+    :return: None
+    """
+    keyring.delete_password(GEOLOCATE_VAULT, username)
 
 
 def _get_folder_path(path):

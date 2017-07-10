@@ -6,6 +6,7 @@
  email: dante.signal31@gmail.com
 """
 
+import keyring
 import os
 import tempfile
 import unittest
@@ -16,8 +17,9 @@ import geolocate.tests.testing_tools as testing_tools
 
 
 WORKING_DIR = "./geolocate/"
-_config_file = os.path.join(WORKING_DIR, config.CONFIG_FILE)
-GEOLOCATE_CONFIG_FILE = os.path.abspath(_config_file)
+GEOLOCATE_CONFIG_FILE = config.CONFIG_FILE_PATH
+TEST_CREDENTIALS = {"username": "john_doe",
+                    "password": "superpassword1"}
 
 
 class TestConfiguration(unittest.TestCase):
@@ -58,18 +60,6 @@ class TestConfiguration(unittest.TestCase):
             self._test_wrong_parameter("local_database_folder", wrong_path)
             correct_path = "local_database"
             self._test_correct_parameter("local_database_folder", correct_path)
-
-    def test_get_config_path(self):
-        absolute_path = "/usr/local/"
-        config_absolute_path = config._get_folder_path(absolute_path)
-        expected_path = absolute_path
-        self.assertEqual(config_absolute_path, expected_path)
-        relative_path = "test/"
-        with tempfile.TemporaryDirectory() as temporary_folder, \
-                testing_tools.WorkingDirectoryChanged(temporary_folder):
-            config_relative_path = config._get_folder_path(relative_path)
-            expected_path = "{0}/{1}".format(temporary_folder, relative_path)
-            self.assertEqual(config_relative_path, expected_path)
 
     def _test_wrong_parameter(self, parameter, value):
         configuration = config.Configuration()
@@ -118,7 +108,8 @@ class TestConfiguration(unittest.TestCase):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR),\
                 testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
-            configuration_to_save = config.Configuration(user_id="user1984")
+            configuration_to_save = config.Configuration(user_id=TEST_CREDENTIALS["username"],
+                                                         license_key=TEST_CREDENTIALS["password"])
             config.save_configuration(configuration_to_save)
             configuration_loaded = config.load_configuration()
             self.assertEqual(configuration_to_save, configuration_loaded,
@@ -176,12 +167,31 @@ class TestConfiguration(unittest.TestCase):
                                                      license_key="key")
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
+            config._create_default_config_file()
             with config.OpenConfigurationToUpdate() as f:
                 new_configuration = correct_configuration
                 f.configuration = new_configuration
             saved_configuration = config.load_configuration()
             self.assertEqual(saved_configuration, correct_configuration)
 
+    def test_save_and_load_password(self):
+        username = TEST_CREDENTIALS["username"]
+        password = TEST_CREDENTIALS["password"]
+        config._save_password(username, password)
+        recovered_password = config._load_password(username)
+        keyring.delete_password(config.GEOLOCATE_VAULT, username)
+        self.assertEqual(password, recovered_password)
+
+    def test_delete_password(self):
+        username = TEST_CREDENTIALS["username"]
+        password = TEST_CREDENTIALS["password"]
+        keyring.set_password(config.GEOLOCATE_VAULT, username, password)
+        config._delete_password(username)
+        recovered_password = keyring.get_password(config.GEOLOCATE_VAULT,
+                                                  username)
+        self.assertIs(recovered_password, None)
+
 
 def _remove_config():
-    os.remove(GEOLOCATE_CONFIG_FILE)
+    if os.path.isfile(GEOLOCATE_CONFIG_FILE):
+        os.remove(GEOLOCATE_CONFIG_FILE)

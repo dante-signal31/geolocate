@@ -13,7 +13,7 @@ More info in: https://github.com/dante-signal31/geolocate
 """
 
 setup(name="glocate",
-      version="1.3.0",
+      version="1.4.0",
       description="This program scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation data appended.",
@@ -38,7 +38,8 @@ setup(name="glocate",
                    'Programming Language :: Python :: 3.4'],
       keywords="geolocation ip addresses",
       install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.5.0",
-                        "wget>=2.2"],
+                        "wget>=2.2", "wheel>=0.24.0", "keyring>=10.4.0",
+                        "dbus-python>=1.2.4"],
       zip_safe=False,
       # TODO: This exclude is not working when building wheels, tests package
       # is still included in packages. It's a bug in pip:
@@ -49,8 +50,5 @@ setup(name="glocate",
       #     pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
       packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
                                       "tests", "*tests*"]),
-      entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
-                    },
-      package_data={"geolocate": ["etc/empty.txt",
-                                  "local_database/empty.txt"], }
+      entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ], }
       )
