@@ -13,7 +13,7 @@ More info in: https://github.com/dante-signal31/geolocate
 """
 
 setup(name="glocate",
-      version="1.3.0",
+      version="1.4.0",
       description="This program scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation data appended.",
@@ -50,8 +50,5 @@ setup(name="glocate",
       #     pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
       packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
                                       "tests", "*tests*"]),
-      entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ],
-                    },
-      package_data={"geolocate": ["etc/empty.txt",
-                                  "local_database/empty.txt"], }
+      entry_points={'console_scripts': ['geolocate=geolocate.glocate:main', ], }
       )
