@@ -241,7 +241,14 @@ class LocalDatabaseGeoLocator(GeoLocator):
         """
         database_path = self._configuration.local_database_path
         new_database_path = _get_new_database_path_name(decompressed_file_path)
-        shutil.copyfile(new_database_path, database_path)
+        try:
+            shutil.copyfile(new_database_path, database_path)
+        except FileNotFoundError as e:  # Local database folder does exist yet?
+            if config.DEFAULT_LOCAL_DATABASE_FOLDER in e.filename:
+                os.makedirs(config.DEFAULT_LOCAL_DATABASE_FOLDER)
+                self._copy_new_database(decompressed_file_path)
+            else:
+                raise e
 
 
 def _decompress_file(temporary_directory):
@@ -281,6 +288,7 @@ def _find_compressed_file(temporary_directory):
     else:
         raise CompressedFileNotFound(temporary_directory)
 
+
 def _get_uncompressed_file_name_path(compressed_file_name_path):
     """ Get file name compressed in .gz file.
 
@@ -291,6 +299,7 @@ def _get_uncompressed_file_name_path(compressed_file_name_path):
     """
     uncompressed_file_name_path = os.path.splitext(compressed_file_name_path)[0]
     return uncompressed_file_name_path
+
 
 def _open_local_database(local_database_path):
     try:

@@ -14,17 +14,9 @@ import urllib.parse as urlparse
 import keyring
 
 
-def get_real_path(CONFIG_FILE):
-    this_module_path = os.path.realpath(__file__)
-    this_module_folder = os.path.dirname(this_module_path)
-    parent_folder, _ = os.path.split(this_module_folder)
-    config_file_path = os.path.join(parent_folder, CONFIG_FILE)
-    return config_file_path
-
-# TODO: Config path is not writable when geolocate is installed through
-# package manager system. I have to locate config file in user home folder.
+CONFIG_ROOT = os.path.expanduser("~/.geolocate")
 CONFIG_FILE = "etc/geolocate.conf"
-CONFIG_FILE_PATH = get_real_path(CONFIG_FILE)
+CONFIG_FILE_PATH = os.path.join(CONFIG_ROOT, CONFIG_FILE)
 GEOLOCATE_VAULT = "geolocate"
 DEFAULT_USER_ID = ""
 DEFAULT_LICENSE_KEY = ""
@@ -38,7 +30,7 @@ DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
-DEFAULT_LOCAL_DATABASE_FOLDER = get_real_path("local_database/")
+DEFAULT_LOCAL_DATABASE_FOLDER = os.path.join(CONFIG_ROOT, "local_database/")
 DEFAULT_LOCAL_DATABASE_NAME = "GeoLite2-City.mmdb"
 # Remember add new locators here or locate won't use them.
 DEFAULT_LOCATORS_PREFERENCE = ["geoip2_webservice", "geoip2_local"]
@@ -383,8 +375,13 @@ def save_configuration(configuration):
     configuration_parameters = configuration.get_configuration_dict()
     _save_password(configuration.user_id, configuration.license_key)
     configuration_parsed = _parse_parameters(configuration_parameters)
-    with open(CONFIG_FILE_PATH, "w") as config_file:
-        configuration_parsed.write(config_file)
+    try:
+        with open(CONFIG_FILE_PATH, "w") as config_file:
+            configuration_parsed.write(config_file)
+    except FileNotFoundError:  # Configuration path probably does not exist yet.
+        path_to_create = os.path.dirname(CONFIG_FILE_PATH)
+        os.makedirs(path_to_create)
+        save_configuration(configuration)
 
 
 def _parse_parameters(configuration_parameters):
@@ -398,7 +395,6 @@ def _parse_parameters(configuration_parameters):
     for section in configuration_parameters.keys():
         configuration_parsed[section] = configuration_parameters[section]
     return configuration_parsed
-
 
 
 def _save_password(username, password):
@@ -432,6 +428,7 @@ def _delete_password(username):
     :return: None
     """
     keyring.delete_password(GEOLOCATE_VAULT, username)
+
 
 def _get_folder_path(path):
     """ If path is relative, get absolute path of current working directory
