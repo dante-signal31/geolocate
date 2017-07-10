@@ -27,7 +27,14 @@ import geolocate.classes.config as config
 
 def print_lines_parsed(parser):
     for line in parser:
-        print(line, end="")
+        try:
+            print(line, end="")
+        except UnicodeEncodeError as e:
+            print(e)
+            print("UnicodeEncodeError may mean that you must configure your "
+                  "locale configuration.\n Please read this thread:\n"
+                  "\n"
+                  "https://stackoverflow.com/questions/41408791/python-3-unicodeencodeerror-ascii-codec-cant-encode-characters")
 
 
 def main():

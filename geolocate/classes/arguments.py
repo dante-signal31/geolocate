@@ -179,7 +179,6 @@ def show_password():
     print(output_string)
 
 
-
 def _print_locators_list(header, locators_list):
     """ Print on console a formatted list of locators.
 
