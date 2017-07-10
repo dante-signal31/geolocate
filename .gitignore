@@ -119,5 +119,13 @@ wiki/
 ### Geolocate local database
 geolocate/local_database/*.mmdb
 
+### Geolocate local config
+geolocate/etc/geolocate.conf
+
 ### Rubbish from dolphin
 .directory
+env35/
+env35_2/
+env36/
+geolocate/GeoLite2-City.mmdb.gz.7ot_cwme.tmp
+geolocate_vdist/

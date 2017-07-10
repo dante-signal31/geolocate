@@ -6,9 +6,9 @@
  email: dante.signal31@gmail.com
 """
 
+import configparser
 import http.client as http
 import os
-import pickle
 import urllib.parse as urlparse
 
 import keyring
@@ -21,6 +21,8 @@ def get_real_path(CONFIG_FILE):
     config_file_path = os.path.join(parent_folder, CONFIG_FILE)
     return config_file_path
 
+# TODO: Config path is not writable when geolocate is installed through
+# package manager system. I have to locate config file in user home folder.
 CONFIG_FILE = "etc/geolocate.conf"
 CONFIG_FILE_PATH = get_real_path(CONFIG_FILE)
 GEOLOCATE_VAULT = "geolocate"
@@ -151,11 +153,23 @@ class Configuration(object):
         else:
             self._locators_preference = new_locator_list
 
+    # I make comparisons at tests so I need this functionality.
+    # Great reference about custom classes equality at:
+    #   https://stackoverflow.com/questions/390250/elegant-ways-to-support-equivalence-equality-in-python-classes
     def __eq__(self, other):
-        for _property, value in vars(self).items():
-            if getattr(other, _property) != value:
-                return False
-        return True
+        if isinstance(other, self.__class__):
+            return other.__dict__ == self.__dict__
+        else:
+            return NotImplemented
+
+    def __ne__(self, other):
+        if isinstance(other, self.__class__):
+            return not self.__eq__(other)
+        else:
+            return NotImplemented
+
+    def __hash__(self):
+        return hash(tuple(sorted(self.__dict__.items())))
 
     def reset_locators_preference(self):
         """ Reset locators preference to default order.
@@ -177,6 +191,25 @@ class Configuration(object):
         disabled_locators_set = default_locators_set - enabled_locators_set
         return disabled_locators_set
 
+    def get_configuration_dict(self):
+        """ Get a dict with configuration parameters.
+
+        Dict keys will be sections and values are also dict with values for
+        that section. License key won't we included and must be got from
+        license_key property
+
+        :return: Configuration sections dict of dicts.
+        :rtype: dict
+        """
+        parsed_configuration = {
+            "webservice": {"user_id": self._webservice["user_id"]},
+            "local_database": {key: self._local_database[key]
+                               for key in self._local_database.keys()},
+            "locators_preference": {
+                "preference": ",".join(self._locators_preference)
+            }
+        }
+        return parsed_configuration
 
 def _validate_value(parameter, value):
     # TODO: Add more checks to detect invalid values when you know MaxMind's
@@ -282,7 +315,7 @@ def load_configuration():
     :rtype: config.Configuration
     """
     try:
-        configuration = _read_config_file()
+        configuration, license_key = _read_config_file()
     except ConfigNotFound:
         _create_default_config_file()
         configuration = load_configuration()
@@ -297,11 +330,38 @@ def _read_config_file():
     :raise: config.ConfigNotFound
     """
     try:
-        with open(CONFIG_FILE_PATH, "rb") as config_file:
-            configuration = pickle.load(config_file)
-    except FileNotFoundError:
+        configuration_parser = configparser.ConfigParser()
+        configuration_parser.read(CONFIG_FILE_PATH)
+        license_key = _load_password(configuration_parser["webservice"]["user_id"])
+        locators_preference = _string_to_list(configuration_parser["locators_preference"]["preference"])
+        configuration = Configuration(
+            user_id=configuration_parser["webservice"]["user_id"],
+            license_key=license_key,
+            download_url=configuration_parser["local_database"]["download_url"],
+            update_interval=int(configuration_parser["local_database"]["update_interval"]),
+            local_database_folder=configuration_parser["local_database"]["local_database_folder"],
+            local_database_name=configuration_parser["local_database"]["local_database_name"],
+            locators_preference=locators_preference
+            )
+        return configuration, license_key
+    except (FileNotFoundError, KeyError):
         raise ConfigNotFound()
-    return configuration
+    except Exception as e:
+        print("Something odd happened: ", e)
+
+
+def _string_to_list(string_list):
+    """ Take a string with comma separated elements a return a list of
+    those elements.
+
+    :param string_list: String with comma separated elements.
+    :type string_list: str
+    :return: List with elements.
+    :rtype: list
+    """
+    string_list_no_spaces = string_list.replace(' ', '')
+    element_list = list(string_list_no_spaces.split(','))
+    return element_list
 
 
 def _create_default_config_file():
@@ -320,8 +380,25 @@ def save_configuration(configuration):
     :type configuration: config.Configuration
     :return: None
     """
-    with open(CONFIG_FILE_PATH, "wb") as config_file:
-        pickle.dump(configuration, config_file, pickle.HIGHEST_PROTOCOL)
+    configuration_parameters = configuration.get_configuration_dict()
+    _save_password(configuration.user_id, configuration.license_key)
+    configuration_parsed = _parse_parameters(configuration_parameters)
+    with open(CONFIG_FILE_PATH, "w") as config_file:
+        configuration_parsed.write(config_file)
+
+
+def _parse_parameters(configuration_parameters):
+    """ Insert parameter into a configparse file.
+
+    :param configuration_parameters:
+    :type configuration_parameters: dict
+    :return: None
+    """
+    configuration_parsed = configparser.ConfigParser()
+    for section in configuration_parameters.keys():
+        configuration_parsed[section] = configuration_parameters[section]
+    return configuration_parsed
+
 
 
 def _save_password(username, password):

@@ -121,7 +121,8 @@ class TestConfiguration(unittest.TestCase):
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR),\
                 testing_tools.OriginalFileSaved(GEOLOCATE_CONFIG_FILE):
             _remove_config()
-            configuration_to_save = config.Configuration(user_id="user1984")
+            configuration_to_save = config.Configuration(user_id=TEST_CREDENTIALS["username"],
+                                                         license_key=TEST_CREDENTIALS["password"])
             config.save_configuration(configuration_to_save)
             configuration_loaded = config.load_configuration()
             self.assertEqual(configuration_to_save, configuration_loaded,
@@ -204,4 +205,5 @@ class TestConfiguration(unittest.TestCase):
 
 
 def _remove_config():
-    os.remove(GEOLOCATE_CONFIG_FILE)
+    if os.path.isfile(GEOLOCATE_CONFIG_FILE):
+        os.remove(GEOLOCATE_CONFIG_FILE)
