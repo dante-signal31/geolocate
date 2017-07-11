@@ -21,6 +21,8 @@ See `wiki <https://github.com/dante-signal31/geolocate/wiki>`_ for more detailed
 News
 ----
 
+* **2017-07-11:** Geolocate version 1.4.0 release. Maxmind license_key is now
+  stored ciphered in system keyring.
 * **2015-06-28:** Geolocate version 1.2.3 release. Interpreter version check now
   runs when geolocate is run from an installed pypi package.
 * **2015-06-26:** Geolocate version 1.2.2 released. Geolocate now warns user and
