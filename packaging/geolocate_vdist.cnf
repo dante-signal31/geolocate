@@ -24,6 +24,3 @@ after_remove = packaging/postuninst.sh
 
 [Ubuntu-package]
 profile = ubuntu-trusty
-
-[Centos7-package]
-profile = centos7
