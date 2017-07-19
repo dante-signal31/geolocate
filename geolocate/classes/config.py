@@ -406,7 +406,8 @@ def _save_password(username, password):
     :type password: str
     :return: None
     """
-    keyring.set_password(GEOLOCATE_VAULT, username, password)
+    if not username.strip() == '':
+        keyring.set_password(GEOLOCATE_VAULT, username, password)
 
 
 def _load_password(username):
