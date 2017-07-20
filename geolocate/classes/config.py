@@ -324,7 +324,10 @@ def _read_config_file():
     try:
         configuration_parser = configparser.ConfigParser()
         configuration_parser.read(CONFIG_FILE_PATH)
-        license_key = _load_password(configuration_parser["webservice"]["user_id"])
+        try:
+            license_key = _load_password(configuration_parser["webservice"]["user_id"])
+        except KeyError: # Key may have not been set yet.
+            license_Key = ""
         locators_preference = _string_to_list(configuration_parser["locators_preference"]["preference"])
         configuration = Configuration(
             user_id=configuration_parser["webservice"]["user_id"],
@@ -336,7 +339,7 @@ def _read_config_file():
             locators_preference=locators_preference
             )
         return configuration, license_key
-    except (FileNotFoundError, KeyError):
+    except FileNotFoundError:
         raise ConfigNotFound()
     except Exception as e:
         print("Something odd happened: ", e)
