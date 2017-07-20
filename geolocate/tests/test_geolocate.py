@@ -194,12 +194,14 @@ class TestGeoLocate(unittest.TestCase):
                 self._assertConsoleOutputEqual(returned_string, console)
 
     def test_show_password(self):
+        user_id = "dummy_user"
         password = "mocked_password"
         returned_string = "Password:\n" \
                           "{0}\n".format(password)
         with testing_tools.WorkingDirectoryChanged(WORKING_DIR), \
                 testing_tools.OriginalFileSaved(CONFIGURATION_PATH):
             new_configuration = config.Configuration()
+            new_configuration.user_id = user_id
             new_configuration.license_key = password
             config.save_configuration(new_configuration)
             with console_mocks.MockedConsoleOutput() as console:
@@ -208,7 +210,8 @@ class TestGeoLocate(unittest.TestCase):
 
     def _assertConsoleOutputEqual(self, string_to_match, console):
         returned_output = console.output()
-        self.assertEqual(returned_output, string_to_match)
+        self.assertEqual(returned_output, string_to_match,
+                         msg="Console output was not what was expected.")
 
 
 def _assert_geolocate_function_called(function_name, arguments):

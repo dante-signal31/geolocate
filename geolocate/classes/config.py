@@ -24,9 +24,9 @@ DEFAULT_LICENSE_KEY = ""
 # Only for tests I have to comment real download url. MaxMind has a rate limit
 # per day. If you exceed that limit you are forbidden for 24 hours to download
 # their database.
-DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
+# DEFAULT_DATABASE_DOWNLOAD_URL = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 # TODO: For production remove next fake url, it's only for tests.
-#DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
+DEFAULT_DATABASE_DOWNLOAD_URL = "http://localhost:2014/GeoLite2-City.mmdb.gz"
 # GeoLite2 databases are updated on the first Tuesday of each month, so 35 days
 # of update interval should be fine.
 DEFAULT_UPDATE_INTERVAL = 35
@@ -321,28 +321,40 @@ def _read_config_file():
     :rtype: config.Configuration
     :raise: config.ConfigNotFound
     """
+    configuration_parser = _create_config_parser()
+    try:
+        license_key = _load_password(configuration_parser["webservice"]["user_id"])
+    except KeyError:  # Key may have not been set yet.
+        license_Key = ""
+    locators_preference = _string_to_list(configuration_parser["locators_preference"]["preference"])
+    configuration = Configuration(
+        user_id=configuration_parser["webservice"]["user_id"],
+        license_key=license_key,
+        download_url=configuration_parser["local_database"]["download_url"],
+        update_interval=int(configuration_parser["local_database"]["update_interval"]),
+        local_database_folder=configuration_parser["local_database"]["local_database_folder"],
+        local_database_name=configuration_parser["local_database"]["local_database_name"],
+        locators_preference=locators_preference
+        )
+    return configuration, license_key
+
+
+def _create_config_parser():
+    """ Create a config parser object and load in it our configuration.
+
+    :return: A config parser with configuration loaded.
+    :rtype: configparser.ConfigParser
+    :raise: config.ConfigNotFound
+    """
     try:
         configuration_parser = configparser.ConfigParser()
-        configuration_parser.read(CONFIG_FILE_PATH)
-        try:
-            license_key = _load_password(configuration_parser["webservice"]["user_id"])
-        except KeyError: # Key may have not been set yet.
-            license_Key = ""
-        locators_preference = _string_to_list(configuration_parser["locators_preference"]["preference"])
-        configuration = Configuration(
-            user_id=configuration_parser["webservice"]["user_id"],
-            license_key=license_key,
-            download_url=configuration_parser["local_database"]["download_url"],
-            update_interval=int(configuration_parser["local_database"]["update_interval"]),
-            local_database_folder=configuration_parser["local_database"]["local_database_folder"],
-            local_database_name=configuration_parser["local_database"]["local_database_name"],
-            locators_preference=locators_preference
-            )
-        return configuration, license_key
+        with open(CONFIG_FILE_PATH) as config_file:
+            configuration_parser.read_file(config_file)
     except FileNotFoundError:
         raise ConfigNotFound()
     except Exception as e:
-        print("Something odd happened: ", e)
+        print("Something odd happened: ", repr(e))
+    return configuration_parser
 
 
 def _string_to_list(string_list):
@@ -364,6 +376,7 @@ def _create_default_config_file():
 
     :return: None
     """
+    print("Geolocate configuration not found, creating a default one.")
     default_configuration = Configuration()
     save_configuration(default_configuration)
 
@@ -420,7 +433,12 @@ def _load_password(username):
     :type username: str
     :return: None
     """
-    recovered_password = keyring.get_password(GEOLOCATE_VAULT, username)
+    try:
+        recovered_password = keyring.get_password(GEOLOCATE_VAULT, username)
+    except RuntimeError as e:
+        if "No recommended backend was available" in repr(e):
+            print("Unable to access to keyring. ", str(e))
+            recovered_password = ""
     return recovered_password
 
 
