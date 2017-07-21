@@ -1,3 +1,6 @@
+** THIS BRANCH WONT HAVE FURTHER DEVELOPMENT. IT IS ONLY USED FOR `VDIST <https://github.com/dante-signal31/vdist>`_
+INTEGRATION TESTS **
+
 =========
 geolocate
 =========
