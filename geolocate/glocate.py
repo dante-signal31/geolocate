@@ -31,8 +31,8 @@ def print_lines_parsed(parser):
             print(line, end="")
         except UnicodeEncodeError as e:
             print(e)
-            print("\n Geolocate has found an UnicodeError while trying to print "
-                  "parsed output.\n"
+            print("\n Geolocate has found an UnicodeEncodeError while trying "
+                  "to print parsed output.\n"
                   "UnicodeEncodeError may mean that you must configure your "
                   "locale configuration.\n Please read this thread:\n"
                   "\n"
