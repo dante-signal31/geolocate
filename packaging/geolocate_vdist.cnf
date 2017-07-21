@@ -24,3 +24,6 @@ after_remove = packaging/postuninst.sh
 
 [Ubuntu-package]
 profile = ubuntu-trusty
+
+[Fedora-package]
+profile = fedora-26
