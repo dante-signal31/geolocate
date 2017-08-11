@@ -13,6 +13,10 @@ Geolocate's output is the same text than input but each IP address is going to
 have appended its country, city and long-lat coordinates (depending on verbosity
 level).
 
+Geolocate depends on several system packages to run, so be sure to check
+`installations instructions <https://github.com/dante-signal31/geolocate/wiki/Installation>`_
+to get those dependencies installed.
+
 See `wiki <https://github.com/dante-signal31/geolocate/wiki>`_ for more detailed info.
 
 **Author:** Dante Signal31

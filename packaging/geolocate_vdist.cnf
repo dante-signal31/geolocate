@@ -15,7 +15,7 @@ fpm_args = --maintainer dante.signal31@gmail.com -a native --url
     --license BSD-3 --category net
 requirements_path = ./REQUIREMENTS.txt
 build_deps = python3-all-dev, build-essential, libssl-dev, pkg-config, libdbus-glib-1-dev, gnome-keyring, libffi-dev
-runtime_deps = libssl1.0.0, python3-dbus, gnome-keyring
+runtime_deps = python3, libssl1.0.0, python3-dbus, gnome-keyring, libdbus-1-dev, libdbus-glib-1-dev
 compile_python = True
 python_version = 3.5.3
 output_folder = ./geolocate_vdist
