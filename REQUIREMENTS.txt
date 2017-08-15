@@ -4,4 +4,3 @@ requests==2.5.0
 wget==2.2
 wheel==0.24.0
 keyring==10.4.0
-dbus-python==1.2.4
