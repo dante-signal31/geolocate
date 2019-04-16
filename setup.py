@@ -13,7 +13,7 @@ More info in: https://github.com/dante-signal31/geolocate
 """
 
 setup(name="glocate",
-      version="1.4.2",
+      version="1.4.3",
       description="This program scans given text to find urls and IP addresses. "
                   "The output is the same text but every url and IP address "
                   "is going to have its geolocation data appended.",
@@ -37,7 +37,7 @@ setup(name="glocate",
                    'Programming Language :: Python :: 3',
                    'Programming Language :: Python :: 3.4'],
       keywords="geolocation ip addresses",
-      install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.5.0",
+      install_requires=["geoip2>=2.1.0", "maxminddb>=1.1.1", "requests>=2.20.0",
                         "wget>=2.2", "wheel>=0.24.0", "keyring>=10.4.0",
                         "dbus-python>=1.2.4"],
       zip_safe=False,
